@@ -1,0 +1,2002 @@
+     1→▲ Next.js 16.1.3 (Turbopack)
+     2→- Local:         http://localhost:3000
+     3→- Network:       http://21.0.3.135:3000
+     4→- Environments: .env
+     5→
+     6→✓ Starting...
+     7→Attention: Next.js now collects completely anonymous telemetry regarding usage.
+     8→This information is used to shape Next.js' roadmap and prioritize features.
+     9→You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+    10→https://nextjs.org/telemetry
+    11→
+    12→
+    13→  We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+    14→  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+    15→
+    16→        - include was updated to add '.next/dev/types/**/*.ts'
+    17→
+    18→  The following mandatory changes were made to your tsconfig.json:
+    19→
+    20→        - jsx was set to react-jsx (next.js uses the React automatic runtime)
+    21→
+    22→✓ Ready in 981ms
+    23→ GET / 200 in 3.2s (compile: 3.0s, render: 145ms)
+    24→ GET / 200 in 1604ms (compile: 1387ms, render: 217ms)
+    25→ GET / 200 in 25ms (compile: 2ms, render: 23ms)
+    26→ GET / 200 in 39ms (compile: 4ms, render: 34ms)
+    27→ GET / 200 in 31ms (compile: 4ms, render: 27ms)
+    28→ GET / 200 in 31ms (compile: 3ms, render: 29ms)
+    29→✓ Compiled in 192ms
+    30→ GET / 200 in 64ms (compile: 40ms, render: 24ms)
+    31→ GET / 200 in 52ms (compile: 34ms, render: 18ms)
+    32→ GET / 200 in 32ms (compile: 4ms, render: 28ms)
+    33→ GET / 200 in 26ms (compile: 4ms, render: 23ms)
+    34→ GET / 200 in 27ms (compile: 4ms, render: 23ms)
+    35→ GET / 200 in 31ms (compile: 4ms, render: 27ms)
+    36→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+    37→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+    38→ GET / 200 in 19ms (compile: 2ms, render: 16ms)
+    39→ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+    40→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+    41→ GET / 200 in 26ms (compile: 2ms, render: 23ms)
+    42→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+    43→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    44→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    45→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+    46→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+    47→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+    48→ GET / 200 in 28ms (compile: 4ms, render: 24ms)
+    49→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+    50→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+    51→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    52→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+    53→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+    54→ GET / 200 in 25ms (compile: 3ms, render: 22ms)
+    55→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+    56→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+    57→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+    58→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+    59→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+    60→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+    61→ GET / 200 in 19ms (compile: 4ms, render: 15ms)
+    62→ GET / 200 in 14ms (compile: 4ms, render: 10ms)
+    63→ GET / 200 in 12ms (compile: 1876µs, render: 10ms)
+    64→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    65→ GET / 200 in 12ms (compile: 1764µs, render: 10ms)
+    66→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    67→ GET / 200 in 16ms (compile: 1993µs, render: 14ms)
+    68→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    69→ GET / 200 in 12ms (compile: 1827µs, render: 10ms)
+    70→ GET / 200 in 12ms (compile: 1750µs, render: 11ms)
+    71→ GET / 200 in 15ms (compile: 1972µs, render: 13ms)
+    72→ GET / 200 in 11ms (compile: 1979µs, render: 9ms)
+    73→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    74→ GET / 200 in 68ms (compile: 39ms, render: 29ms)
+    75→ GET / 200 in 33ms (compile: 3ms, render: 30ms)
+    76→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    77→ GET / 200 in 13ms (compile: 1934µs, render: 11ms)
+    78→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+    79→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+    80→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    81→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+    82→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+    83→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    84→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    85→ GET / 200 in 16ms (compile: 1977µs, render: 14ms)
+    86→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+    87→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+    88→ GET / 200 in 24ms (compile: 3ms, render: 22ms)
+    89→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    90→ GET / 200 in 53ms (compile: 34ms, render: 19ms)
+    91→ GET / 200 in 54ms (compile: 35ms, render: 19ms)
+    92→ GET / 200 in 12ms (compile: 1883µs, render: 10ms)
+    93→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+    94→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    95→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+    96→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+    97→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+    98→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+    99→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   100→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   101→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   102→ GET / 200 in 25ms (compile: 2ms, render: 23ms)
+   103→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+   104→ GET / 200 in 20ms (compile: 2ms, render: 17ms)
+   105→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   106→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   107→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   108→ GET / 200 in 13ms (compile: 3ms, render: 11ms)
+   109→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   110→ GET / 200 in 18ms (compile: 2ms, render: 16ms)
+   111→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   112→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   113→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   114→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   115→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   116→ GET / 200 in 22ms (compile: 3ms, render: 20ms)
+   117→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   118→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   119→ GET / 200 in 23ms (compile: 2ms, render: 20ms)
+   120→ GET / 200 in 13ms (compile: 1965µs, render: 11ms)
+   121→ GET / 200 in 13ms (compile: 1870µs, render: 11ms)
+   122→ GET / 200 in 11ms (compile: 1693µs, render: 9ms)
+   123→ GET / 200 in 12ms (compile: 1794µs, render: 10ms)
+   124→ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+   125→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   126→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   127→ GET / 200 in 19ms (compile: 2ms, render: 17ms)
+   128→ GET / 200 in 100ms (compile: 59ms, render: 41ms)
+   129→ GET / 200 in 50ms (compile: 28ms, render: 21ms)
+   130→ GET / 200 in 58ms (compile: 34ms, render: 24ms)
+   131→ GET / 200 in 49ms (compile: 31ms, render: 18ms)
+   132→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   133→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+   134→ GET / 200 in 12ms (compile: 1899µs, render: 11ms)
+   135→ GET / 200 in 13ms (compile: 1950µs, render: 11ms)
+   136→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   137→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   138→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   139→ GET / 200 in 26ms (compile: 4ms, render: 22ms)
+   140→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   141→ GET / 200 in 12ms (compile: 1876µs, render: 10ms)
+   142→ GET / 200 in 12ms (compile: 1859µs, render: 10ms)
+   143→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   144→ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+   145→ GET / 200 in 13ms (compile: 1879µs, render: 11ms)
+   146→ GET / 200 in 22ms (compile: 1930µs, render: 20ms)
+   147→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   148→ GET / 200 in 13ms (compile: 1970µs, render: 11ms)
+   149→ GET / 200 in 13ms (compile: 1977µs, render: 11ms)
+   150→ GET / 200 in 12ms (compile: 1985µs, render: 10ms)
+   151→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   152→ GET / 200 in 33ms (compile: 2ms, render: 31ms)
+   153→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   154→ GET / 200 in 12ms (compile: 1861µs, render: 10ms)
+   155→ GET / 200 in 11ms (compile: 2ms, render: 9ms)
+   156→ GET / 200 in 12ms (compile: 3ms, render: 9ms)
+   157→ GET / 200 in 12ms (compile: 1879µs, render: 10ms)
+   158→ GET / 200 in 12ms (compile: 1764µs, render: 10ms)
+   159→ GET / 200 in 12ms (compile: 1896µs, render: 10ms)
+   160→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   161→ GET / 200 in 17ms (compile: 2ms, render: 14ms)
+   162→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   163→ GET / 200 in 17ms (compile: 2ms, render: 14ms)
+   164→ GET / 200 in 17ms (compile: 4ms, render: 14ms)
+   165→ GET / 200 in 16ms (compile: 3ms, render: 14ms)
+   166→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+   167→ GET / 200 in 21ms (compile: 3ms, render: 19ms)
+   168→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   169→ GET / 200 in 12ms (compile: 1985µs, render: 10ms)
+   170→ GET / 200 in 11ms (compile: 1964µs, render: 9ms)
+   171→ GET / 200 in 11ms (compile: 1776µs, render: 10ms)
+   172→ GET / 200 in 11ms (compile: 1778µs, render: 10ms)
+   173→ GET / 200 in 15ms (compile: 1743µs, render: 13ms)
+   174→ GET / 200 in 26ms (compile: 4ms, render: 22ms)
+   175→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   176→ GET / 200 in 25ms (compile: 3ms, render: 22ms)
+   177→ GET / 200 in 28ms (compile: 3ms, render: 25ms)
+   178→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   179→ GET / 200 in 36ms (compile: 3ms, render: 32ms)
+   180→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   181→ GET / 200 in 13ms (compile: 1953µs, render: 11ms)
+   182→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   183→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   184→ GET / 200 in 85ms (compile: 67ms, render: 18ms)
+   185→ GET / 200 in 43ms (compile: 31ms, render: 12ms)
+   186→ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+   187→ GET / 200 in 14ms (compile: 3ms, render: 12ms)
+   188→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   189→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   190→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   191→ GET / 200 in 13ms (compile: 1959µs, render: 11ms)
+   192→ GET / 200 in 13ms (compile: 1880µs, render: 11ms)
+   193→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   194→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   195→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   196→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   197→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   198→ GET / 200 in 13ms (compile: 1875µs, render: 11ms)
+   199→ GET / 200 in 13ms (compile: 1936µs, render: 11ms)
+   200→ GET / 200 in 24ms (compile: 2ms, render: 22ms)
+   201→ GET / 200 in 16ms (compile: 3ms, render: 13ms)
+   202→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   203→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   204→ GET / 200 in 18ms (compile: 7ms, render: 11ms)
+   205→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   206→ GET / 200 in 13ms (compile: 1995µs, render: 11ms)
+   207→ GET / 200 in 13ms (compile: 1893µs, render: 11ms)
+   208→ GET / 200 in 12ms (compile: 1888µs, render: 11ms)
+   209→ GET / 200 in 13ms (compile: 1820µs, render: 11ms)
+   210→ GET / 200 in 11ms (compile: 1806µs, render: 10ms)
+   211→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   212→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   213→ GET / 200 in 31ms (compile: 2ms, render: 29ms)
+   214→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   215→ GET / 200 in 13ms (compile: 2000µs, render: 11ms)
+   216→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   217→ GET / 200 in 13ms (compile: 1860µs, render: 11ms)
+   218→ GET / 200 in 12ms (compile: 1917µs, render: 10ms)
+   219→ GET / 200 in 12ms (compile: 1978µs, render: 10ms)
+   220→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   221→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   222→ GET / 200 in 14ms (compile: 3ms, render: 11ms)
+   223→ GET / 200 in 13ms (compile: 1930µs, render: 11ms)
+   224→ GET / 200 in 13ms (compile: 1913µs, render: 11ms)
+   225→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   226→ GET / 200 in 15ms (compile: 1876µs, render: 13ms)
+   227→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   228→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   229→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   230→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+   231→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   232→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   233→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   234→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   235→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   236→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   237→ GET / 200 in 27ms (compile: 4ms, render: 23ms)
+   238→ GET / 200 in 26ms (compile: 3ms, render: 22ms)
+   239→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   240→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   241→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   242→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   243→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   244→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   245→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   246→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   247→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   248→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   249→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   250→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   251→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+   252→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   253→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   254→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   255→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   256→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   257→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   258→ GET / 200 in 91ms (compile: 61ms, render: 30ms)
+   259→ GET / 200 in 97ms (compile: 50ms, render: 46ms)
+   260→ GET / 200 in 44ms (compile: 30ms, render: 14ms)
+   261→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   262→ GET / 200 in 11ms (compile: 1792µs, render: 10ms)
+   263→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   264→ GET / 200 in 12ms (compile: 1817µs, render: 10ms)
+   265→ GET / 200 in 12ms (compile: 1827µs, render: 10ms)
+   266→ GET / 200 in 13ms (compile: 1818µs, render: 11ms)
+   267→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   268→ GET / 200 in 11ms (compile: 1790µs, render: 10ms)
+   269→ GET / 200 in 11ms (compile: 1824µs, render: 9ms)
+   270→ GET / 200 in 12ms (compile: 1773µs, render: 10ms)
+   271→ GET / 200 in 11ms (compile: 1837µs, render: 9ms)
+   272→ GET / 200 in 11ms (compile: 1868µs, render: 10ms)
+   273→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   274→ GET / 200 in 12ms (compile: 1873µs, render: 11ms)
+   275→ GET / 200 in 11ms (compile: 1775µs, render: 10ms)
+   276→ GET / 200 in 12ms (compile: 1909µs, render: 10ms)
+   277→ GET / 200 in 11ms (compile: 1819µs, render: 10ms)
+   278→ GET / 200 in 15ms (compile: 2ms, render: 12ms)
+   279→ GET / 200 in 13ms (compile: 3ms, render: 11ms)
+   280→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   281→ GET / 200 in 12ms (compile: 1879µs, render: 10ms)
+   282→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   283→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   284→ GET / 200 in 12ms (compile: 1827µs, render: 10ms)
+   285→ GET / 200 in 12ms (compile: 1999µs, render: 10ms)
+   286→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   287→ GET / 200 in 20ms (compile: 1914µs, render: 18ms)
+   288→ GET / 200 in 12ms (compile: 1993µs, render: 10ms)
+   289→ GET / 200 in 12ms (compile: 1998µs, render: 10ms)
+   290→ GET / 200 in 20ms (compile: 2ms, render: 18ms)
+   291→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   292→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   293→ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+   294→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   295→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   296→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+   297→ GET / 200 in 27ms (compile: 3ms, render: 23ms)
+   298→ GET / 200 in 13ms (compile: 1770µs, render: 11ms)
+   299→ GET / 200 in 14ms (compile: 1880µs, render: 13ms)
+   300→ GET / 200 in 18ms (compile: 2ms, render: 16ms)
+   301→ GET / 200 in 33ms (compile: 3ms, render: 30ms)
+   302→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+   303→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   304→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   305→ GET / 200 in 28ms (compile: 4ms, render: 24ms)
+   306→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   307→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   308→ GET / 200 in 21ms (compile: 2ms, render: 18ms)
+   309→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   310→ GET / 200 in 13ms (compile: 1755µs, render: 11ms)
+   311→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   312→ GET / 200 in 71ms (compile: 48ms, render: 23ms)
+   313→ GET / 200 in 65ms (compile: 45ms, render: 20ms)
+   314→ GET / 200 in 78ms (compile: 66ms, render: 12ms)
+   315→ GET / 200 in 22ms (compile: 2ms, render: 19ms)
+   316→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+   317→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   318→ GET / 200 in 18ms (compile: 8ms, render: 11ms)
+   319→ GET / 200 in 13ms (compile: 1802µs, render: 11ms)
+   320→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   321→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   322→ GET / 200 in 16ms (compile: 5ms, render: 11ms)
+   323→ GET / 200 in 25ms (compile: 2ms, render: 23ms)
+   324→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   325→ GET / 200 in 12ms (compile: 1857µs, render: 11ms)
+   326→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   327→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   328→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   329→ GET / 200 in 12ms (compile: 1963µs, render: 10ms)
+   330→ GET / 200 in 16ms (compile: 1930µs, render: 14ms)
+   331→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   332→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   333→ GET / 200 in 17ms (compile: 2ms, render: 14ms)
+   334→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   335→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   336→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   337→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+   338→ GET / 200 in 12ms (compile: 1885µs, render: 10ms)
+   339→ GET / 200 in 12ms (compile: 1892µs, render: 11ms)
+   340→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   341→ GET / 200 in 13ms (compile: 1905µs, render: 11ms)
+   342→ GET / 200 in 12ms (compile: 1833µs, render: 10ms)
+   343→ GET / 200 in 17ms (compile: 2ms, render: 14ms)
+   344→ GET / 200 in 22ms (compile: 3ms, render: 19ms)
+   345→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   346→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   347→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   348→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   349→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+   350→ GET / 200 in 23ms (compile: 12ms, render: 11ms)
+   351→ GET / 200 in 15ms (compile: 2ms, render: 12ms)
+   352→ GET / 200 in 18ms (compile: 1949µs, render: 16ms)
+   353→ GET / 200 in 13ms (compile: 1844µs, render: 12ms)
+   354→ GET / 200 in 12ms (compile: 1983µs, render: 10ms)
+   355→ GET / 200 in 11ms (compile: 1675µs, render: 10ms)
+   356→ GET / 200 in 11ms (compile: 1693µs, render: 10ms)
+   357→ GET / 200 in 11ms (compile: 1917µs, render: 10ms)
+   358→ GET / 200 in 11ms (compile: 1762µs, render: 10ms)
+   359→ GET / 200 in 12ms (compile: 1738µs, render: 11ms)
+   360→ GET / 200 in 11ms (compile: 1757µs, render: 9ms)
+   361→ GET / 200 in 11ms (compile: 1798µs, render: 10ms)
+   362→ GET / 200 in 11ms (compile: 1797µs, render: 9ms)
+   363→ GET / 200 in 11ms (compile: 1698µs, render: 9ms)
+   364→ GET / 200 in 12ms (compile: 1909µs, render: 10ms)
+   365→ GET / 200 in 11ms (compile: 1681µs, render: 9ms)
+   366→ GET / 200 in 11ms (compile: 1678µs, render: 9ms)
+   367→ GET / 200 in 18ms (compile: 1955µs, render: 16ms)
+   368→ GET / 200 in 12ms (compile: 1890µs, render: 10ms)
+   369→ GET / 200 in 12ms (compile: 1843µs, render: 10ms)
+   370→ GET / 200 in 11ms (compile: 1679µs, render: 10ms)
+   371→ GET / 200 in 12ms (compile: 1901µs, render: 10ms)
+   372→ GET / 200 in 11ms (compile: 1717µs, render: 10ms)
+   373→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   374→ GET / 200 in 14ms (compile: 1725µs, render: 12ms)
+   375→ GET / 200 in 11ms (compile: 1683µs, render: 9ms)
+   376→ GET / 200 in 11ms (compile: 1801µs, render: 9ms)
+   377→ GET / 200 in 12ms (compile: 1664µs, render: 10ms)
+   378→ GET / 200 in 11ms (compile: 1731µs, render: 9ms)
+   379→ GET / 200 in 18ms (compile: 1841µs, render: 16ms)
+   380→ GET / 200 in 11ms (compile: 1819µs, render: 10ms)
+   381→ GET / 200 in 11ms (compile: 1606µs, render: 9ms)
+   382→ GET / 200 in 12ms (compile: 1750µs, render: 10ms)
+   383→ GET / 200 in 12ms (compile: 1929µs, render: 10ms)
+   384→ GET / 200 in 11ms (compile: 1757µs, render: 10ms)
+   385→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   386→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   387→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   388→ GET / 200 in 12ms (compile: 1989µs, render: 10ms)
+   389→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   390→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   391→ GET / 200 in 12ms (compile: 1985µs, render: 10ms)
+   392→ GET / 200 in 31ms (compile: 1904µs, render: 29ms)
+   393→ GET / 200 in 12ms (compile: 1954µs, render: 10ms)
+   394→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   395→ GET / 200 in 13ms (compile: 1811µs, render: 11ms)
+   396→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   397→ GET / 200 in 14ms (compile: 2ms, render: 11ms)
+   398→ GET / 200 in 12ms (compile: 1969µs, render: 10ms)
+   399→ GET / 200 in 12ms (compile: 1790µs, render: 10ms)
+   400→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   401→ GET / 200 in 12ms (compile: 1897µs, render: 10ms)
+   402→ GET / 200 in 70ms (compile: 54ms, render: 16ms)
+   403→ GET / 200 in 55ms (compile: 38ms, render: 17ms)
+   404→ GET / 200 in 51ms (compile: 35ms, render: 17ms)
+   405→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   406→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   407→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   408→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   409→ GET / 200 in 34ms (compile: 3ms, render: 31ms)
+   410→ GET / 200 in 13ms (compile: 1921µs, render: 11ms)
+   411→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   412→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   413→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   414→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   415→ GET / 200 in 21ms (compile: 3ms, render: 17ms)
+   416→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   417→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   418→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   419→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   420→ GET / 200 in 26ms (compile: 3ms, render: 23ms)
+   421→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   422→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   423→ GET / 200 in 26ms (compile: 4ms, render: 22ms)
+   424→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   425→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   426→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   427→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+   428→ GET / 200 in 22ms (compile: 3ms, render: 19ms)
+   429→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   430→ GET / 200 in 19ms (compile: 3ms, render: 17ms)
+   431→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   432→ GET / 200 in 38ms (compile: 2ms, render: 35ms)
+   433→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   434→ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+   435→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   436→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   437→ GET / 200 in 13ms (compile: 1941µs, render: 11ms)
+   438→ GET / 200 in 13ms (compile: 1925µs, render: 11ms)
+   439→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   440→ GET / 200 in 14ms (compile: 1896µs, render: 12ms)
+   441→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   442→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   443→ GET / 200 in 13ms (compile: 1929µs, render: 11ms)
+   444→ GET / 200 in 13ms (compile: 1895µs, render: 11ms)
+   445→ GET / 200 in 13ms (compile: 1990µs, render: 11ms)
+   446→ GET / 200 in 13ms (compile: 1878µs, render: 11ms)
+   447→ GET / 200 in 14ms (compile: 1900µs, render: 12ms)
+   448→ GET / 200 in 13ms (compile: 1829µs, render: 11ms)
+   449→ GET / 200 in 13ms (compile: 1884µs, render: 11ms)
+   450→ GET / 200 in 13ms (compile: 1999µs, render: 11ms)
+   451→ GET / 200 in 13ms (compile: 1848µs, render: 11ms)
+   452→ GET / 200 in 13ms (compile: 1917µs, render: 11ms)
+   453→ GET / 200 in 13ms (compile: 1895µs, render: 11ms)
+   454→ GET / 200 in 12ms (compile: 1898µs, render: 10ms)
+   455→ GET / 200 in 14ms (compile: 1915µs, render: 12ms)
+   456→ GET / 200 in 13ms (compile: 1773µs, render: 11ms)
+   457→ GET / 200 in 13ms (compile: 1988µs, render: 11ms)
+   458→ GET / 200 in 38ms (compile: 1843µs, render: 37ms)
+   459→ GET / 200 in 13ms (compile: 1919µs, render: 11ms)
+   460→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   461→ GET / 200 in 14ms (compile: 1928µs, render: 12ms)
+   462→ GET / 200 in 13ms (compile: 1843µs, render: 11ms)
+   463→ GET / 200 in 13ms (compile: 1971µs, render: 11ms)
+   464→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   465→ GET / 200 in 13ms (compile: 1917µs, render: 11ms)
+   466→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   467→ GET / 200 in 13ms (compile: 1870µs, render: 11ms)
+   468→ GET / 200 in 14ms (compile: 1885µs, render: 12ms)
+   469→ GET / 200 in 13ms (compile: 1865µs, render: 11ms)
+   470→ GET / 200 in 13ms (compile: 1928µs, render: 11ms)
+   471→ GET / 200 in 13ms (compile: 1895µs, render: 11ms)
+   472→ GET / 200 in 13ms (compile: 1937µs, render: 11ms)
+   473→ GET / 200 in 13ms (compile: 1874µs, render: 11ms)
+   474→ GET / 200 in 13ms (compile: 1895µs, render: 11ms)
+   475→ GET / 200 in 13ms (compile: 1997µs, render: 11ms)
+   476→ GET / 200 in 13ms (compile: 1861µs, render: 11ms)
+   477→ GET / 200 in 13ms (compile: 1889µs, render: 11ms)
+   478→ GET / 200 in 13ms (compile: 1804µs, render: 11ms)
+   479→ GET / 200 in 14ms (compile: 1997µs, render: 12ms)
+   480→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   481→ GET / 200 in 12ms (compile: 1840µs, render: 11ms)
+   482→ GET / 200 in 14ms (compile: 1802µs, render: 12ms)
+   483→ GET / 200 in 33ms (compile: 1916µs, render: 31ms)
+   484→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   485→ GET / 200 in 13ms (compile: 1960µs, render: 11ms)
+   486→ GET / 200 in 12ms (compile: 1907µs, render: 10ms)
+   487→ GET / 200 in 11ms (compile: 1729µs, render: 9ms)
+   488→ GET / 200 in 12ms (compile: 1819µs, render: 10ms)
+   489→ GET / 200 in 11ms (compile: 1822µs, render: 9ms)
+   490→ GET / 200 in 13ms (compile: 1876µs, render: 11ms)
+   491→ GET / 200 in 11ms (compile: 1672µs, render: 9ms)
+   492→ GET / 200 in 11ms (compile: 1754µs, render: 9ms)
+   493→ GET / 200 in 12ms (compile: 1863µs, render: 10ms)
+   494→ GET / 200 in 11ms (compile: 1886µs, render: 9ms)
+   495→ GET / 200 in 11ms (compile: 1839µs, render: 10ms)
+   496→ GET / 200 in 12ms (compile: 1687µs, render: 10ms)
+   497→ GET / 200 in 11ms (compile: 1625µs, render: 9ms)
+   498→ GET / 200 in 11ms (compile: 1663µs, render: 9ms)
+   499→ GET / 200 in 11ms (compile: 1686µs, render: 9ms)
+   500→ GET / 200 in 11ms (compile: 1949µs, render: 9ms)
+   501→ GET / 200 in 11ms (compile: 1617µs, render: 10ms)
+   502→ GET / 200 in 12ms (compile: 1898µs, render: 10ms)
+   503→ GET / 200 in 11ms (compile: 1853µs, render: 9ms)
+   504→ GET / 200 in 15ms (compile: 5ms, render: 10ms)
+   505→ GET / 200 in 12ms (compile: 1886µs, render: 10ms)
+   506→ GET / 200 in 12ms (compile: 1802µs, render: 10ms)
+   507→ GET / 200 in 12ms (compile: 1712µs, render: 10ms)
+   508→ GET / 200 in 11ms (compile: 1795µs, render: 9ms)
+   509→ GET / 200 in 11ms (compile: 1715µs, render: 10ms)
+   510→ GET / 200 in 11ms (compile: 1839µs, render: 9ms)
+   511→ GET / 200 in 12ms (compile: 1832µs, render: 10ms)
+   512→ GET / 200 in 11ms (compile: 1969µs, render: 9ms)
+   513→ GET / 200 in 19ms (compile: 1777µs, render: 17ms)
+   514→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   515→ GET / 200 in 12ms (compile: 1636µs, render: 10ms)
+   516→ GET / 200 in 13ms (compile: 1711µs, render: 11ms)
+   517→ GET / 200 in 12ms (compile: 1999µs, render: 10ms)
+   518→ GET / 200 in 12ms (compile: 1807µs, render: 10ms)
+   519→ GET / 200 in 12ms (compile: 1875µs, render: 10ms)
+   520→ GET / 200 in 12ms (compile: 1957µs, render: 10ms)
+   521→ GET / 200 in 11ms (compile: 1764µs, render: 9ms)
+   522→ GET / 200 in 11ms (compile: 2ms, render: 9ms)
+   523→ GET / 200 in 21ms (compile: 2ms, render: 19ms)
+   524→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   525→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   526→ GET / 200 in 258ms (compile: 245ms, render: 13ms)
+   527→ GET / 200 in 15ms (compile: 1853µs, render: 13ms)
+   528→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   529→ GET / 200 in 15ms (compile: 1788µs, render: 14ms)
+   530→ GET / 200 in 17ms (compile: 3ms, render: 14ms)
+   531→ GET / 200 in 11ms (compile: 1963µs, render: 10ms)
+   532→ GET / 200 in 12ms (compile: 1844µs, render: 11ms)
+   533→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   534→ GET / 200 in 15ms (compile: 3ms, render: 12ms)
+   535→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   536→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   537→ GET / 200 in 20ms (compile: 2ms, render: 17ms)
+   538→ GET / 200 in 12ms (compile: 1955µs, render: 10ms)
+   539→ GET / 200 in 18ms (compile: 1902µs, render: 16ms)
+   540→ GET / 200 in 33ms (compile: 3ms, render: 29ms)
+   541→ GET / 200 in 13ms (compile: 1878µs, render: 11ms)
+   542→ GET / 200 in 12ms (compile: 1721µs, render: 10ms)
+   543→ GET / 200 in 11ms (compile: 1653µs, render: 10ms)
+   544→ GET / 200 in 17ms (compile: 1815µs, render: 15ms)
+   545→ GET / 200 in 11ms (compile: 1769µs, render: 10ms)
+   546→ GET / 200 in 12ms (compile: 1842µs, render: 10ms)
+   547→ GET / 200 in 17ms (compile: 1775µs, render: 15ms)
+   548→ GET / 200 in 11ms (compile: 1857µs, render: 9ms)
+   549→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   550→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   551→ GET / 200 in 13ms (compile: 1798µs, render: 11ms)
+   552→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+   553→ GET / 200 in 19ms (compile: 2ms, render: 17ms)
+   554→ GET / 200 in 21ms (compile: 2ms, render: 18ms)
+   555→ GET / 200 in 13ms (compile: 1805µs, render: 11ms)
+   556→ GET / 200 in 43ms (compile: 31ms, render: 12ms)
+   557→ GET / 200 in 12ms (compile: 1746µs, render: 10ms)
+   558→ GET / 200 in 18ms (compile: 2ms, render: 15ms)
+   559→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   560→ GET / 200 in 22ms (compile: 3ms, render: 19ms)
+   561→ GET / 200 in 12ms (compile: 1791µs, render: 10ms)
+   562→ GET / 200 in 12ms (compile: 1710µs, render: 10ms)
+   563→ GET / 200 in 12ms (compile: 1705µs, render: 10ms)
+   564→ GET / 200 in 12ms (compile: 1887µs, render: 10ms)
+   565→ GET / 200 in 12ms (compile: 1877µs, render: 11ms)
+   566→ GET / 200 in 13ms (compile: 2ms, render: 10ms)
+   567→ GET / 200 in 20ms (compile: 1999µs, render: 18ms)
+   568→ GET / 200 in 12ms (compile: 1894µs, render: 10ms)
+   569→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   570→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   571→ GET / 200 in 14ms (compile: 1936µs, render: 12ms)
+   572→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+   573→ GET / 200 in 13ms (compile: 1949µs, render: 11ms)
+   574→ GET / 200 in 18ms (compile: 6ms, render: 11ms)
+   575→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   576→ GET / 200 in 12ms (compile: 1954µs, render: 10ms)
+   577→ GET / 200 in 18ms (compile: 2ms, render: 16ms)
+   578→ GET / 200 in 15ms (compile: 2ms, render: 13ms)
+   579→ GET / 200 in 12ms (compile: 1833µs, render: 10ms)
+   580→ GET / 200 in 12ms (compile: 1946µs, render: 10ms)
+   581→ GET / 200 in 12ms (compile: 1810µs, render: 10ms)
+   582→ GET / 200 in 12ms (compile: 1882µs, render: 10ms)
+   583→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   584→ GET / 200 in 12ms (compile: 1988µs, render: 10ms)
+   585→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   586→ GET / 200 in 21ms (compile: 3ms, render: 18ms)
+   587→ GET / 200 in 17ms (compile: 2ms, render: 14ms)
+   588→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   589→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   590→ GET / 200 in 20ms (compile: 3ms, render: 17ms)
+   591→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+   592→ GET / 200 in 23ms (compile: 3ms, render: 20ms)
+   593→ GET / 200 in 11ms (compile: 2000µs, render: 9ms)
+   594→ GET / 200 in 11ms (compile: 1825µs, render: 9ms)
+   595→ GET / 200 in 18ms (compile: 3ms, render: 15ms)
+   596→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   597→ GET / 200 in 11ms (compile: 1755µs, render: 10ms)
+   598→ GET / 200 in 15ms (compile: 1857µs, render: 13ms)
+   599→ GET / 200 in 16ms (compile: 2ms, render: 14ms)
+   600→ GET / 200 in 17ms (compile: 2ms, render: 15ms)
+   601→ GET / 200 in 17ms (compile: 3ms, render: 15ms)
+   602→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   603→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   604→ GET / 200 in 27ms (compile: 2ms, render: 24ms)
+   605→ GET / 200 in 14ms (compile: 2ms, render: 12ms)
+   606→ GET / 200 in 19ms (compile: 2ms, render: 16ms)
+   607→ GET / 200 in 13ms (compile: 2ms, render: 11ms)
+   608→ GET / 200 in 19ms (compile: 3ms, render: 16ms)
+   609→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   610→ GET / 200 in 18ms (compile: 2ms, render: 16ms)
+   611→ GET / 200 in 18ms (compile: 3ms, render: 16ms)
+   612→ GET / 200 in 12ms (compile: 1989µs, render: 10ms)
+   613→ GET / 200 in 12ms (compile: 2ms, render: 10ms)
+   614→ GET / 200 in 12ms (compile: 1860µs, render: 10ms)
+   615→ GET / 200 in 12ms (compile: 1879µs, render: 10ms)
+   616→ GET / 200 in 24ms (compile: 2ms, render: 22ms)
+   617→ GET / 200 in 16ms (compile: 1989µs, render: 14ms)
+   618→✓ Compiled in 163ms
+   619→✓ Compiled in 187ms
+   620→✓ Compiled in 165ms
+   621→✓ Compiled in 197ms
+   622→✓ Compiled in 144ms
+   623→✓ Compiled in 191ms
+   624→ GET / 200 in 44ms (compile: 33ms, render: 12ms)
+   625→ GET / 200 in 107ms (compile: 1910µs, render: 105ms)
+   626→⨯ ./src/components/shell/app-shell.tsx:13:1
+   627→Module not found: Can't resolve '@/components/admin/admin-portal'
+   628→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   629→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   630→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   631→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   632→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   633→ [90m 15 |[39m
+   634→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+   635→
+   636→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+   637→
+   638→
+   639→Import traces:
+   640→  Client Component Browser:
+   641→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   642→    ./src/app/page.tsx [Client Component Browser]
+   643→    ./src/app/page.tsx [Server Component]
+   644→
+   645→  Client Component SSR:
+   646→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   647→    ./src/app/page.tsx [Client Component SSR]
+   648→    ./src/app/page.tsx [Server Component]
+   649→
+   650→https://nextjs.org/docs/messages/module-not-found
+   651→
+   652→
+   653→⨯ ./src/components/shell/app-shell.tsx:13:1
+   654→Module not found: Can't resolve '@/components/admin/admin-portal'
+   655→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   656→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   657→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   658→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   659→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   660→ [90m 15 |[39m
+   661→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+   662→
+   663→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+   664→
+   665→
+   666→Import traces:
+   667→  Client Component Browser:
+   668→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   669→    ./src/app/page.tsx [Client Component Browser]
+   670→    ./src/app/page.tsx [Server Component]
+   671→
+   672→  Client Component SSR:
+   673→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   674→    ./src/app/page.tsx [Client Component SSR]
+   675→    ./src/app/page.tsx [Server Component]
+   676→
+   677→https://nextjs.org/docs/messages/module-not-found
+   678→
+   679→
+   680→⨯ ./src/components/shell/app-shell.tsx:13:1
+   681→Module not found: Can't resolve '@/components/admin/admin-portal'
+   682→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   683→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   684→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   685→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   686→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   687→ [90m 15 |[39m
+   688→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+   689→
+   690→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+   691→
+   692→
+   693→Import traces:
+   694→  Client Component Browser:
+   695→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   696→    ./src/app/page.tsx [Client Component Browser]
+   697→    ./src/app/page.tsx [Server Component]
+   698→
+   699→  Client Component SSR:
+   700→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   701→    ./src/app/page.tsx [Client Component SSR]
+   702→    ./src/app/page.tsx [Server Component]
+   703→
+   704→https://nextjs.org/docs/messages/module-not-found
+   705→
+   706→
+   707→⨯ ./src/components/shell/app-shell.tsx:13:1
+   708→Module not found: Can't resolve '@/components/admin/admin-portal'
+   709→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   710→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   711→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   712→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   713→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   714→ [90m 15 |[39m
+   715→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+   716→
+   717→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+   718→
+   719→
+   720→Import traces:
+   721→  Client Component Browser:
+   722→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   723→    ./src/app/page.tsx [Client Component Browser]
+   724→    ./src/app/page.tsx [Server Component]
+   725→
+   726→  Client Component SSR:
+   727→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   728→    ./src/app/page.tsx [Client Component SSR]
+   729→    ./src/app/page.tsx [Server Component]
+   730→
+   731→https://nextjs.org/docs/messages/module-not-found
+   732→
+   733→
+   734→⨯ ./src/components/shell/app-shell.tsx:12:1
+   735→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+   736→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   737→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   738→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   739→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   740→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   741→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   742→ [90m 15 |[39m[0m
+   743→
+   744→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+   745→
+   746→
+   747→Import traces:
+   748→  Client Component Browser:
+   749→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   750→    ./src/app/page.tsx [Client Component Browser]
+   751→    ./src/app/page.tsx [Server Component]
+   752→
+   753→  Client Component SSR:
+   754→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   755→    ./src/app/page.tsx [Client Component SSR]
+   756→    ./src/app/page.tsx [Server Component]
+   757→
+   758→https://nextjs.org/docs/messages/module-not-found
+   759→
+   760→
+   761→⨯ ./src/components/shell/app-shell.tsx:12:1
+   762→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+   763→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   764→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   765→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   766→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   767→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   768→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   769→ [90m 15 |[39m[0m
+   770→
+   771→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+   772→
+   773→
+   774→Import traces:
+   775→  Client Component Browser:
+   776→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   777→    ./src/app/page.tsx [Client Component Browser]
+   778→    ./src/app/page.tsx [Server Component]
+   779→
+   780→  Client Component SSR:
+   781→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   782→    ./src/app/page.tsx [Client Component SSR]
+   783→    ./src/app/page.tsx [Server Component]
+   784→
+   785→https://nextjs.org/docs/messages/module-not-found
+   786→
+   787→
+   788→⨯ ./src/components/shell/app-shell.tsx:12:1
+   789→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+   790→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   791→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   792→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   793→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   794→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   795→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   796→ [90m 15 |[39m[0m
+   797→
+   798→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+   799→
+   800→
+   801→Import traces:
+   802→  Client Component Browser:
+   803→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   804→    ./src/app/page.tsx [Client Component Browser]
+   805→    ./src/app/page.tsx [Server Component]
+   806→
+   807→  Client Component SSR:
+   808→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   809→    ./src/app/page.tsx [Client Component SSR]
+   810→    ./src/app/page.tsx [Server Component]
+   811→
+   812→https://nextjs.org/docs/messages/module-not-found
+   813→
+   814→
+   815→⨯ ./src/components/shell/app-shell.tsx:12:1
+   816→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+   817→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   818→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   819→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   820→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   821→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   822→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   823→ [90m 15 |[39m[0m
+   824→
+   825→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+   826→
+   827→
+   828→Import traces:
+   829→  Client Component Browser:
+   830→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   831→    ./src/app/page.tsx [Client Component Browser]
+   832→    ./src/app/page.tsx [Server Component]
+   833→
+   834→  Client Component SSR:
+   835→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   836→    ./src/app/page.tsx [Client Component SSR]
+   837→    ./src/app/page.tsx [Server Component]
+   838→
+   839→https://nextjs.org/docs/messages/module-not-found
+   840→
+   841→
+   842→⨯ ./src/components/shell/app-shell.tsx:11:1
+   843→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+   844→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+   845→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   846→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   847→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   848→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   849→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   850→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+   851→
+   852→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+   853→
+   854→
+   855→Import traces:
+   856→  Client Component Browser:
+   857→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   858→    ./src/app/page.tsx [Client Component Browser]
+   859→    ./src/app/page.tsx [Server Component]
+   860→
+   861→  Client Component SSR:
+   862→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   863→    ./src/app/page.tsx [Client Component SSR]
+   864→    ./src/app/page.tsx [Server Component]
+   865→
+   866→https://nextjs.org/docs/messages/module-not-found
+   867→
+   868→
+   869→⨯ ./src/components/shell/app-shell.tsx:11:1
+   870→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+   871→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+   872→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   873→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   874→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   875→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   876→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   877→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+   878→
+   879→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+   880→
+   881→
+   882→Import traces:
+   883→  Client Component Browser:
+   884→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   885→    ./src/app/page.tsx [Client Component Browser]
+   886→    ./src/app/page.tsx [Server Component]
+   887→
+   888→  Client Component SSR:
+   889→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   890→    ./src/app/page.tsx [Client Component SSR]
+   891→    ./src/app/page.tsx [Server Component]
+   892→
+   893→https://nextjs.org/docs/messages/module-not-found
+   894→
+   895→
+   896→⨯ ./src/components/shell/app-shell.tsx:11:1
+   897→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+   898→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+   899→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   900→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   901→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   902→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   903→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   904→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+   905→
+   906→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+   907→
+   908→
+   909→Import traces:
+   910→  Client Component Browser:
+   911→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   912→    ./src/app/page.tsx [Client Component Browser]
+   913→    ./src/app/page.tsx [Server Component]
+   914→
+   915→  Client Component SSR:
+   916→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   917→    ./src/app/page.tsx [Client Component SSR]
+   918→    ./src/app/page.tsx [Server Component]
+   919→
+   920→https://nextjs.org/docs/messages/module-not-found
+   921→
+   922→
+   923→⨯ ./src/components/shell/app-shell.tsx:11:1
+   924→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+   925→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+   926→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+   927→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   928→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   929→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   930→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   931→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+   932→
+   933→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+   934→
+   935→
+   936→Import traces:
+   937→  Client Component Browser:
+   938→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   939→    ./src/app/page.tsx [Client Component Browser]
+   940→    ./src/app/page.tsx [Server Component]
+   941→
+   942→  Client Component SSR:
+   943→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   944→    ./src/app/page.tsx [Client Component SSR]
+   945→    ./src/app/page.tsx [Server Component]
+   946→
+   947→https://nextjs.org/docs/messages/module-not-found
+   948→
+   949→
+   950→⨯ ./src/components/shell/app-shell.tsx:13:1
+   951→Module not found: Can't resolve '@/components/admin/admin-portal'
+   952→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   953→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   954→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   955→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   956→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   957→ [90m 15 |[39m
+   958→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+   959→
+   960→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+   961→
+   962→
+   963→Import traces:
+   964→  Client Component Browser:
+   965→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   966→    ./src/app/page.tsx [Client Component Browser]
+   967→    ./src/app/page.tsx [Server Component]
+   968→
+   969→  Client Component SSR:
+   970→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   971→    ./src/app/page.tsx [Client Component SSR]
+   972→    ./src/app/page.tsx [Server Component]
+   973→
+   974→https://nextjs.org/docs/messages/module-not-found
+   975→
+   976→
+   977→⨯ ./src/components/shell/app-shell.tsx:13:1
+   978→Module not found: Can't resolve '@/components/admin/admin-portal'
+   979→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+   980→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+   981→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+   982→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+   983→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+   984→ [90m 15 |[39m
+   985→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+   986→
+   987→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+   988→
+   989→
+   990→Import traces:
+   991→  Client Component Browser:
+   992→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+   993→    ./src/app/page.tsx [Client Component Browser]
+   994→    ./src/app/page.tsx [Server Component]
+   995→
+   996→  Client Component SSR:
+   997→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+   998→    ./src/app/page.tsx [Client Component SSR]
+   999→    ./src/app/page.tsx [Server Component]
+  1000→
+  1001→https://nextjs.org/docs/messages/module-not-found
+  1002→
+  1003→
+  1004→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1005→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1006→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1007→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1008→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1009→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1010→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1011→ [90m 15 |[39m
+  1012→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1013→
+  1014→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1015→
+  1016→
+  1017→Import traces:
+  1018→  Client Component Browser:
+  1019→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1020→    ./src/app/page.tsx [Client Component Browser]
+  1021→    ./src/app/page.tsx [Server Component]
+  1022→
+  1023→  Client Component SSR:
+  1024→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1025→    ./src/app/page.tsx [Client Component SSR]
+  1026→    ./src/app/page.tsx [Server Component]
+  1027→
+  1028→https://nextjs.org/docs/messages/module-not-found
+  1029→
+  1030→
+  1031→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1032→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1033→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1034→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1035→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1036→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1037→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1038→ [90m 15 |[39m
+  1039→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1040→
+  1041→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1042→
+  1043→
+  1044→Import traces:
+  1045→  Client Component Browser:
+  1046→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1047→    ./src/app/page.tsx [Client Component Browser]
+  1048→    ./src/app/page.tsx [Server Component]
+  1049→
+  1050→  Client Component SSR:
+  1051→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1052→    ./src/app/page.tsx [Client Component SSR]
+  1053→    ./src/app/page.tsx [Server Component]
+  1054→
+  1055→https://nextjs.org/docs/messages/module-not-found
+  1056→
+  1057→
+  1058→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1059→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1060→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1061→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1062→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1063→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1064→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1065→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1066→ [90m 15 |[39m[0m
+  1067→
+  1068→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1069→
+  1070→
+  1071→Import traces:
+  1072→  Client Component Browser:
+  1073→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1074→    ./src/app/page.tsx [Client Component Browser]
+  1075→    ./src/app/page.tsx [Server Component]
+  1076→
+  1077→  Client Component SSR:
+  1078→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1079→    ./src/app/page.tsx [Client Component SSR]
+  1080→    ./src/app/page.tsx [Server Component]
+  1081→
+  1082→https://nextjs.org/docs/messages/module-not-found
+  1083→
+  1084→
+  1085→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1086→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1087→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1088→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1089→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1090→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1091→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1092→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1093→ [90m 15 |[39m[0m
+  1094→
+  1095→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1096→
+  1097→
+  1098→Import traces:
+  1099→  Client Component Browser:
+  1100→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1101→    ./src/app/page.tsx [Client Component Browser]
+  1102→    ./src/app/page.tsx [Server Component]
+  1103→
+  1104→  Client Component SSR:
+  1105→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1106→    ./src/app/page.tsx [Client Component SSR]
+  1107→    ./src/app/page.tsx [Server Component]
+  1108→
+  1109→https://nextjs.org/docs/messages/module-not-found
+  1110→
+  1111→
+  1112→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1113→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1114→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1115→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1116→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1117→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1118→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1119→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1120→ [90m 15 |[39m[0m
+  1121→
+  1122→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1123→
+  1124→
+  1125→Import traces:
+  1126→  Client Component Browser:
+  1127→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1128→    ./src/app/page.tsx [Client Component Browser]
+  1129→    ./src/app/page.tsx [Server Component]
+  1130→
+  1131→  Client Component SSR:
+  1132→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1133→    ./src/app/page.tsx [Client Component SSR]
+  1134→    ./src/app/page.tsx [Server Component]
+  1135→
+  1136→https://nextjs.org/docs/messages/module-not-found
+  1137→
+  1138→
+  1139→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1140→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1141→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1142→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1143→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1144→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1145→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1146→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1147→ [90m 15 |[39m[0m
+  1148→
+  1149→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1150→
+  1151→
+  1152→Import traces:
+  1153→  Client Component Browser:
+  1154→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1155→    ./src/app/page.tsx [Client Component Browser]
+  1156→    ./src/app/page.tsx [Server Component]
+  1157→
+  1158→  Client Component SSR:
+  1159→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1160→    ./src/app/page.tsx [Client Component SSR]
+  1161→    ./src/app/page.tsx [Server Component]
+  1162→
+  1163→https://nextjs.org/docs/messages/module-not-found
+  1164→
+  1165→
+  1166→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1167→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1168→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1169→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1170→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1171→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1172→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1173→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1174→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1175→
+  1176→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1177→
+  1178→
+  1179→Import traces:
+  1180→  Client Component Browser:
+  1181→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1182→    ./src/app/page.tsx [Client Component Browser]
+  1183→    ./src/app/page.tsx [Server Component]
+  1184→
+  1185→  Client Component SSR:
+  1186→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1187→    ./src/app/page.tsx [Client Component SSR]
+  1188→    ./src/app/page.tsx [Server Component]
+  1189→
+  1190→https://nextjs.org/docs/messages/module-not-found
+  1191→
+  1192→
+  1193→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1194→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1195→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1196→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1197→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1198→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1199→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1200→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1201→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1202→
+  1203→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1204→
+  1205→
+  1206→Import traces:
+  1207→  Client Component Browser:
+  1208→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1209→    ./src/app/page.tsx [Client Component Browser]
+  1210→    ./src/app/page.tsx [Server Component]
+  1211→
+  1212→  Client Component SSR:
+  1213→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1214→    ./src/app/page.tsx [Client Component SSR]
+  1215→    ./src/app/page.tsx [Server Component]
+  1216→
+  1217→https://nextjs.org/docs/messages/module-not-found
+  1218→
+  1219→
+  1220→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1221→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1222→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1223→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1224→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1225→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1226→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1227→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1228→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1229→
+  1230→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1231→
+  1232→
+  1233→Import traces:
+  1234→  Client Component Browser:
+  1235→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1236→    ./src/app/page.tsx [Client Component Browser]
+  1237→    ./src/app/page.tsx [Server Component]
+  1238→
+  1239→  Client Component SSR:
+  1240→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1241→    ./src/app/page.tsx [Client Component SSR]
+  1242→    ./src/app/page.tsx [Server Component]
+  1243→
+  1244→https://nextjs.org/docs/messages/module-not-found
+  1245→
+  1246→
+  1247→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1248→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1249→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1250→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1251→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1252→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1253→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1254→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1255→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1256→
+  1257→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1258→
+  1259→
+  1260→Import traces:
+  1261→  Client Component Browser:
+  1262→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1263→    ./src/app/page.tsx [Client Component Browser]
+  1264→    ./src/app/page.tsx [Server Component]
+  1265→
+  1266→  Client Component SSR:
+  1267→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1268→    ./src/app/page.tsx [Client Component SSR]
+  1269→    ./src/app/page.tsx [Server Component]
+  1270→
+  1271→https://nextjs.org/docs/messages/module-not-found
+  1272→
+  1273→
+  1274→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1275→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1276→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1277→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1278→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1279→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1280→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1281→ [90m 15 |[39m
+  1282→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1283→
+  1284→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1285→
+  1286→
+  1287→Import traces:
+  1288→  Client Component Browser:
+  1289→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1290→    ./src/app/page.tsx [Client Component Browser]
+  1291→    ./src/app/page.tsx [Server Component]
+  1292→
+  1293→  Client Component SSR:
+  1294→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1295→    ./src/app/page.tsx [Client Component SSR]
+  1296→    ./src/app/page.tsx [Server Component]
+  1297→
+  1298→https://nextjs.org/docs/messages/module-not-found
+  1299→
+  1300→
+  1301→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1302→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1303→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1304→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1305→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1306→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1307→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1308→ [90m 15 |[39m
+  1309→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1310→
+  1311→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1312→
+  1313→
+  1314→Import traces:
+  1315→  Client Component Browser:
+  1316→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1317→    ./src/app/page.tsx [Client Component Browser]
+  1318→    ./src/app/page.tsx [Server Component]
+  1319→
+  1320→  Client Component SSR:
+  1321→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1322→    ./src/app/page.tsx [Client Component SSR]
+  1323→    ./src/app/page.tsx [Server Component]
+  1324→
+  1325→https://nextjs.org/docs/messages/module-not-found
+  1326→
+  1327→
+  1328→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1329→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1330→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1331→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1332→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1333→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1334→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1335→ [90m 15 |[39m
+  1336→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1337→
+  1338→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1339→
+  1340→
+  1341→Import traces:
+  1342→  Client Component Browser:
+  1343→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1344→    ./src/app/page.tsx [Client Component Browser]
+  1345→    ./src/app/page.tsx [Server Component]
+  1346→
+  1347→  Client Component SSR:
+  1348→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1349→    ./src/app/page.tsx [Client Component SSR]
+  1350→    ./src/app/page.tsx [Server Component]
+  1351→
+  1352→https://nextjs.org/docs/messages/module-not-found
+  1353→
+  1354→
+  1355→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1356→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1357→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1358→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1359→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1360→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1361→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1362→ [90m 15 |[39m
+  1363→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1364→
+  1365→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1366→
+  1367→
+  1368→Import traces:
+  1369→  Client Component Browser:
+  1370→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1371→    ./src/app/page.tsx [Client Component Browser]
+  1372→    ./src/app/page.tsx [Server Component]
+  1373→
+  1374→  Client Component SSR:
+  1375→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1376→    ./src/app/page.tsx [Client Component SSR]
+  1377→    ./src/app/page.tsx [Server Component]
+  1378→
+  1379→https://nextjs.org/docs/messages/module-not-found
+  1380→
+  1381→
+  1382→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1383→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1384→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1385→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1386→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1387→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1388→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1389→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1390→ [90m 15 |[39m[0m
+  1391→
+  1392→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1393→
+  1394→
+  1395→Import traces:
+  1396→  Client Component Browser:
+  1397→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1398→    ./src/app/page.tsx [Client Component Browser]
+  1399→    ./src/app/page.tsx [Server Component]
+  1400→
+  1401→  Client Component SSR:
+  1402→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1403→    ./src/app/page.tsx [Client Component SSR]
+  1404→    ./src/app/page.tsx [Server Component]
+  1405→
+  1406→https://nextjs.org/docs/messages/module-not-found
+  1407→
+  1408→
+  1409→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1410→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1411→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1412→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1413→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1414→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1415→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1416→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1417→ [90m 15 |[39m[0m
+  1418→
+  1419→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1420→
+  1421→
+  1422→Import traces:
+  1423→  Client Component Browser:
+  1424→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1425→    ./src/app/page.tsx [Client Component Browser]
+  1426→    ./src/app/page.tsx [Server Component]
+  1427→
+  1428→  Client Component SSR:
+  1429→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1430→    ./src/app/page.tsx [Client Component SSR]
+  1431→    ./src/app/page.tsx [Server Component]
+  1432→
+  1433→https://nextjs.org/docs/messages/module-not-found
+  1434→
+  1435→
+  1436→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1437→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1438→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1439→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1440→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1441→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1442→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1443→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1444→ [90m 15 |[39m[0m
+  1445→
+  1446→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1447→
+  1448→
+  1449→Import traces:
+  1450→  Client Component Browser:
+  1451→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1452→    ./src/app/page.tsx [Client Component Browser]
+  1453→    ./src/app/page.tsx [Server Component]
+  1454→
+  1455→  Client Component SSR:
+  1456→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1457→    ./src/app/page.tsx [Client Component SSR]
+  1458→    ./src/app/page.tsx [Server Component]
+  1459→
+  1460→https://nextjs.org/docs/messages/module-not-found
+  1461→
+  1462→
+  1463→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1464→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1465→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1466→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1467→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1468→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1469→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1470→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1471→ [90m 15 |[39m[0m
+  1472→
+  1473→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1474→
+  1475→
+  1476→Import traces:
+  1477→  Client Component Browser:
+  1478→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1479→    ./src/app/page.tsx [Client Component Browser]
+  1480→    ./src/app/page.tsx [Server Component]
+  1481→
+  1482→  Client Component SSR:
+  1483→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1484→    ./src/app/page.tsx [Client Component SSR]
+  1485→    ./src/app/page.tsx [Server Component]
+  1486→
+  1487→https://nextjs.org/docs/messages/module-not-found
+  1488→
+  1489→
+  1490→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1491→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1492→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1493→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1494→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1495→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1496→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1497→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1498→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1499→
+  1500→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1501→
+  1502→
+  1503→Import traces:
+  1504→  Client Component Browser:
+  1505→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1506→    ./src/app/page.tsx [Client Component Browser]
+  1507→    ./src/app/page.tsx [Server Component]
+  1508→
+  1509→  Client Component SSR:
+  1510→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1511→    ./src/app/page.tsx [Client Component SSR]
+  1512→    ./src/app/page.tsx [Server Component]
+  1513→
+  1514→https://nextjs.org/docs/messages/module-not-found
+  1515→
+  1516→
+  1517→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1518→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1519→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1520→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1521→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1522→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1523→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1524→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1525→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1526→
+  1527→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1528→
+  1529→
+  1530→Import traces:
+  1531→  Client Component Browser:
+  1532→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1533→    ./src/app/page.tsx [Client Component Browser]
+  1534→    ./src/app/page.tsx [Server Component]
+  1535→
+  1536→  Client Component SSR:
+  1537→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1538→    ./src/app/page.tsx [Client Component SSR]
+  1539→    ./src/app/page.tsx [Server Component]
+  1540→
+  1541→https://nextjs.org/docs/messages/module-not-found
+  1542→
+  1543→
+  1544→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1545→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1546→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1547→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1548→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1549→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1550→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1551→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1552→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1553→
+  1554→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1555→
+  1556→
+  1557→Import traces:
+  1558→  Client Component Browser:
+  1559→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1560→    ./src/app/page.tsx [Client Component Browser]
+  1561→    ./src/app/page.tsx [Server Component]
+  1562→
+  1563→  Client Component SSR:
+  1564→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1565→    ./src/app/page.tsx [Client Component SSR]
+  1566→    ./src/app/page.tsx [Server Component]
+  1567→
+  1568→https://nextjs.org/docs/messages/module-not-found
+  1569→
+  1570→
+  1571→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1572→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1573→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1574→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1575→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1576→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1577→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1578→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1579→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1580→
+  1581→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1582→
+  1583→
+  1584→Import traces:
+  1585→  Client Component Browser:
+  1586→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1587→    ./src/app/page.tsx [Client Component Browser]
+  1588→    ./src/app/page.tsx [Server Component]
+  1589→
+  1590→  Client Component SSR:
+  1591→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1592→    ./src/app/page.tsx [Client Component SSR]
+  1593→    ./src/app/page.tsx [Server Component]
+  1594→
+  1595→https://nextjs.org/docs/messages/module-not-found
+  1596→
+  1597→
+  1598→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1599→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1600→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1601→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1602→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1603→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1604→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1605→ [90m 15 |[39m
+  1606→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1607→
+  1608→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1609→
+  1610→
+  1611→Import traces:
+  1612→  Client Component Browser:
+  1613→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1614→    ./src/app/page.tsx [Client Component Browser]
+  1615→    ./src/app/page.tsx [Server Component]
+  1616→
+  1617→  Client Component SSR:
+  1618→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1619→    ./src/app/page.tsx [Client Component SSR]
+  1620→    ./src/app/page.tsx [Server Component]
+  1621→
+  1622→https://nextjs.org/docs/messages/module-not-found
+  1623→
+  1624→
+  1625→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1626→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1627→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1628→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1629→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1630→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1631→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1632→ [90m 15 |[39m
+  1633→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1634→
+  1635→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1636→
+  1637→
+  1638→Import traces:
+  1639→  Client Component Browser:
+  1640→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1641→    ./src/app/page.tsx [Client Component Browser]
+  1642→    ./src/app/page.tsx [Server Component]
+  1643→
+  1644→  Client Component SSR:
+  1645→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1646→    ./src/app/page.tsx [Client Component SSR]
+  1647→    ./src/app/page.tsx [Server Component]
+  1648→
+  1649→https://nextjs.org/docs/messages/module-not-found
+  1650→
+  1651→
+  1652→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1653→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1654→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1655→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1656→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1657→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1658→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1659→ [90m 15 |[39m
+  1660→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1661→
+  1662→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1663→
+  1664→
+  1665→Import traces:
+  1666→  Client Component Browser:
+  1667→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1668→    ./src/app/page.tsx [Client Component Browser]
+  1669→    ./src/app/page.tsx [Server Component]
+  1670→
+  1671→  Client Component SSR:
+  1672→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1673→    ./src/app/page.tsx [Client Component SSR]
+  1674→    ./src/app/page.tsx [Server Component]
+  1675→
+  1676→https://nextjs.org/docs/messages/module-not-found
+  1677→
+  1678→
+  1679→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1680→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1681→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1682→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1683→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1684→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1685→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1686→ [90m 15 |[39m
+  1687→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1688→
+  1689→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1690→
+  1691→
+  1692→Import traces:
+  1693→  Client Component Browser:
+  1694→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1695→    ./src/app/page.tsx [Client Component Browser]
+  1696→    ./src/app/page.tsx [Server Component]
+  1697→
+  1698→  Client Component SSR:
+  1699→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1700→    ./src/app/page.tsx [Client Component SSR]
+  1701→    ./src/app/page.tsx [Server Component]
+  1702→
+  1703→https://nextjs.org/docs/messages/module-not-found
+  1704→
+  1705→
+  1706→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1707→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1708→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1709→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1710→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1711→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1712→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1713→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1714→ [90m 15 |[39m[0m
+  1715→
+  1716→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1717→
+  1718→
+  1719→Import traces:
+  1720→  Client Component Browser:
+  1721→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1722→    ./src/app/page.tsx [Client Component Browser]
+  1723→    ./src/app/page.tsx [Server Component]
+  1724→
+  1725→  Client Component SSR:
+  1726→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1727→    ./src/app/page.tsx [Client Component SSR]
+  1728→    ./src/app/page.tsx [Server Component]
+  1729→
+  1730→https://nextjs.org/docs/messages/module-not-found
+  1731→
+  1732→
+  1733→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1734→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1735→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1736→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1737→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1738→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1739→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1740→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1741→ [90m 15 |[39m[0m
+  1742→
+  1743→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1744→
+  1745→
+  1746→Import traces:
+  1747→  Client Component Browser:
+  1748→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1749→    ./src/app/page.tsx [Client Component Browser]
+  1750→    ./src/app/page.tsx [Server Component]
+  1751→
+  1752→  Client Component SSR:
+  1753→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1754→    ./src/app/page.tsx [Client Component SSR]
+  1755→    ./src/app/page.tsx [Server Component]
+  1756→
+  1757→https://nextjs.org/docs/messages/module-not-found
+  1758→
+  1759→
+  1760→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1761→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1762→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1763→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1764→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1765→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1766→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1767→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1768→ [90m 15 |[39m[0m
+  1769→
+  1770→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1771→
+  1772→
+  1773→Import traces:
+  1774→  Client Component Browser:
+  1775→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1776→    ./src/app/page.tsx [Client Component Browser]
+  1777→    ./src/app/page.tsx [Server Component]
+  1778→
+  1779→  Client Component SSR:
+  1780→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1781→    ./src/app/page.tsx [Client Component SSR]
+  1782→    ./src/app/page.tsx [Server Component]
+  1783→
+  1784→https://nextjs.org/docs/messages/module-not-found
+  1785→
+  1786→
+  1787→⨯ ./src/components/shell/app-shell.tsx:12:1
+  1788→Module not found: Can't resolve '@/components/recruiter/recruiter-portal'
+  1789→[0m [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1790→ [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1791→[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1792→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1793→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1794→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1795→ [90m 15 |[39m[0m
+  1796→
+  1797→Import map: aliased to relative './src/components/recruiter/recruiter-portal' inside of [project]/
+  1798→
+  1799→
+  1800→Import traces:
+  1801→  Client Component Browser:
+  1802→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1803→    ./src/app/page.tsx [Client Component Browser]
+  1804→    ./src/app/page.tsx [Server Component]
+  1805→
+  1806→  Client Component SSR:
+  1807→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1808→    ./src/app/page.tsx [Client Component SSR]
+  1809→    ./src/app/page.tsx [Server Component]
+  1810→
+  1811→https://nextjs.org/docs/messages/module-not-found
+  1812→
+  1813→
+  1814→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1815→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1816→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1817→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1818→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1819→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1820→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1821→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1822→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1823→
+  1824→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1825→
+  1826→
+  1827→Import traces:
+  1828→  Client Component Browser:
+  1829→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1830→    ./src/app/page.tsx [Client Component Browser]
+  1831→    ./src/app/page.tsx [Server Component]
+  1832→
+  1833→  Client Component SSR:
+  1834→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1835→    ./src/app/page.tsx [Client Component SSR]
+  1836→    ./src/app/page.tsx [Server Component]
+  1837→
+  1838→https://nextjs.org/docs/messages/module-not-found
+  1839→
+  1840→
+  1841→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1842→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1843→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1844→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1845→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1846→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1847→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1848→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1849→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1850→
+  1851→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1852→
+  1853→
+  1854→Import traces:
+  1855→  Client Component Browser:
+  1856→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1857→    ./src/app/page.tsx [Client Component Browser]
+  1858→    ./src/app/page.tsx [Server Component]
+  1859→
+  1860→  Client Component SSR:
+  1861→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1862→    ./src/app/page.tsx [Client Component SSR]
+  1863→    ./src/app/page.tsx [Server Component]
+  1864→
+  1865→https://nextjs.org/docs/messages/module-not-found
+  1866→
+  1867→
+  1868→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1869→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1870→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1871→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1872→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1873→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1874→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1875→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1876→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1877→
+  1878→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1879→
+  1880→
+  1881→Import traces:
+  1882→  Client Component Browser:
+  1883→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1884→    ./src/app/page.tsx [Client Component Browser]
+  1885→    ./src/app/page.tsx [Server Component]
+  1886→
+  1887→  Client Component SSR:
+  1888→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1889→    ./src/app/page.tsx [Client Component SSR]
+  1890→    ./src/app/page.tsx [Server Component]
+  1891→
+  1892→https://nextjs.org/docs/messages/module-not-found
+  1893→
+  1894→
+  1895→⨯ ./src/components/shell/app-shell.tsx:11:1
+  1896→Module not found: Can't resolve '@/components/seafarer/seafarer-portal'
+  1897→[0m [90m  9 |[39m [36mimport[39m { [33mAppSidebar[39m } [36mfrom[39m [32m'@/components/shell/app-sidebar'[39m
+  1898→ [90m 10 |[39m [36mimport[39m { [33mAppFooter[39m } [36mfrom[39m [32m'@/components/shell/app-footer'[39m
+  1899→[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1900→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1901→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1902→ [90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1903→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m[0m
+  1904→
+  1905→Import map: aliased to relative './src/components/seafarer/seafarer-portal' inside of [project]/
+  1906→
+  1907→
+  1908→Import traces:
+  1909→  Client Component Browser:
+  1910→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1911→    ./src/app/page.tsx [Client Component Browser]
+  1912→    ./src/app/page.tsx [Server Component]
+  1913→
+  1914→  Client Component SSR:
+  1915→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1916→    ./src/app/page.tsx [Client Component SSR]
+  1917→    ./src/app/page.tsx [Server Component]
+  1918→
+  1919→https://nextjs.org/docs/messages/module-not-found
+  1920→
+  1921→
+  1922→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1923→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1924→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1925→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1926→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1927→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1928→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1929→ [90m 15 |[39m
+  1930→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1931→
+  1932→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1933→
+  1934→
+  1935→Import traces:
+  1936→  Client Component Browser:
+  1937→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1938→    ./src/app/page.tsx [Client Component Browser]
+  1939→    ./src/app/page.tsx [Server Component]
+  1940→
+  1941→  Client Component SSR:
+  1942→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1943→    ./src/app/page.tsx [Client Component SSR]
+  1944→    ./src/app/page.tsx [Server Component]
+  1945→
+  1946→https://nextjs.org/docs/messages/module-not-found
+  1947→
+  1948→
+  1949→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1950→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1951→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1952→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1953→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1954→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1955→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1956→ [90m 15 |[39m
+  1957→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1958→
+  1959→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1960→
+  1961→
+  1962→Import traces:
+  1963→  Client Component Browser:
+  1964→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1965→    ./src/app/page.tsx [Client Component Browser]
+  1966→    ./src/app/page.tsx [Server Component]
+  1967→
+  1968→  Client Component SSR:
+  1969→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1970→    ./src/app/page.tsx [Client Component SSR]
+  1971→    ./src/app/page.tsx [Server Component]
+  1972→
+  1973→https://nextjs.org/docs/messages/module-not-found
+  1974→
+  1975→
+  1976→⨯ ./src/components/shell/app-shell.tsx:13:1
+  1977→Module not found: Can't resolve '@/components/admin/admin-portal'
+  1978→[0m [90m 11 |[39m [36mimport[39m { [33mSeafarerPortal[39m } [36mfrom[39m [32m'@/components/seafarer/seafarer-portal'[39m
+  1979→ [90m 12 |[39m [36mimport[39m { [33mRecruiterPortal[39m } [36mfrom[39m [32m'@/components/recruiter/recruiter-portal'[39m
+  1980→[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m { [33mAdminPortal[39m } [36mfrom[39m [32m'@/components/admin/admin-portal'[39m
+  1981→ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+  1982→ [90m 14 |[39m [36mimport[39m { [33mLoader2[39m } [36mfrom[39m [32m'lucide-react'[39m
+  1983→ [90m 15 |[39m
+  1984→ [90m 16 |[39m [36mexport[39m [36mfunction[39m [33mAppShell[39m() {[0m
+  1985→
+  1986→Import map: aliased to relative './src/components/admin/admin-portal' inside of [project]/
+  1987→
+  1988→
+  1989→Import traces:
+  1990→  Client Component Browser:
+  1991→    ./src/components/shell/app-shell.tsx [Client Component Browser]
+  1992→    ./src/app/page.tsx [Client Component Browser]
+  1993→    ./src/app/page.tsx [Server Component]
+  1994→
+  1995→  Client Component SSR:
+  1996→    ./src/components/shell/app-shell.tsx [Client Component SSR]
+  1997→    ./src/app/page.tsx [Client Component SSR]
+  1998→    ./src/app/page.tsx [Server Component]
+  1999→
+  2000→https://nextjs.org/docs/messages/module-not-found
+
+[showing lines 1-2000 of 14895; use offset=2001 with limit to continue reading]
