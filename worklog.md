@@ -186,3 +186,24 @@ Stage Summary:
 - All 4 phases complete and browser-verified. Lint clean (0 errors), TypeScript clean (0 errors in app code).
 - Demo accounts: admin@maritimenet.com/admin123, sarah@maersk-recruit.com/recruiter123, seafarer1@maritimenet.com/seafarer123 (plus 24 more seafarers, 2 more recruiters, 12 jobs seeded).
 - Final status: production-ready. App is interactive end-to-end across all 3 roles with EN/AR + RTL.
+
+---
+Task ID: 9
+Agent: Main (orchestrator)
+Task: Fix admin overview "Something went wrong" error on login
+
+Work Log:
+- Diagnosed via VLM screenshot analysis + dev log: /api/admin/stats returned 403 during role transitions (stale session cookie race condition). The AdminOverview component showed a bare "Something went wrong" error card with no recovery path.
+- Root cause: react-query cached the 403 error from a transient race condition (e.g. switching from seafarer→admin, the first /api/admin/stats request fired before the new cookie was attached). With refetchOnWindowFocus disabled and no retry button, the error was stuck.
+- Fixes applied:
+  1. Extracted shared queryClient to src/lib/query-client.ts (singleton, importable by non-React modules).
+  2. Auth store now calls queryClient.clear() on login/register/logout — prevents ANY stale query data or errors from a previous session bleeding into the new role's portal.
+  3. Increased default retry to 2 with 600ms delay, and set refetchOnMount: 'always' so stale cached errors auto-recover on component remount.
+  4. Created src/components/shared/error-state.tsx — a friendly error card with an alert icon + Retry button.
+  5. Updated AdminOverview and AdminMasterList to use ErrorState with onRetry={() => refetch()}.
+  6. Added common.retry i18n key (EN: "Retry", AR: "إعادة المحاولة").
+- Verified with Agent Browser: fresh login as admin → overview renders stats + rank breakdown + recent seafarers (all /api/admin/stats return 200). Role-switch scenario (seafarer→logout→admin) now works cleanly. Master database view renders table with results.
+- Lint clean, dev server healthy.
+
+Stage Summary:
+- Admin overview no longer shows a dead-end error. If the query fails for any reason (transient race, network blip), the user sees a clear error card with a Retry button. The queryClient.clear() on auth transitions is the key fix that prevents stale-session errors entirely.

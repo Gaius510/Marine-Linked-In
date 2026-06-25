@@ -5,6 +5,7 @@ import { Users, Building2, Briefcase, Send, UserCheck, Ship, ArrowRight, ShieldC
 import { PageHeader } from '@/components/shared/page-header'
 import { StatCard } from '@/components/shared/stat-card'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
+import { ErrorState } from '@/components/shared/error-state'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -52,7 +53,7 @@ export function AdminOverview() {
   const { t } = useI18n()
   const setView = useNavStore((s) => s.setView)
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['admin', 'stats', { scope: 'overview' }],
     queryFn: () => api.get<AdminStatsResponse>('/api/admin/stats'),
     staleTime: 30_000,
@@ -69,7 +70,7 @@ export function AdminOverview() {
       {isLoading ? (
         <OverviewSkeleton />
       ) : isError || !data ? (
-        <Card className="p-6 text-center text-muted-foreground">{t('common.error')}</Card>
+        <ErrorState onRetry={() => refetch()} />
       ) : (
         <div className="space-y-6">
           {/* Stats grid */}

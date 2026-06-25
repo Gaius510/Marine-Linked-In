@@ -15,6 +15,7 @@ import {
 import { PageHeader } from '@/components/shared/page-header'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
+import { ErrorState } from '@/components/shared/error-state'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -187,7 +188,7 @@ export function AdminMasterList() {
 
   const queryFilters: Filters = useMemo(() => ({ ...filters, search: debouncedSearch }), [filters, debouncedSearch])
 
-  const { data, isLoading, isFetching, isError } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: ['admin', 'stats', queryFilters],
     queryFn: () => api.get<AdminStatsResponse>(buildQueryString(queryFilters)),
     staleTime: 30_000,
@@ -374,7 +375,7 @@ export function AdminMasterList() {
 
       {/* Results */}
       {isError ? (
-        <Card className="p-6 text-center text-muted-foreground">{t('common.error')}</Card>
+        <ErrorState onRetry={() => refetch()} />
       ) : isLoading && !data ? (
         <TableSkeleton />
       ) : seafarers.length === 0 ? (
