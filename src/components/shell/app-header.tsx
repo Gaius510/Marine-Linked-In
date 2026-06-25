@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuthStore } from '@/stores/auth-store'
+import { useNavStore } from '@/stores/nav-store'
 import { useI18n } from '@/lib/i18n'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
@@ -19,6 +20,7 @@ import { toast } from 'sonner'
 
 export function AppHeader() {
   const { user, logout } = useAuthStore()
+  const { setView } = useNavStore()
   const { t, locale, toggleLocale } = useI18n()
   const { theme, setTheme } = useTheme()
 
@@ -34,10 +36,21 @@ export function AppHeader() {
     toast.success(t('common.success'))
   }
 
+  function handleDashboardClick() {
+    setView('overview')
+  }
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
-        <BrandLogo showText className="[&>div:last-child]:hidden sm:[&>div:last-child]:block" />
+        <button
+          type="button"
+          onClick={handleDashboardClick}
+          aria-label="Go to dashboard"
+          className="rounded-lg text-start transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <BrandLogo showText className="[&>div:last-child]:hidden sm:[&>div:last-child]:block" />
+        </button>
 
         <div className="ms-auto flex items-center gap-1.5">
           <Button
