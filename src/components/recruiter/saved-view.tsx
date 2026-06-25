@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { PageHeader } from '@/components/shared/page-header'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
-import { Card } from '@/components/ui/card'
+import { EmptyState } from '@/components/shared/empty-state'
+import { PageToolbar } from '@/components/shared/page-toolbar'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { MessageDialog } from './message-dialog'
@@ -15,7 +15,7 @@ import { useI18n } from '@/lib/i18n'
 import { useNavStore } from '@/stores/nav-store'
 import { toast } from 'sonner'
 import type { SeafarerWithRelations, SavedProfile } from '@/lib/types'
-import { Bookmark, Mail, Users, Trash2, Inbox } from 'lucide-react'
+import { Bookmark, Mail, Users, Trash2 } from 'lucide-react'
 
 export function SavedView() {
   const { t } = useI18n()
@@ -44,28 +44,32 @@ export function SavedView() {
   })
 
   return (
-    <div>
-      <PageHeader title={t('saved.title')} subtitle={t('saved.subtitle')} />
+    <div className="space-y-4">
+      <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">{t('saved.title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('saved.subtitle')}</p>
+        </div>
+        <Button variant="outline" onClick={() => setView('browse')}>
+          {t('saved.browseCta')}
+        </Button>
+      </PageToolbar>
 
       {isLoading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} className="h-44 rounded-xl" />
           ))}
         </div>
       ) : saved.length === 0 ? (
-        <Card className="p-10 text-center">
-          <div className="mx-auto size-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-3">
-            <Bookmark className="size-6" />
-          </div>
-          <p className="font-medium">{t('saved.empty')}</p>
-          <p className="text-sm text-muted-foreground mt-1 mb-4">{t('saved.emptyDesc')}</p>
-          <Button onClick={() => setView('browse')} className="mx-auto">
-            {t('saved.browseCta')}
-          </Button>
-        </Card>
+        <EmptyState
+          icon={Bookmark}
+          title={t('saved.empty')}
+          description={t('saved.emptyDesc')}
+          action={<Button onClick={() => setView('browse')}>{t('saved.browseCta')}</Button>}
+        />
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {saved.map((item) => {
             const sf = item.seafarer
             return (

@@ -7,10 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { StatusPill } from '@/components/shared/status-pill'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
+import { CalendarClock, Loader2, MapPin, UserRound } from 'lucide-react'
 
 interface ScheduleInterviewDialogProps {
   open: boolean
@@ -30,6 +31,8 @@ export function ScheduleInterviewDialog({
   const [scheduledAt, setScheduledAt] = useState('')
   const [location, setLocation] = useState('')
   const [notes, setNotes] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const scheduledAtError = submitted && !scheduledAt
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -46,6 +49,7 @@ export function ScheduleInterviewDialog({
       setScheduledAt('')
       setLocation('')
       setNotes('')
+      setSubmitted(false)
     },
     onError: (err: Error) => {
       toast.error(t('common.error'))
@@ -55,12 +59,20 @@ export function ScheduleInterviewDialog({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitted(true)
     if (!scheduledAt || !seafarerId) return
     mutation.mutate()
   }
 
+  const handleOpenChange = (nextOpen: boolean) => {
+    onOpenChange(nextOpen)
+    if (!nextOpen) {
+      setSubmitted(false)
+    }
+  }
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t('interview.scheduleTitle')}</DialogTitle>
@@ -71,6 +83,24 @@ export function ScheduleInterviewDialog({
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="rounded-lg border border-border/80 bg-secondary/45 p-3">
+            <div className="flex items-start gap-3">
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-card text-primary">
+                <UserRound className="size-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-sm font-medium">{t('interview.candidate')}</div>
+                <div className="mt-1 truncate text-sm text-muted-foreground">
+                  {seafarerName ?? t('interview.candidate')}
+                </div>
+              </div>
+              <StatusPill tone="warning" className="gap-1">
+                <CalendarClock className="size-3.5" />
+                {t('interview.status.SCHEDULED')}
+              </StatusPill>
+            </div>
+          </div>
+
           <div className="space-y-1.5">
             <Label htmlFor="int-datetime">{t('interview.scheduledAtLabel')}</Label>
             <Input
@@ -79,16 +109,27 @@ export function ScheduleInterviewDialog({
               value={scheduledAt}
               onChange={(e) => setScheduledAt(e.target.value)}
               required
+              aria-invalid={scheduledAtError}
+              aria-describedby={scheduledAtError ? 'int-datetime-error' : undefined}
             />
+            {scheduledAtError && (
+              <p id="int-datetime-error" className="text-xs text-destructive">
+                {t('interview.dateRequired')}
+              </p>
+            )}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="int-location">{t('interview.locationLabel')}</Label>
-            <Input
-              id="int-location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Rotterdam / Zoom / Phone"
-            />
+            <div className="relative">
+              <MapPin className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="int-location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Rotterdam / Zoom / Phone"
+                className="ps-9"
+              />
+            </div>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="int-notes">{t('interview.notesLabel')}</Label>
@@ -100,7 +141,7 @@ export function ScheduleInterviewDialog({
             />
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
               {t('common.cancel')}
             </Button>
             <Button type="submit" disabled={mutation.isPending || !scheduledAt}>

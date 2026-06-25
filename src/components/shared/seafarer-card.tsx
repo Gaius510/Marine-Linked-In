@@ -2,10 +2,12 @@
 
 import { Card } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { AvailabilityBadge } from './availability-badge'
-import { Ship, MapPin, Calendar, Anchor } from 'lucide-react'
+import { StatusPill } from '@/components/shared/status-pill'
+import { formatDate, formatYears } from '@/lib/format'
+import { cn } from '@/lib/utils'
+import { Ship, MapPin, Calendar, Anchor, Clock } from 'lucide-react'
 import type { SeafarerWithRelations } from '@/lib/types'
 import { useI18n } from '@/lib/i18n'
 
@@ -23,89 +25,102 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
   const { t } = useI18n()
   const initials = seafarer.user.name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
   const vesselTypes = Array.from(new Set(seafarer.vesselExperiences.map((e) => e.vesselType))).slice(0, 3)
+  const location = [seafarer.user.city, seafarer.user.country].filter(Boolean).join(', ')
 
   return (
-    <Card className="p-4 hover:shadow-md transition-shadow">
+    <Card
+      className={cn(
+        'p-4 transition-all hover:border-primary/30 hover:shadow-md',
+        selected && 'border-primary/45 bg-secondary/45 shadow-sm ring-1 ring-primary/20'
+      )}
+    >
       <div className="flex items-start gap-3">
         {selectable && (
           <Checkbox
             checked={selected}
             onCheckedChange={(v) => onSelect?.(!!v)}
             className="mt-1"
-            aria-label={seafarer.user.name}
+            aria-label={t(selected ? 'browse.deselectCandidate' : 'browse.selectCandidate', { name: seafarer.user.name })}
           />
         )}
-        <Avatar className="size-12 rounded-xl bg-primary/10 shrink-0">
-          <AvatarFallback className="bg-primary/10 text-primary font-semibold rounded-xl">{initials}</AvatarFallback>
+        <Avatar className="size-12 shrink-0 rounded-xl">
+          <AvatarFallback className="rounded-xl bg-secondary font-semibold text-primary">{initials}</AvatarFallback>
         </Avatar>
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
               <button
+                type="button"
                 onClick={onClick}
                 disabled={!onClick}
-                className="font-semibold text-base hover:text-primary transition-colors text-start truncate block max-w-full disabled:cursor-default"
+                className="block max-w-full truncate text-start text-base font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-default"
               >
                 {seafarer.user.name}
               </button>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground mt-0.5">
+              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
                 {seafarer.rank && (
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1 font-medium text-foreground">
                     <Anchor className="size-3.5" />
                     {seafarer.rank}
                   </span>
                 )}
                 {seafarer.yearsExperience && (
-                  <>
-                    <span className="text-muted-foreground/40">·</span>
-                    <span>{seafarer.yearsExperience} {t('browse.yearsMin').toLowerCase()}</span>
-                  </>
+                  <span className="flex items-center gap-1">
+                    <Clock className="size-3.5" />
+                    {formatYears(seafarer.yearsExperience)}
+                  </span>
                 )}
               </div>
             </div>
             <AvailabilityBadge availability={seafarer.availability} t={t} />
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground mt-2">
-            {seafarer.nationality && <span>{seafarer.nationality}</span>}
-            {(seafarer.user.city || seafarer.user.country) && (
-              <span className="flex items-center gap-1">
-                <MapPin className="size-3" />
-                {[seafarer.user.city, seafarer.user.country].filter(Boolean).join(', ')}
-              </span>
-            )}
+          <div className="mt-3 grid gap-1.5 text-xs text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              {seafarer.nationality && <span>{seafarer.nationality}</span>}
+              {location && (
+                <span className="flex items-center gap-1">
+                  <MapPin className="size-3" />
+                  {location}
+                </span>
+              )}
+            </div>
             {seafarer.availableFrom && (
               <span className="flex items-center gap-1">
                 <Calendar className="size-3" />
-                {seafarer.availableFrom}
+                {t('browse.availableFrom')}: {formatDate(seafarer.availableFrom)}
               </span>
             )}
           </div>
 
-          {vesselTypes.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-2.5">
-              {vesselTypes.map((vt) => (
-                <Badge key={vt} variant="secondary" className="text-[11px] gap-1 font-normal">
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {vesselTypes.length > 0 ? (
+              vesselTypes.map((vt) => (
+                <StatusPill key={vt} tone="neutral" className="gap-1 text-[11px] font-normal">
                   <Ship className="size-3" />
                   {vt}
-                </Badge>
-              ))}
-              {seafarer.vesselExperiences.length > vesselTypes.length && (
-                <Badge variant="outline" className="text-[11px] font-normal">
-                  +{seafarer.vesselExperiences.length - vesselTypes.length}
-                </Badge>
-              )}
-            </div>
-          )}
+                </StatusPill>
+              ))
+            ) : (
+              <StatusPill tone="neutral" className="text-[11px] font-normal">
+                {t('browse.noExperience')}
+              </StatusPill>
+            )}
+            {vesselTypes.length > 0 && seafarer.vesselExperiences.length > vesselTypes.length && (
+              <StatusPill tone="primary" className="text-[11px] font-normal">
+                +{seafarer.vesselExperiences.length - vesselTypes.length}
+              </StatusPill>
+            )}
+          </div>
 
           {showSaved && seafarer._count && (
-            <div className="text-[11px] text-muted-foreground mt-2">
-              {seafarer._count.savedBy} recruiters · {seafarer._count.applications} applications
+            <div className="mt-3 text-[11px] text-muted-foreground">
+              {t('browse.savedByCount', { count: seafarer._count.savedBy })} · {t('browse.applicationsCount', { count: seafarer._count.applications })}
             </div>
           )}
         </div>
       </div>
-      {actions && <div className="flex items-center gap-2 mt-3 pt-3 border-t">{actions}</div>}
+      {actions && <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/70 pt-3">{actions}</div>}
     </Card>
   )
 }

@@ -7,11 +7,11 @@ import { PageToolbar } from '@/components/shared/page-toolbar'
 import { SectionCard } from '@/components/shared/section-card'
 import { EmptyState } from '@/components/shared/empty-state'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
+import { StatusPill } from '@/components/shared/status-pill'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -192,21 +192,21 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
         title={
           <span className="inline-flex items-center gap-2">
             <Filter className="size-4 text-primary" />
-            {t('common.filter')}
+            {t('browse.filtersTitle')}
           </span>
         }
-        subtitle={hasFilters ? `${activeFilters.length} ${t('common.selected')}` : t('browse.subtitle')}
+        subtitle={hasFilters ? t('browse.activeFilters', { count: activeFilters.length }) : t('browse.subtitle')}
         action={
           hasFilters ? (
             <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 text-xs">
               <X className="size-3.5" />
-              {t('common.clear')}
+              {t('browse.clearAllFilters')}
             </Button>
           ) : undefined
         }
-        className="p-4"
+        className="p-4 sm:p-5"
       >
-        <div className="grid gap-3 lg:grid-cols-[minmax(240px,2fr)_repeat(4,minmax(0,1fr))]">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[minmax(260px,1.6fr)_repeat(4,minmax(0,1fr))]">
           <div>
             <Label className="sr-only" htmlFor="search">{t('common.search')}</Label>
             <div className="relative">
@@ -248,7 +248,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
         </div>
 
         <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div className="w-full max-w-56 space-y-1">
+          <div className="w-full sm:max-w-56 space-y-1">
             <Label htmlFor="min-years" className="text-xs text-muted-foreground">
               {t('browse.filterExperience')}
             </Label>
@@ -266,7 +266,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
           {activeFilters.length > 0 && (
             <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 lg:justify-end">
               {activeFilters.map((filter) => (
-                <Badge key={filter.key} variant="secondary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
+                <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
                   <span className="text-muted-foreground">{filter.label}:</span>
                   <span className="max-w-[11rem] truncate">{filter.value}</span>
                   <button
@@ -277,7 +277,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
                   >
                     <X className="size-3" />
                   </button>
-                </Badge>
+                </StatusPill>
               ))}
             </div>
           )}
@@ -287,14 +287,14 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
       {/* Bulk action bar */}
       {selectedCount > 0 && (
         <div className="sticky top-16 z-30">
-          <Card className="border-primary/30 bg-primary/5 p-3 shadow-md">
+          <Card className="border-primary/30 bg-card/95 p-3 shadow-lg shadow-brand-navy/10 ring-1 ring-primary/10 backdrop-blur">
             <PageToolbar>
               <div className="flex min-w-0 items-center gap-3">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground">
                   {selectedCount}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold">{t('browse.selected', { count: selectedCount })}</div>
+                  <div className="text-sm font-semibold">{t('browse.selectedCandidates', { count: selectedCount })}</div>
                   <div className="text-xs text-muted-foreground">
                     {resultCount} {t('browse.profilesFound')}
                   </div>
@@ -330,16 +330,21 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
       )}
 
       {/* Results header */}
-      <PageToolbar className="px-1">
-        <div className="text-sm text-muted-foreground">
-          {isLoading ? t('common.loading') : `${resultCount} ${t('browse.profilesFound')}`}
-          {hasFilters && !isLoading ? ` · ${activeFilters.length} ${t('common.filter')}` : ''}
+      <PageToolbar className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+        <div className="text-sm">
+          <span className="font-medium text-foreground">
+            {isLoading ? t('common.loading') : `${resultCount} ${t('browse.profilesFound')}`}
+          </span>
+          {hasFilters && !isLoading ? (
+            <span className="text-muted-foreground"> · {t('browse.activeFilters', { count: activeFilters.length })}</span>
+          ) : null}
         </div>
         {seafarers.length > 0 ? (
           <label className="flex items-center gap-2 text-sm cursor-pointer">
             <Checkbox
               checked={allSelected ? true : someSelected ? 'indeterminate' : false}
               onCheckedChange={(v) => toggleSelectAll(!!v)}
+              aria-label={allSelected ? t('browse.clearSelection') : t('common.selectAll')}
             />
             <span className="text-muted-foreground">
               {allSelected ? t('browse.clearSelection') : t('common.selectAll')}
@@ -350,7 +355,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
 
       {/* Results grid */}
       {isLoading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <Skeleton key={i} className="h-44 rounded-xl" />
           ))}
@@ -368,7 +373,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
           ) : undefined}
         />
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {seafarers.map((sf) => {
             const isSaved = !!sf.savedByMe
             return (
