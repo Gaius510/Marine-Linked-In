@@ -14,6 +14,12 @@ export async function POST(req: NextRequest) {
     if (password.length < 6) {
       return NextResponse.json({ error: 'short_password' }, { status: 400 })
     }
+    if (role === Role.ADMIN) {
+      return NextResponse.json({ error: 'admin_registration_disabled' }, { status: 403 })
+    }
+    if (role !== Role.SEAFARER && role !== Role.RECRUITER) {
+      return NextResponse.json({ error: 'invalid_role' }, { status: 400 })
+    }
     if (role === 'RECRUITER' && !company) {
       return NextResponse.json({ error: 'company_required' }, { status: 400 })
     }
@@ -28,7 +34,7 @@ export async function POST(req: NextRequest) {
         email: email.toLowerCase(),
         passwordHash: hashPassword(password),
         name,
-        role: role as Role,
+        role,
         company: company || null,
         phone: phone || null,
         city: city || null,

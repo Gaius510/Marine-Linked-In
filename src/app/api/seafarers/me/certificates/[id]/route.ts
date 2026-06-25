@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 
-async function getOwnedCert(req: NextRequest) {
+type RouteContext = { params: Promise<{ id: string }> }
+
+async function getOwnedCert(id: string) {
   const user = await getCurrentUser()
   if (!user || user.role !== 'SEAFARER') return { error: NextResponse.json({ error: 'unauthorized' }, { status: 403 }) }
-  const id = new URL(req.url).searchParams.get('id')!
   const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })
   if (!profile) return { error: NextResponse.json({ error: 'no_profile' }, { status: 404 }) }
   const cert = await db.certificate.findUnique({ where: { id } })
@@ -13,10 +14,11 @@ async function getOwnedCert(req: NextRequest) {
   return { cert, id }
 }
 
-export async function PUT(req: NextRequest) {
-  const res = await getOwnedCert(req)
+export async function PUT(req: NextRequest, { params }: RouteContext) {
+  const { id } = await params
+  const res = await getOwnedCert(id)
   if ('error' in res) return res.error
-  const { cert, id } = res
+  const { cert } = res
   const body = await req.json()
   const updated = await db.certificate.update({
     where: { id },
@@ -31,8 +33,9 @@ export async function PUT(req: NextRequest) {
   return NextResponse.json({ certificate: updated })
 }
 
-export async function DELETE(req: NextRequest) {
-  const res = await getOwnedCert(req)
+export async function DELETE(_req: NextRequest, { params }: RouteContext) {
+  const { id } = await params
+  const res = await getOwnedCert(id)
   if ('error' in res) return res.error
   await db.certificate.delete({ where: { id: res.id } })
   return NextResponse.json({ ok: true })

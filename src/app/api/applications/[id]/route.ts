@@ -3,10 +3,12 @@ import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { ApplicationStatus } from '@prisma/client'
 
-export async function PUT(req: NextRequest) {
+type RouteContext = { params: Promise<{ id: string }> }
+
+export async function PUT(req: NextRequest, { params }: RouteContext) {
   const user = await getCurrentUser()
   if (!user || user.role !== 'RECRUITER') return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
-  const id = new URL(req.url).searchParams.get('id')!
+  const { id } = await params
   const body = await req.json()
 
   const app = await db.application.findUnique({ where: { id }, include: { job: true } })

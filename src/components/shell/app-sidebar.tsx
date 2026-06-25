@@ -66,8 +66,8 @@ export function AppSidebar() {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t bg-background/95 backdrop-blur px-2 py-1.5 flex items-center justify-around safe-bottom">
-        {items.slice(0, 5).map((item) => (
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t bg-background/95 backdrop-blur px-2 py-1.5 flex items-center gap-1 overflow-x-auto scrollbar-thin safe-bottom">
+        {items.map((item) => (
           <button
             key={item.key}
             onClick={() => setView(item.key)}

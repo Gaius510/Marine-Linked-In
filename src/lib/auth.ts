@@ -2,7 +2,16 @@ import { scryptSync, randomBytes, timingSafeEqual, createHmac } from 'crypto'
 import { cookies } from 'next/headers'
 import { db } from './db'
 
-const SESSION_SECRET = process.env.SESSION_SECRET || 'maritime-network-dev-secret-change-me'
+function getSessionSecret(): string {
+  const secret = process.env.SESSION_SECRET
+  if (secret) return secret
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('SESSION_SECRET is required in production')
+  }
+  return 'maritime-network-dev-secret-change-me'
+}
+
+const SESSION_SECRET = getSessionSecret()
 const COOKIE_NAME = 'maritime_session'
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7 days (seconds)
 

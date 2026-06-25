@@ -3,10 +3,12 @@ import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { JobStatus } from '@prisma/client'
 
-export async function GET(req: NextRequest) {
+type RouteContext = { params: Promise<{ id: string }> }
+
+export async function GET(_req: NextRequest, { params }: RouteContext) {
   const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
-  const id = new URL(req.url).searchParams.get('id')!
+  const { id } = await params
   const job = await db.job.findUnique({
     where: { id },
     include: {
@@ -18,10 +20,10 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ job })
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, { params }: RouteContext) {
   const user = await getCurrentUser()
   if (!user || user.role !== 'RECRUITER') return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
-  const id = new URL(req.url).searchParams.get('id')!
+  const { id } = await params
   const job = await db.job.findUnique({ where: { id } })
   if (!job || job.recruiterId !== user.id) return NextResponse.json({ error: 'not_found' }, { status: 404 })
 
@@ -36,10 +38,10 @@ export async function PUT(req: NextRequest) {
   return NextResponse.json({ job: updated })
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(_req: NextRequest, { params }: RouteContext) {
   const user = await getCurrentUser()
   if (!user || user.role !== 'RECRUITER') return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
-  const id = new URL(req.url).searchParams.get('id')!
+  const { id } = await params
   const job = await db.job.findUnique({ where: { id } })
   if (!job || job.recruiterId !== user.id) return NextResponse.json({ error: 'not_found' }, { status: 404 })
   await db.job.delete({ where: { id } })

@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 
-export async function GET(req: NextRequest) {
+type RouteContext = { params: Promise<{ id: string }> }
+
+export async function GET(_req: NextRequest, { params }: RouteContext) {
   const user = await getCurrentUser()
   if (!user || (user.role !== 'RECRUITER' && user.role !== 'ADMIN')) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
   }
-  const { searchParams } = new URL(req.url)
-  const id = searchParams.get('id')
+  const { id } = await params
   if (!id) return NextResponse.json({ error: 'missing_id' }, { status: 400 })
 
   const profile = await db.seafarerProfile.findUnique({
