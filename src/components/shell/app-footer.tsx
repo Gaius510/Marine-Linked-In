@@ -9,9 +9,9 @@ export function AppFooter() {
   const { t } = useI18n()
   const year = new Date().getFullYear()
   return (
-    <footer className="mt-auto border-t bg-background/60 backdrop-blur">
-      <div className="px-4 sm:px-6 lg:px-8 py-5 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
+    <footer className="border-t border-border/70 bg-card/70 backdrop-blur">
+      <div className="mx-auto max-w-[1360px] px-4 py-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-between gap-2 text-sm text-muted-foreground sm:flex-row">
           <div className="flex items-center gap-2">
             <BrandLogo size="sm" showText={false} />
             <span className="font-semibold text-foreground">{brand.name}</span>
@@ -24,8 +24,6 @@ export function AppFooter() {
           </div>
         </div>
       </div>
-      {/* spacer for mobile bottom nav */}
-      <div className="h-14 lg:hidden" />
     </footer>
   )
 }

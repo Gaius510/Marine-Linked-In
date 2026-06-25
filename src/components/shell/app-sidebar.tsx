@@ -49,16 +49,24 @@ export function AppSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex w-60 shrink-0 flex-col border-e border-sidebar-border bg-sidebar/90 text-sidebar-foreground backdrop-blur">
-        <nav className="flex-1 p-3 space-y-1 sticky top-16 self-start max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin">
+      <aside className="hidden w-64 shrink-0 flex-col border-e border-sidebar-border bg-sidebar/95 text-sidebar-foreground backdrop-blur lg:flex">
+        <nav
+          aria-label="Primary navigation"
+          className="scrollbar-thin sticky top-16 max-h-[calc(100vh-4rem)] flex-1 space-y-1.5 overflow-y-auto p-3"
+        >
           {items.map((item) => (
             <Button
               key={item.key}
-              variant={view === item.key ? 'secondary' : 'ghost'}
-              className={cn('w-full justify-start gap-3 h-10 font-normal', view === item.key && 'font-medium')}
+              variant="ghost"
+              aria-current={view === item.key ? 'page' : undefined}
+              className={cn(
+                'relative h-11 w-full justify-start gap-3 rounded-lg px-3 font-normal text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-sidebar-ring',
+                view === item.key &&
+                  'bg-secondary font-semibold text-primary shadow-sm hover:bg-secondary hover:text-primary before:absolute before:start-0 before:top-2 before:h-7 before:w-1 before:rounded-e-full before:bg-primary'
+              )}
               onClick={() => setView(item.key)}
             >
-              <item.icon className="size-4 shrink-0" />
+              <item.icon className="size-[1.125rem] shrink-0" />
               <span className="truncate">{t(item.labelKey)}</span>
             </Button>
           ))}
@@ -66,14 +74,20 @@ export function AppSidebar() {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-sidebar-border bg-sidebar/95 text-sidebar-foreground backdrop-blur px-2 py-1.5 flex items-center gap-1 overflow-x-auto scrollbar-thin safe-bottom">
+      <nav
+        aria-label="Primary navigation"
+        className="safe-bottom scrollbar-thin fixed inset-x-0 bottom-0 z-40 flex items-center gap-1 overflow-x-auto border-t border-sidebar-border bg-sidebar/95 px-2 py-1.5 text-sidebar-foreground shadow-lg backdrop-blur lg:hidden"
+      >
         {items.map((item) => (
           <button
             key={item.key}
+            type="button"
             onClick={() => setView(item.key)}
+            aria-label={t(item.labelKey)}
+            aria-current={view === item.key ? 'page' : undefined}
             className={cn(
-              'flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-md text-[10px] font-medium transition-colors min-w-[48px]',
-              view === item.key ? 'text-primary' : 'text-muted-foreground'
+              'flex min-w-[4.25rem] flex-col items-center gap-0.5 rounded-lg px-2 py-1.5 text-[10px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+              view === item.key ? 'bg-secondary text-primary' : 'text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
             )}
           >
             <item.icon className="size-5" />

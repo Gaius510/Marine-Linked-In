@@ -41,45 +41,52 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
+    <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-card/90 backdrop-blur supports-[backdrop-filter]:bg-card/75">
+      <div className="mx-auto flex h-[3.75rem] max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:h-16 lg:px-8">
         <button
           type="button"
           onClick={handleDashboardClick}
           aria-label="Go to dashboard"
-          className="rounded-lg text-start transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="rounded-lg p-1 text-start transition-colors hover:bg-secondary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <BrandLogo showText className="[&>div:last-child]:hidden sm:[&>div:last-child]:block" />
         </button>
 
-        <div className="ms-auto flex items-center gap-1.5">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleLocale}
-            aria-label={t('lang.aria')}
-            title={locale === 'en' ? 'العربية' : 'English'}
-          >
-            <Languages className="size-4" />
-            <span className="text-xs font-semibold ms-1">{locale === 'en' ? 'ع' : 'EN'}</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            aria-label={t('theme.aria')}
-          >
-            <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          </Button>
+        <div className="ms-auto flex items-center gap-2">
+          <div className="flex items-center rounded-lg border border-border/80 bg-background/70 p-1 shadow-sm">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleLocale}
+              aria-label={t('lang.aria')}
+              title={locale === 'en' ? 'العربية' : 'English'}
+              className="size-8 rounded-md hover:bg-secondary"
+            >
+              <Languages className="size-4" />
+              <span className="text-xs font-semibold">{locale === 'en' ? 'ع' : 'EN'}</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              aria-label={t('theme.aria')}
+              className="size-8 rounded-md hover:bg-secondary"
+            >
+              <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
+          </div>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="gap-2 ps-1.5 pe-2 h-9">
+              <Button
+                variant="ghost"
+                className="h-10 gap-2 rounded-lg border border-border/80 bg-background/70 ps-1.5 pe-2 shadow-sm hover:bg-secondary"
+              >
                 <Avatar className="size-7">
-                  <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">{initials}</AvatarFallback>
+                  <AvatarFallback className="bg-secondary text-primary text-xs font-semibold">{initials}</AvatarFallback>
                 </Avatar>
-                <span className="hidden sm:block text-sm font-medium max-w-[120px] truncate">{user?.name}</span>
+                <span className="hidden max-w-[140px] truncate text-sm font-medium sm:block">{user?.name}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">

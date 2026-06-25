@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import type { ReactNode } from 'react'
 
-type StatusTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
+export type StatusTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
 
 const toneClasses: Record<StatusTone, string> = {
   neutral: 'bg-muted text-muted-foreground border-border',

@@ -46,11 +46,14 @@ export function AppShell() {
       <AppHeader />
       <div className="flex flex-1 w-full">
         <AppSidebar />
-        <main className="flex-1 min-w-0 flex flex-col">
-          <div className="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl w-full mx-auto">
-            {user.role === 'SEAFARER' && <SeafarerPortal />}
-            {user.role === 'RECRUITER' && <RecruiterPortal />}
-            {user.role === 'ADMIN' && <AdminPortal />}
+        <main className="relative isolate flex min-w-0 flex-1 flex-col overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_top,var(--brand-seafoam)_0%,transparent_42%)]" />
+          <div className="relative z-10 flex-1 px-4 py-5 pb-20 sm:px-6 sm:py-6 lg:px-8 lg:pb-8">
+            <div className="mx-auto w-full max-w-[1360px]">
+              {user.role === 'SEAFARER' && <SeafarerPortal />}
+              {user.role === 'RECRUITER' && <RecruiterPortal />}
+              {user.role === 'ADMIN' && <AdminPortal />}
+            </div>
           </div>
           <AppFooter />
         </main>
