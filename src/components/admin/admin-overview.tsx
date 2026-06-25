@@ -3,7 +3,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { Users, Building2, Briefcase, Send, UserCheck, Ship, ArrowRight, ShieldCheck } from 'lucide-react'
 import { PageHeader } from '@/components/shared/page-header'
-import { StatCard } from '@/components/shared/stat-card'
+import { MetricCard } from '@/components/shared/metric-card'
+import { EmptyState } from '@/components/shared/empty-state'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
 import { ErrorState } from '@/components/shared/error-state'
 import { Card } from '@/components/ui/card'
@@ -75,37 +76,37 @@ export function AdminOverview() {
         <div className="space-y-6">
           {/* Stats grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-            <StatCard
+            <MetricCard
               label={t('admin.totalSeafarers')}
               value={data.stats.totalSeafarers}
               icon={Users}
               tone="primary"
             />
-            <StatCard
+            <MetricCard
               label={t('admin.totalRecruiters')}
               value={data.stats.totalRecruiters}
               icon={Building2}
               tone="emerald"
             />
-            <StatCard
+            <MetricCard
               label={t('admin.totalJobs')}
               value={data.stats.totalJobs}
               icon={Briefcase}
               tone="amber"
             />
-            <StatCard
+            <MetricCard
               label={t('admin.totalApplications')}
               value={data.stats.totalApplications}
               icon={Send}
               tone="violet"
             />
-            <StatCard
+            <MetricCard
               label={t('admin.availableNow')}
               value={data.stats.availableNow}
               icon={UserCheck}
               tone="emerald"
             />
-            <StatCard
+            <MetricCard
               label={t('admin.onBoard')}
               value={data.stats.onBoard}
               icon={Ship}
@@ -126,7 +127,7 @@ export function AdminOverview() {
               </Button>
             </div>
             {data.seafarers.length === 0 ? (
-              <p className="text-sm text-muted-foreground">{t('common.noResults')}</p>
+              <EmptyState title={t('common.noResults')} framed={false} />
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {data.seafarers

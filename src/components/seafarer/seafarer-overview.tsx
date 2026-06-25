@@ -8,12 +8,15 @@ import { useNavStore } from '@/stores/nav-store'
 import { useAuthStore } from '@/stores/auth-store'
 import type { Job, ApplicationStatus, Application } from '@/lib/types'
 import { PageHeader } from '@/components/shared/page-header'
-import { StatCard } from '@/components/shared/stat-card'
+import { MetricCard } from '@/components/shared/metric-card'
+import { EmptyState } from '@/components/shared/empty-state'
+import { StatusPill } from '@/components/shared/status-pill'
 import { JobCard } from '@/components/shared/job-card'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { useSeafarerProfile } from '@/components/seafarer/use-seafarer-profile'
 import { ApplyDialog } from '@/components/seafarer/apply-dialog'
 import { computeCompleteness, strengthKey } from '@/components/seafarer/profile-completeness'
+import { formatDate } from '@/lib/format'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -23,12 +26,12 @@ import { Briefcase, Send, ArrowRight, FileText, Anchor, CalendarClock } from 'lu
 
 interface JobsResponse { jobs: Job[]; total: number }
 
-const statusTone: Record<ApplicationStatus, string> = {
-  PENDING: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
-  REVIEWED: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20',
-  SHORTLISTED: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
-  REJECTED: 'bg-destructive/10 text-destructive border-destructive/20',
-  HIRED: 'bg-primary/10 text-primary border-primary/20',
+const statusTone: Record<ApplicationStatus, 'warning' | 'info' | 'success' | 'danger' | 'primary'> = {
+  PENDING: 'warning',
+  REVIEWED: 'info',
+  SHORTLISTED: 'success',
+  REJECTED: 'danger',
+  HIRED: 'primary',
 }
 
 export function SeafarerOverview() {
@@ -107,14 +110,14 @@ export function SeafarerOverview() {
 
       {/* Stat row */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <StatCard
+        <MetricCard
           label={t('seafarer.openJobs')}
           value={jobsQuery.data?.total ?? '—'}
           icon={Briefcase}
           tone="primary"
           hint={t('seafarer.openJobsHint')}
         />
-        <StatCard
+        <MetricCard
           label={t('seafarer.myApplications')}
           value={myApplications.length}
           icon={Send}
@@ -142,7 +145,7 @@ export function SeafarerOverview() {
             <Skeleton className="h-40" />
           </div>
         ) : recentJobs.length === 0 ? (
-          <Card className="p-8 text-center text-sm text-muted-foreground">{t('jobs.noOpenJobs')}</Card>
+          <EmptyState icon={Briefcase} title={t('jobs.noOpenJobs')} />
         ) : (
           <div className="grid lg:grid-cols-2 gap-4">
             {recentJobs.map((job) => (
@@ -183,11 +186,11 @@ export function SeafarerOverview() {
         </div>
 
         {recentApps.length === 0 ? (
-          <Card className="p-8 text-center">
-            <Send className="size-8 text-muted-foreground/50 mx-auto mb-2" />
-            <p className="text-sm font-medium">{t('seafarer.noApplications')}</p>
-            <p className="text-xs text-muted-foreground mt-1">{t('seafarer.noApplicationsDesc')}</p>
-          </Card>
+          <EmptyState
+            icon={Send}
+            title={t('seafarer.noApplications')}
+            description={t('seafarer.noApplicationsDesc')}
+          />
         ) : (
           <Card className="p-2 sm:p-3 divide-y">
             {recentApps.map((app) => (
@@ -204,7 +207,6 @@ export function SeafarerOverview() {
 
 function RecentAppRow({ app }: { app: Application }) {
   const { t } = useI18n()
-  const fmtDate = (d: string) => new Date(d).toLocaleDateString()
   const status = app.status
 
   return (
@@ -217,12 +219,12 @@ function RecentAppRow({ app }: { app: Application }) {
         </p>
         <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-1">
           <CalendarClock className="size-3" />
-          {t('jobs.appliedOn')} {fmtDate(app.createdAt)}
+          {t('jobs.appliedOn')} {formatDate(app.createdAt)}
         </p>
       </div>
-      <Badge variant="outline" className={`shrink-0 ${statusTone[status]}`}>
+      <StatusPill tone={statusTone[status]}>
         {t(`jobs.applicationStatus.${status}`)}
-      </Badge>
+      </StatusPill>
     </div>
   )
 }

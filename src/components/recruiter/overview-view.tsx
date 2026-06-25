@@ -2,7 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { PageHeader } from '@/components/shared/page-header'
-import { StatCard } from '@/components/shared/stat-card'
+import { MetricCard } from '@/components/shared/metric-card'
+import { EmptyState } from '@/components/shared/empty-state'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
@@ -92,10 +93,10 @@ export function OverviewView({
           Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-24 rounded-xl" />)
         ) : (
           <>
-            <StatCard label={t('recruiter.activeJobs')} value={activeJobs} icon={Briefcase} tone="primary" />
-            <StatCard label={t('recruiter.savedProfiles')} value={saved.length} icon={Bookmark} tone="amber" />
-            <StatCard label={t('recruiter.pendingInterviews')} value={pendingInterviews} icon={CalendarClock} tone="violet" />
-            <StatCard label={t('recruiter.totalApplicants')} value={applications.length} icon={Users} tone="emerald" />
+            <MetricCard label={t('recruiter.activeJobs')} value={activeJobs} icon={Briefcase} tone="primary" />
+            <MetricCard label={t('recruiter.savedProfiles')} value={saved.length} icon={Bookmark} tone="amber" />
+            <MetricCard label={t('recruiter.pendingInterviews')} value={pendingInterviews} icon={CalendarClock} tone="violet" />
+            <MetricCard label={t('recruiter.totalApplicants')} value={applications.length} icon={Users} tone="emerald" />
           </>
         )}
       </div>
@@ -119,10 +120,7 @@ export function OverviewView({
               ))}
             </div>
           ) : recentApps.length === 0 ? (
-            <div className="text-center py-8 text-sm text-muted-foreground">
-              <Users className="size-8 mx-auto mb-2 opacity-40" />
-              {t('recruiter.noRecentApplicants')}
-            </div>
+            <EmptyState icon={Users} title={t('recruiter.noRecentApplicants')} framed={false} />
           ) : (
             <ul className="space-y-2 max-h-96 overflow-y-auto scrollbar-thin pe-1">
               {recentApps.map((app) => {
@@ -189,10 +187,7 @@ export function OverviewView({
               ))}
             </div>
           ) : upcoming.length === 0 ? (
-            <div className="text-center py-8 text-sm text-muted-foreground">
-              <CalendarClock className="size-8 mx-auto mb-2 opacity-40" />
-              {t('recruiter.noInterviews')}
-            </div>
+            <EmptyState icon={CalendarClock} title={t('recruiter.noInterviews')} framed={false} />
           ) : (
             <ul className="space-y-2 max-h-96 overflow-y-auto scrollbar-thin pe-1">
               {upcoming.map((iv) => {
