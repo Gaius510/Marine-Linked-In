@@ -24,9 +24,6 @@ export async function GET(req: NextRequest) {
   if (vesselType) {
     where.vesselExperiences = { some: { vesselType } }
   }
-  if (minYears && !isNaN(parseInt(minYears))) {
-    where.yearsExperience = { gte: String(parseInt(minYears)) }
-  }
   if (search) {
     where.user = {
       OR: [
@@ -53,7 +50,15 @@ export async function GET(req: NextRequest) {
     savedIds = new Set(saved.map((s) => s.seafarerId))
   }
 
-  const result = profiles.map((p) => ({
+  const minYearsNumber = minYears && !isNaN(parseInt(minYears, 10)) ? parseInt(minYears, 10) : null
+  const filteredProfiles = minYearsNumber === null
+    ? profiles
+    : profiles.filter((p) => {
+        const years = parseFloat(p.yearsExperience || '0')
+        return Number.isFinite(years) && years >= minYearsNumber
+      })
+
+  const result = filteredProfiles.map((p) => ({
     ...p,
     availability: p.availability,
     savedByMe: savedIds.has(p.id),

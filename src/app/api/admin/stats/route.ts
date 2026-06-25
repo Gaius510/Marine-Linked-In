@@ -25,7 +25,6 @@ export async function GET(req: Request) {
   if (nationality) where.nationality = nationality
   if (availability) where.availability = availability as Availability
   if (vesselType) where.vesselExperiences = { some: { vesselType } }
-  if (minYears && !isNaN(parseInt(minYears))) where.yearsExperience = { gte: String(parseInt(minYears)) }
   if (search) {
     where.user = { OR: [{ name: { contains: search } }, { email: { contains: search } }] }
   }
@@ -53,8 +52,16 @@ export async function GET(req: Request) {
     }),
   ])
 
+  const minYearsNumber = minYears && !isNaN(parseInt(minYears, 10)) ? parseInt(minYears, 10) : null
+  const filteredSeafarers = minYearsNumber === null
+    ? seafarers
+    : seafarers.filter((p) => {
+        const years = parseFloat(p.yearsExperience || '0')
+        return Number.isFinite(years) && years >= minYearsNumber
+      })
+
   return NextResponse.json({
-    seafarers,
+    seafarers: filteredSeafarers,
     allUsers,
     stats: {
       totalSeafarers,
@@ -64,6 +71,6 @@ export async function GET(req: Request) {
       availableNow,
       onBoard,
     },
-    total: seafarers.length,
+    total: filteredSeafarers.length,
   })
 }
