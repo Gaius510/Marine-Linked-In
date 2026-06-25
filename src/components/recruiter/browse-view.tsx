@@ -3,11 +3,15 @@
 import { useState, useMemo, useCallback } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { PageHeader } from '@/components/shared/page-header'
+import { PageToolbar } from '@/components/shared/page-toolbar'
+import { SectionCard } from '@/components/shared/section-card'
+import { EmptyState } from '@/components/shared/empty-state'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -145,9 +149,32 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
   })
 
   const selectedCount = selected.size
+  const activeFilters: Array<{ key: keyof Filters; label: string; value: string }> = []
+
+  if (filters.search.trim()) activeFilters.push({ key: 'search', label: t('common.search'), value: filters.search.trim() })
+  if (filters.rank !== 'ALL') activeFilters.push({ key: 'rank', label: t('browse.filterRank'), value: filters.rank })
+  if (filters.vesselType !== 'ALL') activeFilters.push({ key: 'vesselType', label: t('browse.filterVessel'), value: filters.vesselType })
+  if (filters.nationality !== 'ALL') activeFilters.push({ key: 'nationality', label: t('browse.filterNationality'), value: filters.nationality })
+  if (filters.availability !== 'ALL') {
+    activeFilters.push({
+      key: 'availability',
+      label: t('browse.filterAvailability'),
+      value: t(`availability.${filters.availability}`),
+    })
+  }
+  if (filters.minYears) activeFilters.push({ key: 'minYears', label: t('browse.filterExperience'), value: `${filters.minYears}+` })
+
+  const resultCount = data?.total ?? seafarers.length
+
+  const removeFilter = (key: keyof Filters) => {
+    setFilters((current) => ({
+      ...current,
+      [key]: key === 'search' || key === 'minYears' ? '' : 'ALL',
+    }))
+  }
 
   return (
-    <div>
+    <div className="space-y-4">
       <PageHeader
         title={t('browse.title')}
         subtitle={t('browse.subtitle')}
@@ -161,28 +188,35 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
       />
 
       {/* Filter bar */}
-      <Card className="p-4 mb-4">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-          <Filter className="size-4" />
-          <span>{t('common.filter')}</span>
-          {hasFilters ? (
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="ms-auto h-7 text-xs">
-              <X className="size-3" />
+      <SectionCard
+        title={
+          <span className="inline-flex items-center gap-2">
+            <Filter className="size-4 text-primary" />
+            {t('common.filter')}
+          </span>
+        }
+        subtitle={hasFilters ? `${activeFilters.length} ${t('common.selected')}` : t('browse.subtitle')}
+        action={
+          hasFilters ? (
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 text-xs">
+              <X className="size-3.5" />
               {t('common.clear')}
             </Button>
-          ) : null}
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          <div className="lg:col-span-2 xl:col-span-2">
+          ) : undefined
+        }
+        className="p-4"
+      >
+        <div className="grid gap-3 lg:grid-cols-[minmax(240px,2fr)_repeat(4,minmax(0,1fr))]">
+          <div>
             <Label className="sr-only" htmlFor="search">{t('common.search')}</Label>
             <div className="relative">
-              <Search className="absolute start-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
+              <Search className="absolute start-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
               <Input
                 id="search"
                 value={filters.search}
                 onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
                 placeholder={t('browse.searchPlaceholder')}
-                className="ps-9"
+                className="h-10 ps-9"
               />
             </div>
           </div>
@@ -212,34 +246,61 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
             translateOption={(o) => t(`availability.${o}`)}
           />
         </div>
-        <div className="flex items-center gap-2 mt-3 max-w-48">
-          <Label htmlFor="min-years" className="text-xs text-muted-foreground shrink-0">
-            {t('browse.filterExperience')}
-          </Label>
-          <Input
-            id="min-years"
-            type="number"
-            min={0}
-            value={filters.minYears}
-            onChange={(e) => setFilters((f) => ({ ...f, minYears: e.target.value }))}
-            placeholder="0"
-            className="h-8"
-          />
+
+        <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div className="w-full max-w-56 space-y-1">
+            <Label htmlFor="min-years" className="text-xs text-muted-foreground">
+              {t('browse.filterExperience')}
+            </Label>
+            <Input
+              id="min-years"
+              type="number"
+              min={0}
+              value={filters.minYears}
+              onChange={(e) => setFilters((f) => ({ ...f, minYears: e.target.value }))}
+              placeholder="0"
+              className="h-9"
+            />
+          </div>
+
+          {activeFilters.length > 0 && (
+            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 lg:justify-end">
+              {activeFilters.map((filter) => (
+                <Badge key={filter.key} variant="secondary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
+                  <span className="text-muted-foreground">{filter.label}:</span>
+                  <span className="max-w-[11rem] truncate">{filter.value}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeFilter(filter.key)}
+                    className="rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label={`${t('common.clear')} ${filter.label}`}
+                  >
+                    <X className="size-3" />
+                  </button>
+                </Badge>
+              ))}
+            </div>
+          )}
         </div>
-      </Card>
+      </SectionCard>
 
       {/* Bulk action bar */}
       {selectedCount > 0 && (
-        <div className="sticky top-16 z-30 mb-4">
-          <Card className="p-3 shadow-md border-primary/30 bg-primary/5">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 text-sm font-medium">
-                <div className="size-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-xs">
+        <div className="sticky top-16 z-30">
+          <Card className="border-primary/30 bg-primary/5 p-3 shadow-md">
+            <PageToolbar>
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground">
                   {selectedCount}
                 </div>
-                <span>{t('common.selected')}</span>
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold">{t('browse.selected', { count: selectedCount })}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {resultCount} {t('browse.profilesFound')}
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2 ms-auto">
+              <div className="flex flex-wrap items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -263,25 +324,29 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
                   {t('browse.clearSelection')}
                 </Button>
               </div>
-            </div>
+            </PageToolbar>
           </Card>
         </div>
       )}
 
       {/* Results header */}
-      <div className="flex items-center justify-between mb-3 px-1">
-        {seafarers.length > 0 && (
+      <PageToolbar className="px-1">
+        <div className="text-sm text-muted-foreground">
+          {isLoading ? t('common.loading') : `${resultCount} ${t('browse.profilesFound')}`}
+          {hasFilters && !isLoading ? ` · ${activeFilters.length} ${t('common.filter')}` : ''}
+        </div>
+        {seafarers.length > 0 ? (
           <label className="flex items-center gap-2 text-sm cursor-pointer">
             <Checkbox
               checked={allSelected ? true : someSelected ? 'indeterminate' : false}
               onCheckedChange={(v) => toggleSelectAll(!!v)}
             />
             <span className="text-muted-foreground">
-              {allSelected ? t('common.selectAll') : `${seafarers.length} ${t('browse.profilesFound')}`}
+              {allSelected ? t('browse.clearSelection') : t('common.selectAll')}
             </span>
           </label>
-        )}
-      </div>
+        ) : <div />}
+      </PageToolbar>
 
       {/* Results grid */}
       {isLoading ? (
@@ -291,18 +356,17 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
           ))}
         </div>
       ) : seafarers.length === 0 ? (
-        <Card className="p-10 text-center">
-          <div className="mx-auto size-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-3">
-            <Inbox className="size-6" />
-          </div>
-          <p className="text-sm text-muted-foreground">{t('browse.noResults')}</p>
-          {hasFilters && (
-            <Button variant="outline" size="sm" className="mt-4" onClick={clearFilters}>
+        <EmptyState
+          icon={Inbox}
+          title={t('browse.noResults')}
+          description={hasFilters ? `${activeFilters.length} ${t('common.filter')}` : undefined}
+          action={hasFilters ? (
+            <Button variant="outline" size="sm" onClick={clearFilters}>
               <X className="size-4" />
               {t('common.clear')}
             </Button>
-          )}
-        </Card>
+          ) : undefined}
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {seafarers.map((sf) => {
