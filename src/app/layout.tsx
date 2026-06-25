@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
+import { brand } from "@/lib/brand";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,10 +12,10 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "MaritimeNet — Maritime Professional Network",
-  description: "The professional network for seafarers and maritime recruiters. Build your maritime CV, browse jobs, and connect with the global maritime workforce.",
+  title: `${brand.name} — ${brand.tagline}`,
+  description: brand.description,
   keywords: ["maritime", "seafarer", "recruitment", "shipping", "marine jobs", "crew management"],
-  authors: [{ name: "MaritimeNet" }],
+  authors: [{ name: brand.name }],
 };
 
 export default function RootLayout({

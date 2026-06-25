@@ -6,7 +6,7 @@ type StatusTone = 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'in
 
 const toneClasses: Record<StatusTone, string> = {
   neutral: 'bg-muted text-muted-foreground border-border',
-  primary: 'bg-primary/10 text-primary border-primary/20',
+  primary: 'bg-secondary text-primary border-primary/20',
   success: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
   warning: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
   danger: 'bg-destructive/10 text-destructive border-destructive/20',

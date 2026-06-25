@@ -10,8 +10,8 @@ type Dict = Record<string, string>
 
 const en: Dict = {
   // Brand & common
-  'brand.name': 'MaritimeNet',
-  'brand.tagline': 'Maritime Professional Network',
+  'brand.name': 'CrewLink',
+  'brand.tagline': 'Connecting maritime talent',
   'common.loading': 'Loading…',
   'common.save': 'Save',
   'common.saved': 'Saved',
@@ -80,7 +80,7 @@ const en: Dict = {
   'auth.login': 'Log in',
   'auth.register': 'Sign up',
   'auth.loginTitle': 'Welcome back',
-  'auth.loginSubtitle': 'Log in to your MaritimeNet account',
+  'auth.loginSubtitle': 'Log in to your CrewLink account',
   'auth.registerTitle': 'Create your account',
   'auth.registerSubtitle': 'Join the maritime professional network',
   'auth.email': 'Email address',
@@ -425,8 +425,8 @@ const en: Dict = {
 
 const ar: Dict = {
   // Brand & common
-  'brand.name': 'ماريتايم نت',
-  'brand.tagline': 'شبكة المحترفين البحريين',
+  'brand.name': 'CrewLink',
+  'brand.tagline': 'ربط المواهب البحرية',
   'common.loading': 'جارٍ التحميل…',
   'common.save': 'حفظ',
   'common.saved': 'محفوظ',
@@ -495,7 +495,7 @@ const ar: Dict = {
   'auth.login': 'تسجيل الدخول',
   'auth.register': 'إنشاء حساب',
   'auth.loginTitle': 'مرحبًا بعودتك',
-  'auth.loginSubtitle': 'سجّل الدخول إلى حسابك في ماريتايم نت',
+  'auth.loginSubtitle': 'سجّل الدخول إلى حسابك في CrewLink',
   'auth.registerTitle': 'أنشئ حسابك',
   'auth.registerSubtitle': 'انضم إلى الشبكة المهنية البحرية',
   'auth.email': 'البريد الإلكتروني',

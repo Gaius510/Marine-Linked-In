@@ -11,6 +11,7 @@ import { AppFooter } from '@/components/shell/app-footer'
 import { SeafarerPortal } from '@/components/seafarer/seafarer-portal'
 import { RecruiterPortal } from '@/components/recruiter/recruiter-portal'
 import { AdminPortal } from '@/components/admin/admin-portal'
+import { BrandLogo } from '@/components/shared/brand-logo'
 import { Loader2 } from 'lucide-react'
 
 export function AppShell() {
@@ -23,8 +24,9 @@ export function AppShell() {
 
   if (!initialized) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="size-8 animate-spin text-primary" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-background">
+        <BrandLogo size="lg" />
+        <Loader2 className="size-7 animate-spin text-primary" />
       </div>
     )
   }
@@ -40,7 +42,7 @@ export function AppShell() {
   }
 
   return (
-    <div dir={dir} className="min-h-screen flex flex-col bg-muted/30">
+    <div dir={dir} className="min-h-screen flex flex-col bg-background">
       <AppHeader />
       <div className="flex flex-1 w-full">
         <AppSidebar />

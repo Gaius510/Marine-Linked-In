@@ -13,7 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Anchor, Languages, Moon, Sun, LogOut, User as UserIcon } from 'lucide-react'
+import { BrandLogo } from '@/components/shared/brand-logo'
+import { Languages, Moon, Sun, LogOut } from 'lucide-react'
 import { toast } from 'sonner'
 
 export function AppHeader() {
@@ -36,15 +37,7 @@ export function AppHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
-        <div className="flex items-center gap-2.5">
-          <div className="size-9 rounded-lg bg-primary flex items-center justify-center text-primary-foreground shadow-sm">
-            <Anchor className="size-5" />
-          </div>
-          <div className="hidden sm:block">
-            <div className="font-bold leading-tight">{t('brand.name')}</div>
-            <div className="text-[11px] text-muted-foreground leading-tight">{t('brand.tagline')}</div>
-          </div>
-        </div>
+        <BrandLogo showText className="[&>div:last-child]:hidden sm:[&>div:last-child]:block" />
 
         <div className="ms-auto flex items-center gap-1.5">
           <Button

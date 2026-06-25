@@ -9,9 +9,10 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { BrandLogo } from '@/components/shared/brand-logo'
+import { brand } from '@/lib/brand'
 import { toast } from 'sonner'
 import {
-  Anchor,
   Ship,
   Users,
   Globe,
@@ -117,24 +118,16 @@ export function AuthScreen() {
   }
 
   return (
-    <div className="min-h-screen overflow-hidden bg-slate-50 text-slate-950 lg:grid lg:grid-cols-[1.05fr_0.95fr]">
-      <section className="relative flex min-h-[44rem] flex-col justify-between overflow-hidden bg-[radial-gradient(circle_at_top_left,#4ca3a3_0%,#14515d_42%,#082f3d_100%)] p-8 text-white lg:min-h-screen lg:p-14">
+    <div className="min-h-screen overflow-hidden bg-background text-foreground lg:grid lg:grid-cols-[1.05fr_0.95fr]">
+      <section className="brand-hero-gradient relative flex min-h-[44rem] flex-col justify-between overflow-hidden p-8 text-white lg:min-h-screen lg:p-14">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-28 top-28 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-          <div className="absolute bottom-10 right-0 h-96 w-96 rounded-full bg-teal-300/10 blur-3xl" />
+          <div className="absolute -left-28 top-28 h-72 w-72 rounded-full bg-brand-seafoam/15 blur-3xl" />
+          <div className="absolute bottom-10 right-0 h-96 w-96 rounded-full bg-brand-teal/20 blur-3xl" />
           <Waves className="absolute -bottom-16 right-[-4rem] h-[30rem] w-[30rem] text-white/10" />
           <Waves className="absolute bottom-24 right-16 h-72 w-72 text-white/10" />
         </div>
 
-        <div className="relative z-10 flex items-center gap-4">
-          <div className="flex size-14 items-center justify-center rounded-2xl bg-white/15 shadow-lg ring-1 ring-white/25 backdrop-blur">
-            <Anchor className="size-7" />
-          </div>
-          <div>
-            <div className="text-2xl font-bold tracking-tight">{t('brand.name')}</div>
-            <div className="text-sm text-white/70">{t('brand.tagline')}</div>
-          </div>
-        </div>
+        <BrandLogo size="lg" tone="light" className="relative z-10" />
 
         <div className="relative z-10 max-w-2xl py-14 lg:py-0">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-sm text-white/80 backdrop-blur">
@@ -145,7 +138,7 @@ export function AuthScreen() {
             {t('auth.welcomeTitle')}
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-8 text-white/78">
-            {t('auth.welcomeSubtitle')}
+            {brand.description}
           </p>
 
           <div className="mt-8 grid max-w-xl grid-cols-3 gap-3">
@@ -162,32 +155,29 @@ export function AuthScreen() {
         </div>
       </section>
 
-      <section className="relative flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top_right,#d9fbf4_0%,#f8fafc_36%,#ffffff_100%)] p-6 lg:p-12">
-        <div className="absolute left-8 top-8 hidden items-center gap-2 rounded-full border bg-white/70 px-4 py-2 text-sm text-slate-600 shadow-sm backdrop-blur lg:flex">
-          <MapPin className="size-4 text-teal-700" />
-          Global maritime network
+      <section className="brand-surface-gradient relative flex min-h-screen items-center justify-center p-6 lg:p-12">
+        <div className="absolute left-8 top-8 hidden items-center gap-2 rounded-full border bg-card/75 px-4 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur lg:flex">
+          <MapPin className="size-4 text-primary" />
+          Global maritime careers network
         </div>
 
         <div className="w-full max-w-lg">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
-            <div className="flex size-11 items-center justify-center rounded-xl bg-teal-700 text-white">
-              <Anchor className="size-6" />
-            </div>
-            <span className="text-xl font-bold">{t('brand.name')}</span>
+            <BrandLogo size="md" />
           </div>
 
           <Tabs value={mode} onValueChange={(v) => setMode(v as 'login' | 'register')}>
-            <TabsList className="mb-8 grid h-12 w-full grid-cols-2 rounded-2xl bg-slate-200/70 p-1 shadow-inner">
-              <TabsTrigger value="login" className="rounded-xl text-base data-[state=active]:bg-white data-[state=active]:shadow">
+            <TabsList className="mb-8 grid h-12 w-full grid-cols-2 rounded-2xl bg-muted/80 p-1 shadow-inner">
+              <TabsTrigger value="login" className="rounded-xl text-base data-[state=active]:bg-card data-[state=active]:shadow">
                 {t('auth.login')}
               </TabsTrigger>
-              <TabsTrigger value="register" className="rounded-xl text-base data-[state=active]:bg-white data-[state=active]:shadow">
+              <TabsTrigger value="register" className="rounded-xl text-base data-[state=active]:bg-card data-[state=active]:shadow">
                 {t('auth.register')}
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
-              <Card className="border-white/80 bg-white/85 shadow-2xl shadow-slate-900/10 backdrop-blur-xl">
+              <Card className="border-white/80 bg-card/90 shadow-2xl shadow-brand-navy/10 backdrop-blur-xl">
                 <CardHeader className="space-y-2 pb-5">
                   <CardTitle className="text-2xl">{t('auth.loginTitle')}</CardTitle>
                   <CardDescription className="text-base">{t('auth.loginSubtitle')}</CardDescription>
@@ -222,7 +212,7 @@ export function AuthScreen() {
 
                     <Button
                       type="submit"
-                      className="h-12 w-full rounded-xl bg-teal-700 text-base shadow-lg shadow-teal-900/15 transition hover:-translate-y-0.5 hover:bg-teal-800"
+                      className="h-12 w-full rounded-xl text-base shadow-lg shadow-brand-navy/15 transition hover:-translate-y-0.5"
                       disabled={loading}
                     >
                       {loading && <Loader2 className="me-2 size-4 animate-spin" />}
@@ -231,7 +221,7 @@ export function AuthScreen() {
                   </form>
 
                   <div className="mt-7">
-                    <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                       <BriefcaseBusiness className="size-4" />
                       {t('auth.demoAccounts')}
                     </div>
@@ -242,17 +232,17 @@ export function AuthScreen() {
                           key={acc.email}
                           type="button"
                           onClick={() => quickLogin(acc.email, acc.password)}
-                          className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/80 p-3 text-start shadow-sm transition hover:-translate-y-0.5 hover:border-teal-500/50 hover:shadow-md"
+                          className="group flex items-center gap-3 rounded-2xl border bg-card/80 p-3 text-start shadow-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
                         >
-                          <div className="flex size-11 items-center justify-center rounded-xl bg-teal-50 text-teal-800 ring-1 ring-teal-100">
+                          <div className="flex size-11 items-center justify-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10">
                             <acc.icon className="size-5" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="font-semibold">{t(acc.labelKey)}</div>
-                            <div className="truncate text-xs text-slate-500">{acc.meta}</div>
-                            <div className="truncate text-xs text-slate-400">{acc.email}</div>
+                            <div className="truncate text-xs text-muted-foreground">{acc.meta}</div>
+                            <div className="truncate text-xs text-muted-foreground/75">{acc.email}</div>
                           </div>
-                          <span className="text-sm font-semibold text-teal-700 group-hover:text-teal-900">
+                          <span className="text-sm font-semibold text-primary group-hover:text-foreground">
                             {t('auth.useDemo')}
                           </span>
                         </button>
@@ -264,7 +254,7 @@ export function AuthScreen() {
             </TabsContent>
 
             <TabsContent value="register">
-              <Card className="border-white/80 bg-white/85 shadow-2xl shadow-slate-900/10 backdrop-blur-xl">
+              <Card className="border-white/80 bg-card/90 shadow-2xl shadow-brand-navy/10 backdrop-blur-xl">
                 <CardHeader>
                   <CardTitle className="text-2xl">{t('auth.registerTitle')}</CardTitle>
                   <CardDescription className="text-base">{t('auth.registerSubtitle')}</CardDescription>
@@ -275,12 +265,12 @@ export function AuthScreen() {
                     <div className="space-y-2">
                       <Label>{t('auth.accountType')}</Label>
                       <RadioGroup value={regRole} onValueChange={(v) => setRegRole(v as Role)} className="grid grid-cols-2 gap-3">
-                        <Label htmlFor="role-seafarer" className="flex cursor-pointer items-center gap-2 rounded-xl border bg-white p-3 transition has-[:checked]:border-teal-600 has-[:checked]:bg-teal-50">
+                        <Label htmlFor="role-seafarer" className="flex cursor-pointer items-center gap-2 rounded-xl border bg-card p-3 transition has-[:checked]:border-primary has-[:checked]:bg-secondary">
                           <RadioGroupItem id="role-seafarer" value="SEAFARER" />
                           <User className="size-4" />
                           <span className="text-sm font-medium">{t('role.seafarer')}</span>
                         </Label>
-                        <Label htmlFor="role-recruiter" className="flex cursor-pointer items-center gap-2 rounded-xl border bg-white p-3 transition has-[:checked]:border-teal-600 has-[:checked]:bg-teal-50">
+                        <Label htmlFor="role-recruiter" className="flex cursor-pointer items-center gap-2 rounded-xl border bg-card p-3 transition has-[:checked]:border-primary has-[:checked]:bg-secondary">
                           <RadioGroupItem id="role-recruiter" value="RECRUITER" />
                           <Building2 className="size-4" />
                           <span className="text-sm font-medium">{t('role.recruiter')}</span>
@@ -328,7 +318,7 @@ export function AuthScreen() {
                       <Input id="reg-country" value={regCountry} onChange={(e) => setRegCountry(e.target.value)} className="h-11 rounded-xl" />
                     </div>
 
-                    <Button type="submit" className="h-12 w-full rounded-xl bg-teal-700 text-base hover:bg-teal-800" disabled={loading}>
+                    <Button type="submit" className="h-12 w-full rounded-xl text-base" disabled={loading}>
                       {loading && <Loader2 className="me-2 size-4 animate-spin" />}
                       {t('auth.registerCta')}
                     </Button>

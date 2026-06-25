@@ -18,7 +18,7 @@ export function SectionCard({
   contentClassName?: string
 }) {
   return (
-    <Card className={cn('p-4 sm:p-6', className)}>
+    <Card className={cn('border-border/80 bg-card/95 p-4 sm:p-6', className)}>
       {(title || subtitle || action) && (
         <div className="flex items-start justify-between gap-3 mb-4">
           <div className="min-w-0">

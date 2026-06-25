@@ -49,7 +49,7 @@ export function AppSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex w-60 shrink-0 flex-col border-e bg-background/60 backdrop-blur">
+      <aside className="hidden lg:flex w-60 shrink-0 flex-col border-e border-sidebar-border bg-sidebar/90 text-sidebar-foreground backdrop-blur">
         <nav className="flex-1 p-3 space-y-1 sticky top-16 self-start max-h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin">
           {items.map((item) => (
             <Button
@@ -66,7 +66,7 @@ export function AppSidebar() {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t bg-background/95 backdrop-blur px-2 py-1.5 flex items-center gap-1 overflow-x-auto scrollbar-thin safe-bottom">
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-sidebar-border bg-sidebar/95 text-sidebar-foreground backdrop-blur px-2 py-1.5 flex items-center gap-1 overflow-x-auto scrollbar-thin safe-bottom">
         {items.map((item) => (
           <button
             key={item.key}

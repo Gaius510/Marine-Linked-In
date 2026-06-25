@@ -20,7 +20,11 @@ export function EmptyState({
 }) {
   const content = (
     <div className={cn('text-center', framed ? 'p-8 sm:p-10' : 'py-8', className)}>
-      {Icon && <Icon className="size-10 text-muted-foreground/40 mx-auto mb-3" />}
+      {Icon && (
+        <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-xl bg-secondary text-primary">
+          <Icon className="size-6" />
+        </div>
+      )}
       <p className="font-medium">{title}</p>
       {description && <p className="text-sm text-muted-foreground mt-1">{description}</p>}
       {action && <div className="mt-4">{action}</div>}
