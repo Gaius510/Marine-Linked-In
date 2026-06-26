@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { PageHeader } from '@/components/shared/page-header'
 import { JobCard } from '@/components/shared/job-card'
-import { Card } from '@/components/ui/card'
+import { EmptyState } from '@/components/shared/empty-state'
+import { PageToolbar } from '@/components/shared/page-toolbar'
+import { StatusPill } from '@/components/shared/status-pill'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
@@ -17,7 +18,7 @@ import { useI18n } from '@/lib/i18n'
 import { useNavStore } from '@/stores/nav-store'
 import { toast } from 'sonner'
 import type { Job } from '@/lib/types'
-import { PlusCircle, Briefcase, Users, Trash2, Eye, DoorOpen, DoorClosed } from 'lucide-react'
+import { PlusCircle, Briefcase, Trash2, Eye, DoorOpen, DoorClosed } from 'lucide-react'
 
 export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: string) => void }) {
   const { t } = useI18n()
@@ -33,11 +34,14 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
   })
 
   const jobs = data?.jobs ?? []
+  const openJobs = jobs.filter((job) => job.status === 'OPEN').length
+  const closedJobs = jobs.length - openJobs
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: 'OPEN' | 'CLOSED' }) =>
       api.put(`/api/jobs/${id}?id=${id}`, { status }),
     onSuccess: () => {
+      toast.success(t('jobs.statusUpdated'))
       qc.invalidateQueries({ queryKey: ['jobs'] })
     },
     onError: () => toast.error(t('common.error')),
@@ -54,39 +58,50 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
   })
 
   return (
-    <div>
-      <PageHeader
-        title={t('recruiter.myJobPostings')}
-        action={
+    <div className="space-y-4">
+      <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold tracking-tight">{t('recruiter.myJobPostings')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {isLoading ? t('common.loading') : t('jobs.managementSummary', { count: jobs.length })}
+          </p>
+          {!isLoading && jobs.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              <StatusPill tone="success">{t('jobs.openCount', { count: openJobs })}</StatusPill>
+              <StatusPill tone="neutral">{t('jobs.closedCount', { count: closedJobs })}</StatusPill>
+            </div>
+          )}
+        </div>
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
           <Button onClick={() => setView('postJob')} className="h-10">
             <PlusCircle className="size-4" />
             {t('common.postJob')}
           </Button>
-        }
-      />
+        </div>
+      </PageToolbar>
 
       {isLoading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} className="h-52 rounded-xl" />
           ))}
         </div>
       ) : jobs.length === 0 ? (
-        <Card className="p-10 text-center">
-          <div className="mx-auto size-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-3">
-            <Briefcase className="size-6" />
-          </div>
-          <p className="text-sm text-muted-foreground mb-4">{t('recruiter.noJobs')}</p>
-          <Button onClick={() => setView('postJob')} className="mx-auto">
-            <PlusCircle className="size-4" />
-            {t('common.postJob')}
-          </Button>
-        </Card>
+        <EmptyState
+          icon={Briefcase}
+          title={t('recruiter.noJobs')}
+          description={t('jobs.noJobsHelp')}
+          action={
+            <Button onClick={() => setView('postJob')}>
+              <PlusCircle className="size-4" />
+              {t('common.postJob')}
+            </Button>
+          }
+        />
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {jobs.map((job) => {
             const isOpen = job.status === 'OPEN'
-            const applicantsCount = job._count?.applications ?? 0
             return (
               <JobCard
                 key={job.id}
@@ -113,8 +128,10 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
                       }
                       disabled={statusMutation.isPending}
                       aria-label={isOpen ? t('jobs.closeJob') : t('jobs.reopenJob')}
+                      title={isOpen ? t('jobs.closeJobHelp') : t('jobs.reopenJobHelp')}
                     >
                       {isOpen ? <DoorClosed className="size-4" /> : <DoorOpen className="size-4" />}
+                      <span className="hidden sm:inline">{isOpen ? t('jobs.closeJob') : t('jobs.reopenJob')}</span>
                     </Button>
                     <Button
                       variant="ghost"
@@ -150,6 +167,7 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
             <AlertDialogTitle>{t('jobs.deleteJob')}</AlertDialogTitle>
             <AlertDialogDescription>
               {t('jobs.deleteJobConfirm')}
+              <span className="mt-2 block">{t('jobs.closeInsteadHelp')}</span>
               {deleteJob && (
                 <span className="block mt-2 font-medium text-foreground">
                   “{deleteJob.title}”
@@ -169,14 +187,6 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-      {/* Empty applicants hint when no applicants dialog open */}
-      {!applicantsJob && jobs.length > 0 && (
-        <div className="mt-6 text-xs text-muted-foreground flex items-center gap-1.5">
-          <Users className="size-3.5" />
-          {t('jobs.applicants')} — {t('jobs.viewApplicants')}
-        </div>
-      )}
     </div>
   )
 }

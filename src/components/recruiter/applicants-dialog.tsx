@@ -8,24 +8,27 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Card } from '@/components/ui/card'
+import { EmptyState } from '@/components/shared/empty-state'
+import { ErrorState } from '@/components/shared/error-state'
+import { SectionCard } from '@/components/shared/section-card'
+import { StatusPill, type StatusTone } from '@/components/shared/status-pill'
 import { api } from '@/lib/api'
+import { formatDate, formatYears, safeText } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
 import type { Application, ApplicationStatus } from '@/lib/types'
-import { Anchor, Calendar, Inbox } from 'lucide-react'
+import { Anchor, Calendar, Clock, Inbox, UserRound } from 'lucide-react'
 
 const APP_STATUSES: ApplicationStatus[] = ['PENDING', 'REVIEWED', 'SHORTLISTED', 'REJECTED', 'HIRED']
 
-const statusVariant: Record<ApplicationStatus, 'secondary' | 'default' | 'destructive' | 'outline'> = {
-  PENDING: 'secondary',
-  REVIEWED: 'outline',
-  SHORTLISTED: 'default',
-  REJECTED: 'destructive',
-  HIRED: 'default',
+const statusTone: Record<ApplicationStatus, StatusTone> = {
+  PENDING: 'warning',
+  REVIEWED: 'info',
+  SHORTLISTED: 'primary',
+  REJECTED: 'danger',
+  HIRED: 'success',
 }
 
 interface ApplicantsDialogProps {
@@ -39,16 +42,19 @@ export function ApplicantsDialog({ job, onOpenChange, onViewProfile }: Applicant
   const qc = useQueryClient()
   const open = !!job
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['applications', 'job', job?.id],
     queryFn: () => api.get<{ applications: Application[] }>(`/api/applications?jobId=${job?.id}`),
     enabled: !!job,
   })
 
+  const applications = data?.applications ?? []
+
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: ApplicationStatus }) =>
       api.put(`/api/applications/${id}?id=${id}`, { status }),
     onSuccess: () => {
+      toast.success(t('jobs.applicationStatusUpdated'))
       qc.invalidateQueries({ queryKey: ['applications'] })
       qc.invalidateQueries({ queryKey: ['applications', 'job', job?.id] })
     },
@@ -57,107 +63,150 @@ export function ApplicantsDialog({ job, onOpenChange, onViewProfile }: Applicant
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin">
-        <DialogHeader>
-          <DialogTitle>{job ? t('jobs.applicantsFor', { title: job.title }) : ''}</DialogTitle>
+      <DialogContent className="max-h-[92vh] gap-0 overflow-hidden p-0 sm:max-w-[min(58rem,calc(100vw-2rem))]">
+        <DialogHeader className="border-b border-border/70 bg-card/95 px-5 py-4 pe-12 text-start">
+          <DialogTitle>{job ? t('jobs.applicantsFor', { title: job.title }) : t('jobs.viewApplicants')}</DialogTitle>
           <DialogDescription>
-            {data?.applications.length ?? 0} {t('jobs.applicants')}
+            {isLoading ? t('common.loading') : t('jobs.applicantsCount', { count: applications.length })}
           </DialogDescription>
         </DialogHeader>
 
-        {isLoading ? (
-          <div className="space-y-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-20 w-full" />
-            ))}
-          </div>
-        ) : !data?.applications.length ? (
-          <div className="flex flex-col items-center justify-center py-10 text-center">
-            <div className="size-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-3">
-              <Inbox className="size-6" />
+        <div className="scrollbar-thin max-h-[calc(92vh-5.75rem)] overflow-y-auto p-5">
+          {isLoading ? (
+            <div className="space-y-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="h-28 w-full rounded-lg" />
+              ))}
             </div>
-            <p className="text-sm text-muted-foreground">{t('jobs.noApplicantsForJob')}</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {data.applications.map((app) => {
-              const name = app.seafarer?.user.name ?? '—'
-              const initials = name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
-              return (
-                <Card key={app.id} className="p-4 shadow-none">
-                  <div className="flex items-start gap-3">
-                    <Avatar className="size-10 rounded-xl bg-primary/10 shrink-0">
-                      <AvatarFallback className="bg-primary/10 text-primary font-semibold rounded-xl text-sm">
-                        {initials}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <button
-                            onClick={() => onViewProfile?.(app.seafarerId)}
-                            className="font-medium text-sm hover:text-primary transition-colors text-start truncate block max-w-full"
-                          >
-                            {name}
-                          </button>
-                          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5">
-                            {app.seafarer?.rank && (
-                              <span className="flex items-center gap-1">
-                                <Anchor className="size-3" />
-                                {app.seafarer.rank}
-                              </span>
-                            )}
-                            <span className="flex items-center gap-1">
-                              <Calendar className="size-3" />
-                              {new Date(app.createdAt).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
-                        <Badge variant={statusVariant[app.status]}>
-                          {t(`jobs.applicationStatus.${app.status}`)}
-                        </Badge>
-                      </div>
-
-                      {app.message && (
-                        <p className="text-xs text-muted-foreground mt-2 line-clamp-2 italic">
-                          “{app.message}”
-                        </p>
-                      )}
-
-                      <div className="flex items-center gap-2 mt-3">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onViewProfile?.(app.seafarerId)}
-                        >
-                          {t('common.viewProfile')}
-                        </Button>
-                        <Select
-                          value={app.status}
-                          onValueChange={(v) =>
-                            statusMutation.mutate({ id: app.id, status: v as ApplicationStatus })
-                          }
-                        >
-                          <SelectTrigger size="sm" className="w-40 h-8">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {APP_STATUSES.map((s) => (
-                              <SelectItem key={s} value={s}>
-                                {t(`jobs.applicationStatus.${s}`)}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              )
-            })}
-          </div>
-        )}
+          ) : isError ? (
+            <ErrorState onRetry={() => refetch()} />
+          ) : applications.length === 0 ? (
+            <EmptyState
+              icon={Inbox}
+              title={t('jobs.noApplicantsForJob')}
+              description={t('jobs.noApplicantsForJobHelp')}
+              framed={false}
+            />
+          ) : (
+            <div className="space-y-3">
+              {applications.map((app) => (
+                <ApplicantItem
+                  key={app.id}
+                  application={app}
+                  updating={statusMutation.isPending}
+                  onStatusChange={(status) => statusMutation.mutate({ id: app.id, status })}
+                  onViewProfile={onViewProfile}
+                  t={t}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </DialogContent>
     </Dialog>
+  )
+}
+
+function ApplicantItem({
+  application,
+  updating,
+  onStatusChange,
+  onViewProfile,
+  t,
+}: {
+  application: Application
+  updating: boolean
+  onStatusChange: (status: ApplicationStatus) => void
+  onViewProfile?: (seafarerId: string) => void
+  t: (key: string, params?: Record<string, string | number>) => string
+}) {
+  const name = application.seafarer?.user.name ?? '-'
+  const initials = name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
+  const seafarer = application.seafarer
+
+  return (
+    <SectionCard className="p-4" contentClassName="space-y-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+        <Avatar className="size-11 shrink-0 rounded-xl">
+          <AvatarFallback className="rounded-xl bg-secondary text-sm font-semibold text-primary">
+            {initials}
+          </AvatarFallback>
+        </Avatar>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div className="min-w-0">
+              <button
+                type="button"
+                onClick={() => onViewProfile?.(application.seafarerId)}
+                className="block max-w-full truncate text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                {name}
+              </button>
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                {seafarer?.rank && (
+                  <span className="flex items-center gap-1 font-medium text-foreground">
+                    <Anchor className="size-3.5" />
+                    {seafarer.rank}
+                  </span>
+                )}
+                {seafarer?.yearsExperience && (
+                  <span className="flex items-center gap-1">
+                    <Clock className="size-3.5" />
+                    {formatYears(seafarer.yearsExperience)}
+                  </span>
+                )}
+                <span className="flex items-center gap-1">
+                  <Calendar className="size-3.5" />
+                  {t('jobs.appliedOn')} {formatDate(application.createdAt)}
+                </span>
+              </div>
+            </div>
+            <StatusPill tone={statusTone[application.status]}>
+              {t(`jobs.applicationStatus.${application.status}`)}
+            </StatusPill>
+          </div>
+
+          <div className="mt-3 rounded-lg bg-muted/45 p-3 text-sm text-muted-foreground">
+            <div className="mb-1 flex items-center gap-1 text-xs font-medium uppercase text-muted-foreground">
+              <UserRound className="size-3.5" />
+              {t('jobs.candidateSummary')}
+            </div>
+            <p className="line-clamp-3 leading-6">
+              {safeText(seafarer?.bio || application.message || application.coverLetter, t('common.notProvided'))}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2 border-t border-border/70 pt-3 sm:flex-row sm:items-center sm:justify-between">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => onViewProfile?.(application.seafarerId)}
+        >
+          {t('common.viewProfile')}
+        </Button>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground">{t('jobs.changeStatus')}</span>
+          <Select
+            value={application.status}
+            onValueChange={(value) => onStatusChange(value as ApplicationStatus)}
+            disabled={updating}
+          >
+            <SelectTrigger size="sm" className="h-8 w-44" aria-label={t('jobs.changeStatus')}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {APP_STATUSES.map((status) => (
+                <SelectItem key={status} value={status}>
+                  {t(`jobs.applicationStatus.${status}`)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </SectionCard>
   )
 }
