@@ -19,7 +19,7 @@ import { formatDate, formatYears, safeText } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
 import type { Application, ApplicationStatus } from '@/lib/types'
-import { Anchor, Calendar, Clock, Inbox, UserRound } from 'lucide-react'
+import { Anchor, Calendar, Clock, Eye, Inbox, UserRound } from 'lucide-react'
 
 const APP_STATUSES: ApplicationStatus[] = ['PENDING', 'REVIEWED', 'SHORTLISTED', 'REJECTED', 'HIRED']
 
@@ -139,7 +139,8 @@ function ApplicantItem({
               <button
                 type="button"
                 onClick={() => onViewProfile?.(application.seafarerId)}
-                className="block max-w-full truncate text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                disabled={!onViewProfile}
+                className="block max-w-full truncate rounded-sm text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-default enabled:cursor-pointer"
               >
                 {name}
               </button>
@@ -184,7 +185,9 @@ function ApplicantItem({
           variant="outline"
           size="sm"
           onClick={() => onViewProfile?.(application.seafarerId)}
+          disabled={!onViewProfile}
         >
+          <Eye className="size-4" />
           {t('common.viewProfile')}
         </Button>
         <div className="flex items-center gap-2">

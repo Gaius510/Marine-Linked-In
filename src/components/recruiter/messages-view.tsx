@@ -15,7 +15,7 @@ import { formatDate, safeText } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
 import { useNavStore } from '@/stores/nav-store'
 import type { Message } from '@/lib/types'
-import { Mail, ChevronDown, ChevronUp, Send, UserRound, Calendar } from 'lucide-react'
+import { Mail, ChevronDown, ChevronUp, Send, UserRound, Calendar, Eye } from 'lucide-react'
 
 export function MessagesView({ onViewProfile }: { onViewProfile?: (seafarerId: string) => void }) {
   const { t } = useI18n()
@@ -127,7 +127,8 @@ function MessageItem({
                 <button
                   type="button"
                   onClick={() => onViewProfile?.(message.seafarerId)}
-                  className="font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  disabled={!onViewProfile}
+                  className="cursor-pointer rounded-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-default"
                 >
                   {recipient}
                 </button>
@@ -150,7 +151,13 @@ function MessageItem({
         </div>
       </div>
 
-      <div className="flex justify-end border-t border-border/70 pt-3">
+      <div className="flex flex-wrap justify-end gap-2 border-t border-border/70 pt-3">
+        {onViewProfile && (
+          <Button type="button" variant="outline" size="sm" onClick={() => onViewProfile(message.seafarerId)}>
+            <Eye className="size-4" />
+            {t('common.viewProfile')}
+          </Button>
+        )}
         <Button
           type="button"
           variant="ghost"

@@ -33,7 +33,7 @@ export function AppHeader() {
 
   async function handleLogout() {
     await logout()
-    toast.success(t('common.success'))
+    toast.success(t('auth.logoutSuccess'))
   }
 
   function handleDashboardClick() {

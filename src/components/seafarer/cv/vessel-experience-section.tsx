@@ -65,7 +65,7 @@ export function VesselExperienceSection({
     if (!deleteId || deleteMutation.isPending) return
     deleteMutation.mutate(deleteId, {
       onSuccess: () => {
-        toast.success(t('common.success'))
+        toast.success(t('cv.experienceDeleted'))
         setDeleteId(null)
       },
       onError: () => toast.error(t('common.error')),

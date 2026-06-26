@@ -13,7 +13,7 @@ import { Separator } from '@/components/ui/separator'
 import { Card } from '@/components/ui/card'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { useI18n } from '@/lib/i18n'
-import type { SeafarerWithRelations } from '@/lib/types'
+import type { SeafarerWithOptionalRelations } from '@/lib/types'
 import {
   Anchor,
   Ship,
@@ -37,7 +37,7 @@ import {
 } from 'lucide-react'
 
 interface SeafarerDetailDialogProps {
-  seafarer: SeafarerWithRelations | null
+  seafarer: SeafarerWithOptionalRelations | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }

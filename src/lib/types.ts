@@ -73,6 +73,11 @@ export interface SeafarerWithRelations extends SeafarerProfile {
   savedByMe?: boolean
 }
 
+export type SeafarerWithOptionalRelations = Omit<SeafarerWithRelations, 'certificates' | 'vesselExperiences'> & {
+  certificates?: Certificate[]
+  vesselExperiences?: VesselExperience[]
+}
+
 export interface Job {
   id: string
   recruiterId: string

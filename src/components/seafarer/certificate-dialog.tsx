@@ -72,7 +72,7 @@ export function CertificateDialog({ open, onOpenChange, certificate }: Certifica
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['seafarer', 'me'] })
-      toast.success(t('cv.savedSuccess'))
+      toast.success(t(isEdit ? 'cv.certificateUpdated' : 'cv.certificateAdded'))
       onOpenChange(false)
     },
     onError: () => toast.error(t('common.error')),

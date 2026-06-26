@@ -3,16 +3,17 @@
 import { Card } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Button } from '@/components/ui/button'
 import { AvailabilityBadge } from './availability-badge'
 import { StatusPill } from '@/components/shared/status-pill'
 import { formatDate, formatYears } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { Ship, MapPin, Calendar, Anchor, Clock } from 'lucide-react'
-import type { SeafarerWithRelations } from '@/lib/types'
+import { Ship, MapPin, Calendar, Anchor, Clock, Eye } from 'lucide-react'
+import type { SeafarerWithOptionalRelations } from '@/lib/types'
 import { useI18n } from '@/lib/i18n'
 
 interface SeafarerCardProps {
-  seafarer: SeafarerWithRelations
+  seafarer: SeafarerWithOptionalRelations
   selectable?: boolean
   selected?: boolean
   onSelect?: (checked: boolean) => void
@@ -24,13 +25,15 @@ interface SeafarerCardProps {
 export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions, onClick, showSaved }: SeafarerCardProps) {
   const { t } = useI18n()
   const initials = seafarer.user.name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
-  const vesselTypes = Array.from(new Set(seafarer.vesselExperiences.map((e) => e.vesselType))).slice(0, 3)
+  const vesselExperiences = seafarer.vesselExperiences ?? []
+  const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType))).slice(0, 3)
   const location = [seafarer.user.city, seafarer.user.country].filter(Boolean).join(', ')
 
   return (
     <Card
       className={cn(
-        'p-4 transition-all hover:border-primary/30 hover:shadow-md',
+        'p-4 transition-all',
+        onClick && 'hover:border-primary/30 hover:shadow-md',
         selected && 'border-primary/45 bg-secondary/45 shadow-sm ring-1 ring-primary/20'
       )}
     >
@@ -53,7 +56,7 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
                 type="button"
                 onClick={onClick}
                 disabled={!onClick}
-                className="block max-w-full truncate text-start text-base font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-default"
+                className="block max-w-full truncate rounded-sm text-start text-base font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-default enabled:cursor-pointer"
               >
                 {seafarer.user.name}
               </button>
@@ -106,9 +109,9 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
                 {t('browse.noExperience')}
               </StatusPill>
             )}
-            {vesselTypes.length > 0 && seafarer.vesselExperiences.length > vesselTypes.length && (
+            {vesselTypes.length > 0 && vesselExperiences.length > vesselTypes.length && (
               <StatusPill tone="primary" className="text-[11px] font-normal">
-                +{seafarer.vesselExperiences.length - vesselTypes.length}
+                +{vesselExperiences.length - vesselTypes.length}
               </StatusPill>
             )}
           </div>
@@ -120,7 +123,17 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
           )}
         </div>
       </div>
-      {actions && <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/70 pt-3">{actions}</div>}
+      {(onClick || actions) && (
+        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/70 pt-3">
+          {onClick && (
+            <Button type="button" variant="outline" size="sm" className="h-8 flex-1" onClick={onClick}>
+              <Eye className="size-4" />
+              {t('common.viewProfile')}
+            </Button>
+          )}
+          {actions}
+        </div>
+      )}
     </Card>
   )
 }

@@ -40,8 +40,8 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: 'OPEN' | 'CLOSED' }) =>
       api.put(`/api/jobs/${id}?id=${id}`, { status }),
-    onSuccess: () => {
-      toast.success(t('jobs.statusUpdated'))
+    onSuccess: (_data, vars) => {
+      toast.success(t(vars.status === 'OPEN' ? 'jobs.reopenSuccess' : 'jobs.closeSuccess'))
       qc.invalidateQueries({ queryKey: ['jobs'] })
     },
     onError: () => toast.error(t('common.error')),
@@ -50,7 +50,7 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
   const deleteMutation = useMutation({
     mutationFn: (id: string) => api.del(`/api/jobs/${id}?id=${id}`),
     onSuccess: () => {
-      toast.success(t('common.success'))
+      toast.success(t('jobs.deleteSuccess'))
       qc.invalidateQueries({ queryKey: ['jobs'] })
       setDeleteJob(null)
     },

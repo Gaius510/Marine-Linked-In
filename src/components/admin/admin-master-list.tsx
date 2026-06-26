@@ -41,7 +41,7 @@ import { SeafarerDetailDialog } from './seafarer-detail-dialog'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
-import type { SeafarerWithRelations, SafeUser, Availability } from '@/lib/types'
+import type { SeafarerWithOptionalRelations, SafeUser, Availability } from '@/lib/types'
 import { VESSEL_TYPES, RANKS, NATIONALITIES } from '@/lib/types'
 
 interface AdminStats {
@@ -53,7 +53,7 @@ interface AdminStats {
   onBoard: number
 }
 
-type AdminSeafarer = SeafarerWithRelations & { user: SafeUser & { createdAt: string } }
+type AdminSeafarer = SeafarerWithOptionalRelations & { user: SafeUser & { createdAt: string } }
 type AdminUser = SafeUser & { createdAt: string }
 
 interface AdminStatsResponse {
@@ -180,7 +180,7 @@ export function AdminMasterList() {
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS)
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('table')
-  const [selected, setSelected] = useState<SeafarerWithRelations | null>(null)
+  const [selected, setSelected] = useState<AdminSeafarer | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
 
   // Debounce search input 300ms
@@ -211,7 +211,7 @@ export function AdminMasterList() {
 
   const clearFilters = () => setFilters(EMPTY_FILTERS)
 
-  const openDetail = (s: SeafarerWithRelations) => {
+  const openDetail = (s: AdminSeafarer) => {
     setSelected(s)
     setDialogOpen(true)
   }

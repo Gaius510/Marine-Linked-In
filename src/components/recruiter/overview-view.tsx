@@ -158,7 +158,7 @@ export function OverviewView({
                           <button
                             type="button"
                             onClick={() => onViewProfile(app.seafarerId)}
-                            className="min-w-0 truncate text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            className="min-w-0 cursor-pointer truncate rounded-sm text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                           >
                             {name}
                           </button>
@@ -227,7 +227,13 @@ export function OverviewView({
                         </AvatarFallback>
                       </Avatar>
                       <div className="min-w-0 flex-1">
-                        <div className="truncate text-sm font-semibold">{name}</div>
+                        <button
+                          type="button"
+                          onClick={() => onViewProfile(iv.seafarerId)}
+                          className="max-w-full cursor-pointer truncate rounded-sm text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        >
+                          {name}
+                        </button>
                         <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
                           {iv.job?.title && <span className="truncate">{iv.job.title}</span>}
                           {dt && (

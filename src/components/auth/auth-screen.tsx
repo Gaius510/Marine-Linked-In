@@ -71,15 +71,17 @@ export function AuthScreen() {
     invalid_credentials: t('auth.invalidCredentials'),
     email_exists: t('auth.emailExists'),
     company_required: t('auth.fillCompany'),
-    missing_fields: t('common.error'),
-    short_password: t('common.error'),
+    missing_fields: t('auth.missingFields'),
+    short_password: t('auth.shortPassword'),
+    admin_registration_disabled: t('auth.adminRegistrationDisabled'),
+    invalid_role: t('auth.invalidRole'),
   }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     try {
       await login(loginEmail, loginPassword)
-      toast.success(t('common.success'))
+      toast.success(t('auth.loginSuccess'))
     } catch (err) {
       const key = (err as Error).message
       toast.error(errorMap[key] || t('common.error'))

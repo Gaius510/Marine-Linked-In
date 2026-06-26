@@ -60,7 +60,7 @@ export function PersonalInformationSection({
   const save = () => {
     if (mutation.isPending) return
     mutation.mutate(form, {
-      onSuccess: () => toast.success(t('cv.savedSuccess')),
+      onSuccess: () => toast.success(t('cv.personalSaved')),
       onError: () => toast.error(t('common.error')),
     })
   }

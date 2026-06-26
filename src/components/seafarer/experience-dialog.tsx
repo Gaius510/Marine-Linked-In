@@ -104,7 +104,7 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['seafarer', 'me'] })
-      toast.success(t('cv.savedSuccess'))
+      toast.success(t(isEdit ? 'cv.experienceUpdated' : 'cv.experienceAdded'))
       onOpenChange(false)
     },
     onError: () => {

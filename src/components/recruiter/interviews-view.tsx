@@ -15,7 +15,7 @@ import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
 import type { Interview, InterviewStatus } from '@/lib/types'
 import {
-  CalendarClock, Calendar, Clock, MapPin, Check, X as XIcon, Briefcase, FileText,
+  CalendarClock, Calendar, Clock, MapPin, Check, X as XIcon, Briefcase, FileText, Eye,
 } from 'lucide-react'
 
 const statusTone: Record<InterviewStatus, StatusTone> = {
@@ -149,7 +149,8 @@ function InterviewItem({
               <button
                 type="button"
                 onClick={() => onViewProfile?.(interview.seafarerId)}
-                className="block max-w-full truncate text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                disabled={!onViewProfile}
+                className="block max-w-full truncate rounded-sm text-start text-sm font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-default enabled:cursor-pointer"
               >
                 {name}
               </button>
@@ -207,6 +208,15 @@ function InterviewItem({
           <Button
             variant="outline"
             size="sm"
+            onClick={() => onViewProfile?.(interview.seafarerId)}
+            disabled={!onViewProfile}
+          >
+            <Eye className="size-4" />
+            {t('common.viewProfile')}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => onUpdateStatus('COMPLETED')}
             disabled={updating}
           >
@@ -222,6 +232,14 @@ function InterviewItem({
           >
             <XIcon className="size-4" />
             {t('interview.cancel')}
+          </Button>
+        </div>
+      )}
+      {!isScheduled && onViewProfile && (
+        <div className="flex justify-end border-t border-border/70 pt-3">
+          <Button variant="outline" size="sm" onClick={() => onViewProfile(interview.seafarerId)}>
+            <Eye className="size-4" />
+            {t('common.viewProfile')}
           </Button>
         </div>
       )}

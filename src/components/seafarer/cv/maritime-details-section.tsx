@@ -62,7 +62,7 @@ export function MaritimeDetailsSection({
   const save = () => {
     if (mutation.isPending) return
     mutation.mutate(form, {
-      onSuccess: () => toast.success(t('cv.savedSuccess')),
+      onSuccess: () => toast.success(t('cv.maritimeSaved')),
       onError: () => toast.error(t('common.error')),
     })
   }
