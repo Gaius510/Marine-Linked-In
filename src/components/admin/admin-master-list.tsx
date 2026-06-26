@@ -10,18 +10,23 @@ import {
   Table as TableIcon,
   LayoutGrid,
   Download,
-  Info,
+  Eye,
+  SlidersHorizontal,
 } from 'lucide-react'
 import { PageHeader } from '@/components/shared/page-header'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { ErrorState } from '@/components/shared/error-state'
+import { EmptyState } from '@/components/shared/empty-state'
+import { PageToolbar } from '@/components/shared/page-toolbar'
+import { SectionCard } from '@/components/shared/section-card'
+import { StatusPill, type StatusTone } from '@/components/shared/status-pill'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Select,
   SelectTrigger,
@@ -43,6 +48,8 @@ import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
 import type { SeafarerWithOptionalRelations, SafeUser, Availability } from '@/lib/types'
 import { VESSEL_TYPES, RANKS, NATIONALITIES } from '@/lib/types'
+import { computeCompleteness } from '@/components/seafarer/profile-completeness'
+import { formatYears } from '@/lib/format'
 
 interface AdminStats {
   totalSeafarers: number
@@ -103,10 +110,20 @@ function formatDate(iso: string | null | undefined): string {
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
+function completionTone(value: number): StatusTone {
+  if (value >= 80) return 'success'
+  if (value >= 40) return 'warning'
+  return 'danger'
+}
+
+function vesselTypeSummary(seafarer: AdminSeafarer): string {
+  return Array.from(new Set((seafarer.vesselExperiences ?? []).map((experience) => experience.vesselType))).join('; ')
+}
+
 function escapeCsv(value: string | null | undefined): string {
   if (value === null || value === undefined) return ''
   const s = String(value)
-  if (/[",\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`
+  if (/[",\r\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`
   return s
 }
 
@@ -131,11 +148,11 @@ function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, va
     s.rank,
     s.nationality,
     s.availability,
-    Array.from(new Set((s.vesselExperiences ?? []).map((e) => e.vesselType))).join('; '),
+    vesselTypeSummary(s),
     s.yearsExperience,
     s.user.city,
     s.user.country,
-    s.user.createdAt,
+    formatDate(s.user.createdAt),
   ])
   const csv = [headers, ...rows].map((r) => r.map(escapeCsv).join(',')).join('\n')
   const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' })
@@ -211,6 +228,21 @@ export function AdminMasterList() {
 
   const clearFilters = () => setFilters(EMPTY_FILTERS)
 
+  const activeFilters: Array<{ key: keyof Filters; label: string; value: string }> = []
+  if (filters.search.trim()) activeFilters.push({ key: 'search', label: t('common.search'), value: filters.search.trim() })
+  if (filters.rank !== ALL) activeFilters.push({ key: 'rank', label: t('admin.rank'), value: filters.rank })
+  if (filters.vesselType !== ALL) activeFilters.push({ key: 'vesselType', label: t('admin.vesselExp'), value: filters.vesselType })
+  if (filters.nationality !== ALL) activeFilters.push({ key: 'nationality', label: t('admin.nationality'), value: filters.nationality })
+  if (filters.availability !== ALL) activeFilters.push({ key: 'availability', label: t('admin.availability'), value: t(`availability.${filters.availability}`) })
+  if (filters.minYears.trim()) activeFilters.push({ key: 'minYears', label: t('admin.minYears'), value: `${filters.minYears.trim()}+` })
+
+  const removeFilter = (key: keyof Filters) => {
+    setFilters((current) => ({
+      ...current,
+      [key]: key === 'search' || key === 'minYears' ? '' : ALL,
+    }))
+  }
+
   const openDetail = (s: AdminSeafarer) => {
     setSelected(s)
     setDialogOpen(true)
@@ -226,33 +258,35 @@ export function AdminMasterList() {
         title={t('admin.masterTitle')}
         subtitle={t('admin.masterSubtitle')}
         icon={<Database className="size-5" />}
-        action={
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => exportCsv(seafarers, t)}
-            disabled={seafarers.length === 0}
-          >
-            <Download className="size-4" />
-            {t('admin.exportCsv')}
-          </Button>
-        }
       />
-
-      {/* Info note */}
-      <div className="flex items-start gap-2.5 rounded-lg border border-primary/20 bg-primary/5 p-3 mb-4 text-sm">
-        <Info className="size-4 text-primary shrink-0 mt-0.5" />
-        <div className="min-w-0">
-          <div className="font-medium text-primary">{t('admin.filterBy')}</div>
-          <div className="text-muted-foreground text-xs mt-0.5">{t('admin.exportNote')}</div>
-        </div>
-      </div>
 
       {/* Filter bar */}
       {isLoading && !data ? (
         <FilterSkeleton />
       ) : (
-        <Card className="p-4 sm:p-5 mb-4">
+        <SectionCard
+          title={
+            <span className="inline-flex items-center gap-2">
+              <SlidersHorizontal className="size-4 text-primary" />
+              {t('admin.filterBy')}
+            </span>
+          }
+          subtitle={hasActiveFilters ? t('admin.activeFilters', { count: activeFilters.length }) : t('admin.exportNote')}
+          action={
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => exportCsv(seafarers, t)}
+              disabled={seafarers.length === 0}
+              title={t('admin.exportCount', { count: seafarers.length })}
+            >
+              <Download className="size-4" />
+              {t('admin.exportCsv')}
+              <span className="text-muted-foreground">({seafarers.length})</span>
+            </Button>
+          }
+          className="mb-4 p-4 sm:p-5"
+        >
           <div className="flex flex-col gap-3">
             {/* Row 1: search + view toggle */}
             <div className="flex flex-col sm:flex-row gap-3">
@@ -269,7 +303,7 @@ export function AdminMasterList() {
                   <button
                     type="button"
                     onClick={() => setField('search', '')}
-                    className="absolute top-1/2 -translate-y-1/2 end-2 size-6 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground"
+                    className="absolute top-1/2 -translate-y-1/2 end-2 size-6 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     aria-label={t('common.clear')}
                   >
                     <X className="size-3.5" />
@@ -353,8 +387,27 @@ export function AdminMasterList() {
               />
             </div>
 
+            {activeFilters.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {activeFilters.map((filter) => (
+                  <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
+                    <span className="text-muted-foreground">{filter.label}:</span>
+                    <span className="max-w-[12rem] truncate">{filter.value}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeFilter(filter.key)}
+                      className="rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      aria-label={`${t('common.clear')} ${filter.label}`}
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </StatusPill>
+                ))}
+              </div>
+            )}
+
             {/* Row 3: results count + clear */}
-            <div className="flex items-center justify-between gap-2 flex-wrap pt-1 border-t">
+            <PageToolbar className="gap-2 border-t pt-3">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Filter className="size-3.5" />
                 <span className="tabular-nums">
@@ -368,12 +421,12 @@ export function AdminMasterList() {
               {hasActiveFilters && (
                 <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1.5 text-muted-foreground">
                   <X className="size-3.5" />
-                  {t('common.clear')}
+                  {t('admin.clearAllFilters')}
                 </Button>
               )}
-            </div>
+            </PageToolbar>
           </div>
-        </Card>
+        </SectionCard>
       )}
 
       {/* Results */}
@@ -382,55 +435,68 @@ export function AdminMasterList() {
       ) : isLoading && !data ? (
         <TableSkeleton />
       ) : seafarers.length === 0 ? (
-        <Card className="p-10 text-center">
-          <div className="mx-auto size-12 rounded-full bg-muted flex items-center justify-center mb-3">
-            <Database className="size-6 text-muted-foreground" />
-          </div>
-          <p className="text-sm font-medium">{t('common.noResults')}</p>
-          <p className="text-xs text-muted-foreground mt-1">{t('admin.exportNote')}</p>
-        </Card>
+        <EmptyState
+          icon={Database}
+          title={t('common.noResults')}
+          description={hasActiveFilters ? t('admin.noFilteredResults') : t('admin.exportNote')}
+          action={hasActiveFilters ? (
+            <Button variant="outline" size="sm" onClick={clearFilters}>
+              <X className="size-4" />
+              {t('admin.clearAllFilters')}
+            </Button>
+          ) : undefined}
+        />
       ) : (
         <>
           {/* TABLE VIEW */}
           {viewMode === 'table' && (
-            <Card className="p-0 overflow-hidden">
-              <Table>
+            <Card className="overflow-hidden p-0">
+              <div className="overflow-x-auto">
+              <Table className="min-w-[980px]">
                 <TableHeader>
                   <TableRow className="bg-muted/40 hover:bg-muted/40">
                     <TableHead className="ps-4">{t('admin.name')}</TableHead>
-                    <TableHead>{t('admin.email')}</TableHead>
                     <TableHead>{t('admin.rank')}</TableHead>
                     <TableHead>{t('admin.nationality')}</TableHead>
                     <TableHead>{t('admin.availability')}</TableHead>
-                    <TableHead>{t('admin.vesselExp')}</TableHead>
+                    <TableHead>{t('seafarer.cvProgress')}</TableHead>
                     <TableHead className="text-end">{t('admin.yearsExp')}</TableHead>
+                    <TableHead>{t('admin.vesselExp')}</TableHead>
                     <TableHead>{t('admin.cityCountry')}</TableHead>
                     <TableHead>{t('admin.registeredDate')}</TableHead>
+                    <TableHead className="pe-4 text-end">{t('common.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {seafarers.map((s) => {
                     const vesselExperiences = s.vesselExperiences ?? []
                     const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType)))
+                    const completion = computeCompleteness({
+                      ...s,
+                      certificates: s.certificates ?? [],
+                      vesselExperiences,
+                    })
                     return (
-                      <TableRow
-                        key={s.id}
-                        onClick={() => openDetail(s)}
-                        className="cursor-pointer"
-                      >
+                      <TableRow key={s.id}>
                         <TableCell className="ps-4 font-medium">
-                          <div className="flex items-center gap-2">
-                            <span className="truncate max-w-[180px]">{s.user.name}</span>
-                            {s._count && s._count.savedBy > 0 && (
-                              <Badge variant="secondary" className="text-[10px] font-normal gap-1 shrink-0">
-                                <span className="size-1.5 rounded-full bg-emerald-500" />
-                                {s._count.savedBy}
-                              </Badge>
-                            )}
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => openDetail(s)}
+                                className="max-w-[180px] cursor-pointer truncate rounded-sm text-start font-medium hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                              >
+                                {s.user.name}
+                              </button>
+                              {s._count && s._count.savedBy > 0 && (
+                                <Badge variant="secondary" className="text-[10px] font-normal gap-1 shrink-0">
+                                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                                  {s._count.savedBy}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="mt-0.5 max-w-[220px] truncate text-xs text-muted-foreground">{s.user.email}</div>
                           </div>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">
-                          <span className="truncate inline-block max-w-[180px] align-bottom">{s.user.email}</span>
                         </TableCell>
                         <TableCell>
                           {s.rank ? (
@@ -443,6 +509,12 @@ export function AdminMasterList() {
                         <TableCell>
                           <AvailabilityBadge availability={s.availability} t={t} />
                         </TableCell>
+                        <TableCell>
+                          <StatusPill tone={completionTone(completion)}>
+                            {completion}% {completion >= 80 ? t('cv.complete') : t('cv.incomplete')}
+                          </StatusPill>
+                        </TableCell>
+                        <TableCell className="text-end tabular-nums">{formatYears(s.yearsExperience, '—')}</TableCell>
                         <TableCell>
                           {vesselTypes.length === 0 ? (
                             <span className="text-muted-foreground text-xs">—</span>
@@ -461,18 +533,24 @@ export function AdminMasterList() {
                             </div>
                           )}
                         </TableCell>
-                        <TableCell className="text-end tabular-nums">{s.yearsExperience ?? '—'}</TableCell>
                         <TableCell className="text-muted-foreground text-xs">
                           {[s.user.city, s.user.country].filter(Boolean).join(', ') || '—'}
                         </TableCell>
                         <TableCell className="text-muted-foreground text-xs whitespace-nowrap">
                           {formatDate(s.user.createdAt)}
                         </TableCell>
+                        <TableCell className="pe-4 text-end">
+                          <Button variant="outline" size="sm" onClick={() => openDetail(s)}>
+                            <Eye className="size-4" />
+                            {t('common.viewProfile')}
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     )
                   })}
                 </TableBody>
               </Table>
+              </div>
             </Card>
           )}
 

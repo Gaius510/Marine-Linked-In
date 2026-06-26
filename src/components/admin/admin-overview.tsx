@@ -1,20 +1,34 @@
 'use client'
 
+import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Users, Building2, Briefcase, Send, UserCheck, Ship, ArrowRight, ShieldCheck } from 'lucide-react'
-import { PageHeader } from '@/components/shared/page-header'
+import {
+  ArrowRight,
+  Briefcase,
+  Building2,
+  Database,
+  Send,
+  ShieldCheck,
+  Ship,
+  UserCheck,
+  Users,
+} from 'lucide-react'
 import { MetricCard } from '@/components/shared/metric-card'
 import { EmptyState } from '@/components/shared/empty-state'
-import { SeafarerCard } from '@/components/shared/seafarer-card'
 import { ErrorState } from '@/components/shared/error-state'
-import { Card } from '@/components/ui/card'
+import { PageToolbar } from '@/components/shared/page-toolbar'
+import { SectionCard } from '@/components/shared/section-card'
+import { SeafarerCard } from '@/components/shared/seafarer-card'
+import { StatusPill } from '@/components/shared/status-pill'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { RankBreakdown } from './rank-breakdown'
+import { SeafarerDetailDialog } from './seafarer-detail-dialog'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
 import { useNavStore } from '@/stores/nav-store'
-import type { SeafarerWithRelations, SafeUser } from '@/lib/types'
+import { formatDate } from '@/lib/format'
+import type { SeafarerWithOptionalRelations, SafeUser } from '@/lib/types'
 
 interface AdminStats {
   totalSeafarers: number
@@ -25,8 +39,10 @@ interface AdminStats {
   onBoard: number
 }
 
+type AdminSeafarer = SeafarerWithOptionalRelations & { user: SafeUser & { createdAt: string } }
+
 interface AdminStatsResponse {
-  seafarers: (SeafarerWithRelations & { user: SafeUser & { createdAt: string } })[]
+  seafarers: AdminSeafarer[]
   allUsers: (SafeUser & { createdAt: string })[]
   stats: AdminStats
   total: number
@@ -34,17 +50,16 @@ interface AdminStatsResponse {
 
 function OverviewSkeleton() {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-24 rounded-xl" />
+    <div className="space-y-5">
+      <Skeleton className="h-32 rounded-xl" />
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <Skeleton key={index} className="h-28 rounded-xl" />
         ))}
       </div>
-      <Skeleton className="h-72 rounded-xl" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-32 rounded-xl" />
-        ))}
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        <Skeleton className="h-80 rounded-xl" />
+        <Skeleton className="h-80 rounded-xl" />
       </div>
     </div>
   )
@@ -52,7 +67,9 @@ function OverviewSkeleton() {
 
 export function AdminOverview() {
   const { t } = useI18n()
-  const setView = useNavStore((s) => s.setView)
+  const setView = useNavStore((state) => state.setView)
+  const [selected, setSelected] = useState<AdminSeafarer | null>(null)
+  const [detailOpen, setDetailOpen] = useState(false)
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['admin', 'stats', { scope: 'overview' }],
@@ -60,92 +77,98 @@ export function AdminOverview() {
     staleTime: 30_000,
   })
 
+  const recentSeafarers = useMemo(() => {
+    return (data?.seafarers ?? [])
+      .slice()
+      .sort((a, b) => new Date(b.user.createdAt).getTime() - new Date(a.user.createdAt).getTime())
+      .slice(0, 6)
+  }, [data?.seafarers])
+
+  const openDetail = (seafarer: AdminSeafarer) => {
+    setSelected(seafarer)
+    setDetailOpen(true)
+  }
+
   return (
-    <div>
-      <PageHeader
-        title={t('admin.welcome')}
-        subtitle={t('admin.masterSubtitle')}
-        icon={<ShieldCheck className="size-5" />}
-      />
+    <div className="space-y-5">
+      <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
+        <div className="flex min-w-0 items-start gap-3">
+          <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
+            <ShieldCheck className="size-5" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-primary">{t('admin.platformOperations')}</p>
+            <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{t('admin.welcome')}</h1>
+            <p className="mt-1 text-sm text-muted-foreground">{t('admin.masterSubtitle')}</p>
+          </div>
+        </div>
+        <Button onClick={() => setView('masterList')} className="w-full sm:w-auto">
+          <Database className="size-4" />
+          {t('admin.viewFullDatabase')}
+        </Button>
+      </PageToolbar>
 
       {isLoading ? (
         <OverviewSkeleton />
       ) : isError || !data ? (
         <ErrorState onRetry={() => refetch()} />
       ) : (
-        <div className="space-y-6">
-          {/* Stats grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-            <MetricCard
-              label={t('admin.totalSeafarers')}
-              value={data.stats.totalSeafarers}
-              icon={Users}
-              tone="primary"
-            />
-            <MetricCard
-              label={t('admin.totalRecruiters')}
-              value={data.stats.totalRecruiters}
-              icon={Building2}
-              tone="emerald"
-            />
-            <MetricCard
-              label={t('admin.totalJobs')}
-              value={data.stats.totalJobs}
-              icon={Briefcase}
-              tone="amber"
-            />
-            <MetricCard
-              label={t('admin.totalApplications')}
-              value={data.stats.totalApplications}
-              icon={Send}
-              tone="violet"
-            />
-            <MetricCard
-              label={t('admin.availableNow')}
-              value={data.stats.availableNow}
-              icon={UserCheck}
-              tone="emerald"
-            />
-            <MetricCard
-              label={t('admin.onBoard')}
-              value={data.stats.onBoard}
-              icon={Ship}
-              tone="amber"
-            />
+        <>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <MetricCard label={t('admin.totalSeafarers')} value={data.stats.totalSeafarers} icon={Users} tone="primary" />
+            <MetricCard label={t('admin.totalRecruiters')} value={data.stats.totalRecruiters} icon={Building2} tone="emerald" />
+            <MetricCard label={t('admin.totalJobs')} value={data.stats.totalJobs} icon={Briefcase} tone="amber" />
+            <MetricCard label={t('admin.totalApplications')} value={data.stats.totalApplications} icon={Send} tone="violet" />
+            <MetricCard label={t('admin.availableNow')} value={data.stats.availableNow} icon={UserCheck} tone="emerald" />
+            <MetricCard label={t('admin.onBoard')} value={data.stats.onBoard} icon={Ship} tone="amber" />
           </div>
 
-          {/* Rank breakdown */}
-          <RankBreakdown seafarers={data.seafarers} />
+          <div className="grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <RankBreakdown seafarers={data.seafarers} />
 
-          {/* Recently registered seafarers */}
-          <Card className="p-4 sm:p-6">
-            <div className="flex items-center justify-between gap-3 mb-4">
-              <h3 className="text-sm font-semibold">{t('admin.recentSeafarers')}</h3>
-              <Button variant="outline" size="sm" onClick={() => setView('masterList')}>
-                {t('admin.viewFullDatabase')}
-                <ArrowRight className="size-4 rtl-flip" />
-              </Button>
-            </div>
-            {data.seafarers.length === 0 ? (
-              <EmptyState title={t('common.noResults')} framed={false} />
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {data.seafarers
-                  .slice()
-                  .sort((a, b) => new Date(b.user.createdAt).getTime() - new Date(a.user.createdAt).getTime())
-                  .slice(0, 5)
-                  .map((s) => (
-                    <SeafarerCard
-                      key={s.id}
-                      seafarer={s}
-                      showSaved
-                    />
+            <SectionCard
+              title={t('admin.recentSeafarers')}
+              subtitle={t('admin.recentSeafarersDesc')}
+              action={
+                <Button variant="ghost" size="sm" onClick={() => setView('masterList')} className="text-primary hover:bg-secondary hover:text-primary">
+                  {t('admin.viewFullDatabase')}
+                  <ArrowRight className="size-4 rtl-flip" />
+                </Button>
+              }
+            >
+              {recentSeafarers.length === 0 ? (
+                <EmptyState icon={Users} title={t('common.noResults')} framed={false} />
+              ) : (
+                <div className="grid gap-3">
+                  {recentSeafarers.map((seafarer) => (
+                    <div key={seafarer.id} className="space-y-2">
+                      <SeafarerCard
+                        seafarer={seafarer}
+                        showSaved
+                        onClick={() => openDetail(seafarer)}
+                      />
+                      <div className="flex justify-end">
+                        <StatusPill tone="neutral" className="text-[10px]">
+                          {t('admin.registeredOn')} {formatDate(seafarer.user.createdAt)}
+                        </StatusPill>
+                      </div>
+                    </div>
                   ))}
-              </div>
-            )}
-          </Card>
-        </div>
+                </div>
+              )}
+            </SectionCard>
+          </div>
+        </>
       )}
+
+      <SeafarerDetailDialog
+        seafarer={selected}
+        open={detailOpen}
+        onOpenChange={(open) => {
+          setDetailOpen(open)
+          if (!open) setSelected(null)
+        }}
+      />
     </div>
   )
 }
