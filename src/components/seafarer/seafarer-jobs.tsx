@@ -1,38 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
-import type { Job, ApplicationStatus } from '@/lib/types'
+import type { Job } from '@/lib/types'
 import { VESSEL_TYPES, RANKS } from '@/lib/types'
 import { PageHeader } from '@/components/shared/page-header'
+import { PageToolbar } from '@/components/shared/page-toolbar'
+import { SectionCard } from '@/components/shared/section-card'
+import { EmptyState } from '@/components/shared/empty-state'
+import { ErrorState } from '@/components/shared/error-state'
+import { StatusPill } from '@/components/shared/status-pill'
 import { JobCard } from '@/components/shared/job-card'
 import { ApplyDialog } from '@/components/seafarer/apply-dialog'
-import { Card } from '@/components/ui/card'
+import { JobDetailDialog } from '@/components/seafarer/job-detail-dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
+import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
-} from '@/components/ui/dialog'
 import {
   Select, SelectTrigger, SelectValue, SelectContent, SelectItem,
 } from '@/components/ui/select'
-import {
-  Briefcase, Search, MapPin, Wallet, Clock, CalendarClock, Building2, Users, X, Send,
-} from 'lucide-react'
+import { Briefcase, Search, X, Send, SlidersHorizontal } from 'lucide-react'
 
 interface JobsResponse { jobs: Job[]; total: number }
-
-const statusTone: Record<ApplicationStatus, string> = {
-  PENDING: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
-  REVIEWED: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20',
-  SHORTLISTED: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
-  REJECTED: 'bg-destructive/10 text-destructive border-destructive/20',
-  HIRED: 'bg-primary/10 text-primary border-primary/20',
-}
 
 export function SeafarerJobs() {
   const { t } = useI18n()
@@ -44,18 +36,28 @@ export function SeafarerJobs() {
   const [applyJob, setApplyJob] = useState<Job | null>(null)
   const [applyOpen, setApplyOpen] = useState(false)
 
-  const params = new URLSearchParams()
-  if (search.trim()) params.set('search', search.trim())
-  if (rank !== 'all') params.set('rank', rank)
-  if (vesselType !== 'all') params.set('vesselType', vesselType)
+  const params = useMemo(() => {
+    const next = new URLSearchParams()
+    if (search.trim()) next.set('search', search.trim())
+    if (rank !== 'all') next.set('rank', rank)
+    if (vesselType !== 'all') next.set('vesselType', vesselType)
+    return next
+  }, [search, rank, vesselType])
 
   const queryKey = ['jobs', { search, rank, vesselType }]
-  const { data, isLoading } = useQuery<JobsResponse>({
+  const { data, isLoading, isError, refetch } = useQuery<JobsResponse>({
     queryKey,
     queryFn: () => api.get<JobsResponse>(`/api/jobs?${params.toString()}`),
   })
 
   const jobs = data?.jobs ?? []
+  const resultCount = data?.total ?? jobs.length
+  const hasFilters = search.trim() !== '' || rank !== 'all' || vesselType !== 'all'
+  const activeFilters = [
+    ...(search.trim() ? [{ key: 'search', label: t('common.search'), value: search.trim() }] : []),
+    ...(rank !== 'all' ? [{ key: 'rank', label: t('browse.filterRank'), value: rank }] : []),
+    ...(vesselType !== 'all' ? [{ key: 'vesselType', label: t('browse.filterVessel'), value: vesselType }] : []),
+  ]
 
   const openDetail = (job: Job) => {
     setDetailJob(job)
@@ -66,11 +68,16 @@ export function SeafarerJobs() {
     setApplyOpen(true)
   }
 
-  const hasFilters = search.trim() !== '' || rank !== 'all' || vesselType !== 'all'
   const clearFilters = () => {
     setSearch('')
     setRank('all')
     setVesselType('all')
+  }
+
+  const removeFilter = (key: string) => {
+    if (key === 'search') setSearch('')
+    if (key === 'rank') setRank('all')
+    if (key === 'vesselType') setVesselType('all')
   }
 
   return (
@@ -81,92 +88,128 @@ export function SeafarerJobs() {
         icon={<Briefcase className="size-5" />}
       />
 
-      {/* Filter bar */}
-      <Card className="p-4">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <div className="lg:col-span-2 relative">
-            <Search className="absolute top-1/2 -translate-y-1/2 start-3 size-4 text-muted-foreground pointer-events-none" />
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={t('jobs.searchPlaceholder')}
-              className="ps-9"
-            />
+      <SectionCard
+        title={
+          <span className="inline-flex items-center gap-2">
+            <SlidersHorizontal className="size-4 text-primary" />
+            {t('jobs.jobFilters')}
+          </span>
+        }
+        subtitle={hasFilters ? t('browse.activeFilters', { count: activeFilters.length }) : t('jobs.filterHelp')}
+        action={
+          hasFilters ? (
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 text-xs">
+              <X className="size-3.5" />
+              {t('browse.clearAllFilters')}
+            </Button>
+          ) : undefined
+        }
+        className="p-4 sm:p-5"
+      >
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[minmax(260px,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)]">
+          <div>
+            <Label htmlFor="job-search" className="sr-only">{t('common.search')}</Label>
+            <div className="relative">
+              <Search className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="job-search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder={t('jobs.searchPlaceholder')}
+                className="ps-9"
+              />
+            </div>
           </div>
           <Select value={rank} onValueChange={setRank}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full" aria-label={t('jobs.allRanks')}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">{t('jobs.allRanks')}</SelectItem>
-              {RANKS.map((r) => (
-                <SelectItem key={r} value={r}>{r}</SelectItem>
+              {RANKS.map((item) => (
+                <SelectItem key={item} value={item}>{item}</SelectItem>
               ))}
             </SelectContent>
           </Select>
           <Select value={vesselType} onValueChange={setVesselType}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full" aria-label={t('jobs.allVessels')}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">{t('jobs.allVessels')}</SelectItem>
-              {VESSEL_TYPES.map((v) => (
-                <SelectItem key={v} value={v}>{v}</SelectItem>
+              {VESSEL_TYPES.map((item) => (
+                <SelectItem key={item} value={item}>{item}</SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
-        {hasFilters && (
-          <div className="flex items-center justify-between gap-3 mt-3 pt-3 border-t">
-            <p className="text-xs text-muted-foreground">
-              {data?.total ?? 0} {t('common.results')}
-            </p>
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-muted-foreground">
-              <X className="size-3.5" />
-              {t('common.clear')}
-            </Button>
+        {activeFilters.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {activeFilters.map((filter) => (
+              <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
+                <span className="text-muted-foreground">{filter.label}:</span>
+                <span className="max-w-[12rem] truncate">{filter.value}</span>
+                <button
+                  type="button"
+                  onClick={() => removeFilter(filter.key)}
+                  className="rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  aria-label={`${t('common.clear')} ${filter.label}`}
+                >
+                  <X className="size-3" />
+                </button>
+              </StatusPill>
+            ))}
           </div>
         )}
-      </Card>
+      </SectionCard>
 
-      {/* Jobs grid */}
-      {isLoading ? (
-        <div className="grid lg:grid-cols-2 gap-4">
-          <Skeleton className="h-40" />
-          <Skeleton className="h-40" />
-          <Skeleton className="h-40" />
-          <Skeleton className="h-40" />
+      <PageToolbar className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+        <div className="text-sm">
+          <span className="font-medium text-foreground">
+            {isLoading ? t('common.loading') : `${resultCount} ${t('common.results')}`}
+          </span>
+          {hasFilters && !isLoading ? (
+            <span className="text-muted-foreground"> · {t('browse.activeFilters', { count: activeFilters.length })}</span>
+          ) : null}
         </div>
+      </PageToolbar>
+
+      {isLoading ? (
+        <div className="grid gap-4 lg:grid-cols-2">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Skeleton key={index} className="h-48 rounded-lg" />
+          ))}
+        </div>
+      ) : isError ? (
+        <ErrorState onRetry={() => refetch()} />
       ) : jobs.length === 0 ? (
-        <Card className="p-10 text-center">
-          <Briefcase className="size-10 text-muted-foreground/40 mx-auto mb-3" />
-          <p className="font-medium">{t('jobs.noOpenJobs')}</p>
-          {hasFilters && (
-            <Button variant="outline" size="sm" onClick={clearFilters} className="mt-3">
+        <EmptyState
+          icon={Briefcase}
+          title={t('jobs.noOpenJobs')}
+          description={hasFilters ? t('jobs.noResultsHelp') : t('jobs.noOpenJobsHelp')}
+          action={hasFilters ? (
+            <Button variant="outline" size="sm" onClick={clearFilters}>
+              <X className="size-4" />
               {t('common.clear')}
             </Button>
-          )}
-        </Card>
+          ) : undefined}
+        />
       ) : (
-        <div className="grid lg:grid-cols-2 gap-4">
+        <div className="grid gap-4 lg:grid-cols-2">
           {jobs.map((job) => (
             <JobCard
               key={job.id}
               job={job}
               showRecruiter
               showApplicants
+              applicationStatus={job.myApplicationStatus}
               onClick={() => openDetail(job)}
               actions={
                 job.myApplicationStatus ? (
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className={statusTone[job.myApplicationStatus]}>
-                      {t(`jobs.applicationStatus.${job.myApplicationStatus}`)}
-                    </Badge>
-                    <Button size="sm" variant="secondary" disabled>
-                      {t('seafarer.applied')}
-                    </Button>
-                  </div>
+                  <Button size="sm" variant="secondary" disabled>
+                    {t('seafarer.applied')}
+                  </Button>
                 ) : (
                   <Button size="sm" onClick={() => openApply(job)}>
                     <Send className="size-3.5" />
@@ -179,7 +222,6 @@ export function SeafarerJobs() {
         </div>
       )}
 
-      {/* Detail dialog */}
       <JobDetailDialog
         job={detailJob}
         open={detailOpen}
@@ -190,111 +232,7 @@ export function SeafarerJobs() {
         }}
       />
 
-      {/* Apply dialog */}
       <ApplyDialog job={applyJob} open={applyOpen} onOpenChange={setApplyOpen} />
-    </div>
-  )
-}
-
-function JobDetailDialog({
-  job, open, onOpenChange, onApply,
-}: {
-  job: Job | null
-  open: boolean
-  onOpenChange: (v: boolean) => void
-  onApply: (job: Job) => void
-}) {
-  const { t } = useI18n()
-  if (!job) return null
-
-  const salary = job.salaryMin || job.salaryMax
-    ? `${job.salaryMin || '?'} – ${job.salaryMax || '?'} ${job.currency}`
-    : null
-
-  const alreadyApplied = !!job.myApplicationStatus
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin">
-        <DialogHeader>
-          <DialogTitle className="text-xl">{job.title}</DialogTitle>
-          <DialogDescription className="text-start">
-            <span className="inline-flex items-center gap-1.5">
-              <Building2 className="size-4" />
-              {job.companyName}
-            </span>
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex flex-wrap gap-2">
-          {job.rank && <Badge variant="outline">{job.rank}</Badge>}
-          {job.vesselType && <Badge variant="outline">{job.vesselType}</Badge>}
-          {job.location && (
-            <Badge variant="outline" className="gap-1">
-              <MapPin className="size-3" />{job.location}
-            </Badge>
-          )}
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-3 text-sm">
-          {salary && (
-            <DetailRow icon={<Wallet className="size-4" />} label={t('jobs.salaryRange').replace(' (per month)', '')} value={salary} />
-          )}
-          {job.contractDuration && (
-            <DetailRow icon={<Clock className="size-4" />} label={t('jobs.contractDuration')} value={job.contractDuration} />
-          )}
-          {job.joiningDate && (
-            <DetailRow icon={<CalendarClock className="size-4" />} label={t('jobs.joiningDate')} value={job.joiningDate} />
-          )}
-          <DetailRow
-            icon={<Users className="size-4" />}
-            label={t('jobs.applicants')}
-            value={`${job._count?.applications ?? 0}`}
-          />
-        </div>
-
-        {job.description && (
-          <div>
-            <h4 className="text-sm font-semibold mb-1">{t('jobs.description')}</h4>
-            <p className="text-sm text-muted-foreground whitespace-pre-line">{job.description}</p>
-          </div>
-        )}
-
-        {job.requirements && (
-          <div>
-            <h4 className="text-sm font-semibold mb-1">{t('jobs.requirements')}</h4>
-            <p className="text-sm text-muted-foreground whitespace-pre-line">{job.requirements}</p>
-          </div>
-        )}
-
-        <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            {t('common.close')}
-          </Button>
-          {alreadyApplied ? (
-            <Button disabled>
-              {t('jobs.alreadyApplied')}
-            </Button>
-          ) : (
-            <Button onClick={() => onApply(job)}>
-              <Send className="size-4" />
-              {t('seafarer.applyNow')}
-            </Button>
-          )}
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}
-
-function DetailRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="flex items-center gap-2 rounded-md border bg-muted/20 p-2.5">
-      <span className="text-muted-foreground shrink-0">{icon}</span>
-      <div className="min-w-0">
-        <div className="text-[11px] text-muted-foreground">{label}</div>
-        <div className="font-medium truncate">{value}</div>
-      </div>
     </div>
   )
 }

@@ -2,9 +2,9 @@
 
 import { Card } from '@/components/ui/card'
 import { StatusPill } from '@/components/shared/status-pill'
-import { formatCurrency, formatDate, safeText } from '@/lib/format'
+import { formatDate, formatSalaryRange, safeText } from '@/lib/format'
 import { Briefcase, MapPin, Wallet, CalendarClock, Clock, Building2, Users } from 'lucide-react'
-import type { Job } from '@/lib/types'
+import type { ApplicationStatus, Job } from '@/lib/types'
 import { useI18n } from '@/lib/i18n'
 
 interface JobCardProps {
@@ -14,11 +14,20 @@ interface JobCardProps {
   showApplicants?: boolean
   showStatus?: boolean
   showRecruiter?: boolean
+  applicationStatus?: ApplicationStatus | null
 }
 
-export function JobCard({ job, actions, onClick, showApplicants, showStatus, showRecruiter }: JobCardProps) {
+const applicationTone: Record<ApplicationStatus, 'warning' | 'info' | 'success' | 'danger' | 'primary'> = {
+  PENDING: 'warning',
+  REVIEWED: 'info',
+  SHORTLISTED: 'success',
+  REJECTED: 'danger',
+  HIRED: 'primary',
+}
+
+export function JobCard({ job, actions, onClick, showApplicants, showStatus, showRecruiter, applicationStatus }: JobCardProps) {
   const { t } = useI18n()
-  const salary = formatSalary(job.salaryMin, job.salaryMax, job.currency)
+  const salary = formatSalaryRange(job.salaryMin, job.salaryMax, job.currency, '')
   const applicantsCount = job._count?.applications ?? 0
 
   return (
@@ -43,6 +52,11 @@ export function JobCard({ job, actions, onClick, showApplicants, showStatus, sho
         {showStatus && (
           <StatusPill tone={job.status === 'OPEN' ? 'success' : 'neutral'}>
             {job.status === 'OPEN' ? t('jobs.open') : t('jobs.closed')}
+          </StatusPill>
+        )}
+        {applicationStatus && (
+          <StatusPill tone={applicationTone[applicationStatus]}>
+            {t(`jobs.applicationStatus.${applicationStatus}`)}
           </StatusPill>
         )}
       </div>
@@ -103,10 +117,4 @@ export function JobCard({ job, actions, onClick, showApplicants, showStatus, sho
       </div>
     </Card>
   )
-}
-
-function formatSalary(min: string | null, max: string | null, currency: string) {
-  if (!min && !max) return null
-  if (min && max) return `${formatCurrency(min, currency)} - ${formatCurrency(max, currency)}`
-  return min ? formatCurrency(min, currency) : formatCurrency(max, currency)
 }

@@ -30,6 +30,23 @@ export function formatCurrency(
   }).format(numeric)
 }
 
+export function formatSalaryRange(
+  min: string | number | null | undefined,
+  max: string | number | null | undefined,
+  currency = 'USD',
+  fallback = '-'
+): string {
+  if ((min === null || min === undefined || min === '') && (max === null || max === undefined || max === '')) {
+    return fallback
+  }
+  if (min !== null && min !== undefined && min !== '' && max !== null && max !== undefined && max !== '') {
+    return `${formatCurrency(min, currency, fallback)} - ${formatCurrency(max, currency, fallback)}`
+  }
+  return min !== null && min !== undefined && min !== ''
+    ? formatCurrency(min, currency, fallback)
+    : formatCurrency(max, currency, fallback)
+}
+
 export function formatYears(value: string | number | null | undefined, fallback = '-'): string {
   if (value === null || value === undefined || value === '') return fallback
   const numeric = typeof value === 'number' ? value : Number(value)
