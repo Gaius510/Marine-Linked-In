@@ -34,9 +34,19 @@ export function RecruiterPortal() {
     case 'saved':
       return <SavedView />
     case 'interviews':
-      return <InterviewsView />
+      return (
+        <>
+          <InterviewsView onViewProfile={openProfile} />
+          <SeafarerDetailDialog seafarerId={detailId} onOpenChange={(o) => !o && setDetailId(null)} />
+        </>
+      )
     case 'messages':
-      return <MessagesView />
+      return (
+        <>
+          <MessagesView onViewProfile={openProfile} />
+          <SeafarerDetailDialog seafarerId={detailId} onOpenChange={(o) => !o && setDetailId(null)} />
+        </>
+      )
     case 'overview':
     default:
       return (

@@ -383,6 +383,7 @@ const en: Dict = {
   // Interviews
   'interview.title': 'Interviews',
   'interview.subtitle': 'Manage your scheduled interviews',
+  'interview.summary': '{count} interviews in your recruiting workflow',
   'interview.scheduleTitle': 'Schedule interview',
   'interview.candidate': 'Candidate',
   'interview.position': 'Position',
@@ -396,6 +397,7 @@ const en: Dict = {
   'interview.noInterviews': 'No interviews yet',
   'interview.scheduleSuccess': 'Interview scheduled',
   'interview.empty': 'No interviews scheduled yet',
+  'interview.emptyDesc': 'Schedule interviews from candidate profiles when you are ready to speak with a seafarer.',
   'interview.locationLabel': 'Location',
   'interview.notesLabel': 'Notes (optional)',
   'interview.scheduledAtLabel': 'Date & time',
@@ -407,10 +409,15 @@ const en: Dict = {
   'interview.past': 'Past',
   'interview.completing': 'Updating…',
   'interview.noNotes': 'No notes',
+  'interview.statusUpdated': 'Interview status updated',
+  'interview.scheduledCount': '{count} scheduled',
+  'interview.completedCount': '{count} completed',
+  'interview.cancelledCount': '{count} cancelled',
 
   // Messages
   'messages.title': 'Messages',
   'messages.subtitle': 'Messages you sent to seafarers',
+  'messages.summary': '{count} sent messages',
   'messages.empty': 'No messages sent yet',
   'messages.from': 'From',
   'messages.subject': 'Subject',
@@ -418,6 +425,14 @@ const en: Dict = {
   'messages.to': 'To',
   'messages.sentAt': 'Sent',
   'messages.emptyDesc': 'Start a conversation with a seafarer from the Browse or Saved sections.',
+  'messages.sent': 'Sent',
+  'messages.read': 'Read',
+  'messages.noSubject': 'No subject',
+  'messages.noBody': 'No message body',
+  'messages.showMore': 'Show message',
+  'messages.showLess': 'Show less',
+  'messages.expandMessage': 'Expand message',
+  'messages.collapseMessage': 'Collapse message',
 
   // Admin
   'admin.welcome': 'Platform administration',
@@ -847,6 +862,7 @@ const ar: Dict = {
   // Interviews
   'interview.title': 'المقابلات',
   'interview.subtitle': 'إدارة مقابلاتك المجدولة',
+  'interview.summary': '{count} مقابلات في سير عمل التوظيف',
   'interview.scheduleTitle': 'جدولة مقابلة',
   'interview.candidate': 'المرشح',
   'interview.position': 'المنصب',
@@ -860,6 +876,7 @@ const ar: Dict = {
   'interview.noInterviews': 'لا توجد مقابلات بعد',
   'interview.scheduleSuccess': 'تمت جدولة المقابلة',
   'interview.empty': 'لا توجد مقابلات مجدولة بعد',
+  'interview.emptyDesc': 'جدول مقابلات من ملفات المرشحين عندما تكون جاهزاً للتحدث مع بحّار.',
   'interview.locationLabel': 'الموقع',
   'interview.notesLabel': 'ملاحظات (اختياري)',
   'interview.scheduledAtLabel': 'التاريخ والوقت',
@@ -871,10 +888,15 @@ const ar: Dict = {
   'interview.past': 'السابقة',
   'interview.completing': 'جارٍ التحديث…',
   'interview.noNotes': 'لا توجد ملاحظات',
+  'interview.statusUpdated': 'تم تحديث حالة المقابلة',
+  'interview.scheduledCount': '{count} مجدولة',
+  'interview.completedCount': '{count} مكتملة',
+  'interview.cancelledCount': '{count} ملغاة',
 
   // Messages
   'messages.title': 'الرسائل',
   'messages.subtitle': 'الرسائل التي أرسلتها للبحّارة',
+  'messages.summary': '{count} رسائل مرسلة',
   'messages.empty': 'لم يتم إرسال رسائل بعد',
   'messages.from': 'من',
   'messages.subject': 'الموضوع',
@@ -882,6 +904,14 @@ const ar: Dict = {
   'messages.to': 'إلى',
   'messages.sentAt': 'أُرسلت',
   'messages.emptyDesc': 'ابدأ محادثة مع بحّار من قسم التصفّح أو المحفوظين.',
+  'messages.sent': 'مرسلة',
+  'messages.read': 'مقروءة',
+  'messages.noSubject': 'بدون موضوع',
+  'messages.noBody': 'لا يوجد نص للرسالة',
+  'messages.showMore': 'عرض الرسالة',
+  'messages.showLess': 'عرض أقل',
+  'messages.expandMessage': 'توسيع الرسالة',
+  'messages.collapseMessage': 'طي الرسالة',
 
   // Admin
   'admin.welcome': 'إدارة المنصة',
