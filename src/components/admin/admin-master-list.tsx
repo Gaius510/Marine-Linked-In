@@ -53,9 +53,12 @@ interface AdminStats {
   onBoard: number
 }
 
+type AdminSeafarer = SeafarerWithRelations & { user: SafeUser & { createdAt: string } }
+type AdminUser = SafeUser & { createdAt: string }
+
 interface AdminStatsResponse {
-  seafarers: (SeafarerWithRelations & { user: SafeUser & { createdAt: string } })[]
-  allUsers: (SafeUser & { createdAt: string })[]
+  seafarers: AdminSeafarer[]
+  allUsers: AdminUser[]
   stats: AdminStats
   total: number
 }
@@ -128,7 +131,7 @@ function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, va
     s.rank,
     s.nationality,
     s.availability,
-    Array.from(new Set(s.vesselExperiences.map((e) => e.vesselType))).join('; '),
+    Array.from(new Set((s.vesselExperiences ?? []).map((e) => e.vesselType))).join('; '),
     s.yearsExperience,
     s.user.city,
     s.user.country,
@@ -407,7 +410,8 @@ export function AdminMasterList() {
                 </TableHeader>
                 <TableBody>
                   {seafarers.map((s) => {
-                    const vesselTypes = Array.from(new Set(s.vesselExperiences.map((e) => e.vesselType)))
+                    const vesselExperiences = s.vesselExperiences ?? []
+                    const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType)))
                     return (
                       <TableRow
                         key={s.id}

@@ -85,6 +85,8 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
 
   const savedBy = seafarer._count?.savedBy ?? 0
   const applications = seafarer._count?.applications ?? 0
+  const vesselExperiences = seafarer.vesselExperiences ?? []
+  const certificates = seafarer.certificates ?? []
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -191,14 +193,14 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
               {t('cv.vesselExperience')}
             </span>
             <Badge variant="secondary" className="font-normal">
-              {t('admin.experiencesCount', { count: seafarer.vesselExperiences.length })}
+              {t('admin.experiencesCount', { count: vesselExperiences.length })}
             </Badge>
           </h3>
-          {seafarer.vesselExperiences.length === 0 ? (
+          {vesselExperiences.length === 0 ? (
             <p className="text-sm text-muted-foreground italic">{t('admin.noExperiences')}</p>
           ) : (
             <div className="space-y-3">
-              {seafarer.vesselExperiences.map((exp) => (
+              {vesselExperiences.map((exp) => (
                 <Card key={exp.id} className="p-4 gap-3">
                   <div className="flex items-start justify-between gap-2 flex-wrap">
                     <div className="min-w-0">
@@ -262,14 +264,14 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
               {t('cv.certificates')}
             </span>
             <Badge variant="secondary" className="font-normal">
-              {t('admin.certificatesCount', { count: seafarer.certificates.length })}
+              {t('admin.certificatesCount', { count: certificates.length })}
             </Badge>
           </h3>
-          {seafarer.certificates.length === 0 ? (
+          {certificates.length === 0 ? (
             <p className="text-sm text-muted-foreground italic">{t('admin.noCertificates')}</p>
           ) : (
             <div className="space-y-2">
-              {seafarer.certificates.map((cert) => (
+              {certificates.map((cert) => (
                 <div key={cert.id} className="rounded-lg border p-3">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <div className="font-medium text-sm">{cert.name}</div>

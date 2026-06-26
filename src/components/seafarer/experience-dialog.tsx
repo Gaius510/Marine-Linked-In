@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
@@ -17,7 +18,8 @@ import {
   Select, SelectTrigger, SelectValue, SelectContent, SelectItem,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
-import { Ship, User, Loader2 } from 'lucide-react'
+import { SectionCard } from '@/components/shared/section-card'
+import { Loader2, Ship, User } from 'lucide-react'
 
 interface ExperienceDialogProps {
   open: boolean
@@ -110,8 +112,9 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
     },
   })
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const submit = (event: FormEvent) => {
+    event.preventDefault()
+    if (mutation.isPending) return
     if (!form.vesselType) {
       toast.error(t('cv.vesselType'))
       return
@@ -121,7 +124,7 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin">
+      <DialogContent className="max-h-[92vh] overflow-y-auto sm:max-w-2xl scrollbar-thin">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Ship className="size-5 text-primary" />
@@ -131,64 +134,73 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
         </DialogHeader>
 
         <form onSubmit={submit} className="space-y-5">
-          {/* Vessel / voyage details */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Field label={t('cv.rank')}>
-              <Select value={form.rank} onValueChange={(v) => set('rank', v)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('cv.rank')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {RANKS.map((r) => (
-                    <SelectItem key={r} value={r}>{r}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </Field>
-            <Field label={t('cv.vesselType')} required>
-              <Select value={form.vesselType} onValueChange={(v) => set('vesselType', v)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {VESSEL_TYPES.map((v) => (
-                    <SelectItem key={v} value={v}>{v}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </Field>
-            <Field label={t('cv.vesselName')}>
-              <Input value={form.vesselName} onChange={(e) => set('vesselName', e.target.value)} />
-            </Field>
-            <Field label={t('cv.companyName')}>
-              <Input value={form.companyName} onChange={(e) => set('companyName', e.target.value)} />
-            </Field>
-            <Field label={t('cv.imoNumber')}>
-              <Input value={form.imoNumber} onChange={(e) => set('imoNumber', e.target.value)} />
-            </Field>
-            <Field label={t('cv.grossTonnage')}>
-              <Input value={form.grossTonnage} onChange={(e) => set('grossTonnage', e.target.value)} />
-            </Field>
-            <Field label={t('cv.engineType')}>
-              <Input value={form.engineType} onChange={(e) => set('engineType', e.target.value)} />
-            </Field>
-            <Field label={t('cv.tradeArea')}>
-              <Input value={form.tradeArea} onChange={(e) => set('tradeArea', e.target.value)} />
-            </Field>
-            <Field label={t('cv.signOnDate')}>
-              <Input type="date" value={form.signOnDate} onChange={(e) => set('signOnDate', e.target.value)} />
-            </Field>
-            <Field label={t('cv.signOffDate')}>
-              <Input type="date" value={form.signOffDate} onChange={(e) => set('signOffDate', e.target.value)} />
-            </Field>
-          </div>
+          <SectionCard
+            title={
+              <span className="inline-flex items-center gap-2">
+                <Ship className="size-4 text-primary" />
+                {t('cv.vesselService')}
+              </span>
+            }
+            subtitle={t('cv.experienceHint')}
+            className="p-4"
+          >
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field id="experience-rank" label={t('cv.rank')}>
+                <Select value={form.rank} onValueChange={(v) => set('rank', v)}>
+                  <SelectTrigger id="experience-rank" className="w-full">
+                    <SelectValue placeholder={t('cv.rank')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {RANKS.map((r) => (
+                      <SelectItem key={r} value={r}>{r}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field id="experience-vessel-type" label={t('cv.vesselType')} required>
+                <Select value={form.vesselType} onValueChange={(v) => set('vesselType', v)}>
+                  <SelectTrigger id="experience-vessel-type" className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {VESSEL_TYPES.map((v) => (
+                      <SelectItem key={v} value={v}>{v}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field id="experience-vessel-name" label={t('cv.vesselName')}>
+                <Input id="experience-vessel-name" value={form.vesselName} onChange={(e) => set('vesselName', e.target.value)} />
+              </Field>
+              <Field id="experience-company-name" label={t('cv.companyName')}>
+                <Input id="experience-company-name" value={form.companyName} onChange={(e) => set('companyName', e.target.value)} />
+              </Field>
+              <Field id="experience-imo-number" label={t('cv.imoNumber')}>
+                <Input id="experience-imo-number" value={form.imoNumber} onChange={(e) => set('imoNumber', e.target.value)} />
+              </Field>
+              <Field id="experience-gross-tonnage" label={t('cv.grossTonnage')}>
+                <Input id="experience-gross-tonnage" value={form.grossTonnage} onChange={(e) => set('grossTonnage', e.target.value)} />
+              </Field>
+              <Field id="experience-engine-type" label={t('cv.engineType')}>
+                <Input id="experience-engine-type" value={form.engineType} onChange={(e) => set('engineType', e.target.value)} />
+              </Field>
+              <Field id="experience-trade-area" label={t('cv.tradeArea')}>
+                <Input id="experience-trade-area" value={form.tradeArea} onChange={(e) => set('tradeArea', e.target.value)} />
+              </Field>
+              <Field id="experience-sign-on-date" label={t('cv.signOnDate')}>
+                <Input id="experience-sign-on-date" type="date" value={form.signOnDate} onChange={(e) => set('signOnDate', e.target.value)} />
+              </Field>
+              <Field id="experience-sign-off-date" label={t('cv.signOffDate')}>
+                <Input id="experience-sign-off-date" type="date" value={form.signOffDate} onChange={(e) => set('signOffDate', e.target.value)} />
+              </Field>
+            </div>
+          </SectionCard>
 
           <Separator />
 
-          {/* Supervisor contacts sub-section (verification feature) */}
-          <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 space-y-3">
+          <div className="space-y-3 rounded-lg border border-primary/20 bg-secondary p-4">
             <div className="flex items-center gap-2">
-              <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+              <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <User className="size-4" />
               </div>
               <div>
@@ -197,18 +209,18 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4 pt-1">
-              <Field label={t('cv.captainName')}>
-                <Input value={form.captainName} onChange={(e) => set('captainName', e.target.value)} />
+            <div className="grid gap-4 pt-1 sm:grid-cols-2">
+              <Field id="experience-captain-name" label={t('cv.captainName')}>
+                <Input id="experience-captain-name" value={form.captainName} onChange={(e) => set('captainName', e.target.value)} />
               </Field>
-              <Field label={t('cv.captainContact')}>
-                <Input value={form.captainContact} onChange={(e) => set('captainContact', e.target.value)} placeholder="+1 234 567 8900" />
+              <Field id="experience-captain-contact" label={t('cv.captainContact')}>
+                <Input id="experience-captain-contact" value={form.captainContact} onChange={(e) => set('captainContact', e.target.value)} placeholder="+1 234 567 8900" />
               </Field>
-              <Field label={t('cv.chiefEngName')}>
-                <Input value={form.chiefEngName} onChange={(e) => set('chiefEngName', e.target.value)} />
+              <Field id="experience-chief-engineer-name" label={t('cv.chiefEngName')}>
+                <Input id="experience-chief-engineer-name" value={form.chiefEngName} onChange={(e) => set('chiefEngName', e.target.value)} />
               </Field>
-              <Field label={t('cv.chiefEngContact')}>
-                <Input value={form.chiefEngContact} onChange={(e) => set('chiefEngContact', e.target.value)} placeholder="+1 234 567 8900" />
+              <Field id="experience-chief-engineer-contact" label={t('cv.chiefEngContact')}>
+                <Input id="experience-chief-engineer-contact" value={form.chiefEngContact} onChange={(e) => set('chiefEngContact', e.target.value)} placeholder="+1 234 567 8900" />
               </Field>
             </div>
           </div>
@@ -219,7 +231,7 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
             </Button>
             <Button type="submit" disabled={mutation.isPending}>
               {mutation.isPending && <Loader2 className="size-4 animate-spin" />}
-              {isEdit ? t('common.update') : t('common.create')}
+              {mutation.isPending ? t('common.saving') : isEdit ? t('common.update') : t('common.create')}
             </Button>
           </DialogFooter>
         </form>
@@ -229,15 +241,16 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
 }
 
 function Field({
-  label, required, children,
+  id, label, required, children,
 }: {
+  id?: string
   label: string
   required?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <div className="space-y-1.5">
-      <Label>
+      <Label htmlFor={id}>
         {label}
         {required && <span className="text-destructive ms-0.5">*</span>}
       </Label>

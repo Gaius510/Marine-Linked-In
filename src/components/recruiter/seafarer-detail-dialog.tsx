@@ -43,6 +43,8 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
   })
 
   const profile = data?.profile
+  const vesselExperiences = profile?.vesselExperiences ?? []
+  const certificates = profile?.certificates ?? []
   const savedByMe = !!data?.savedByMe
   const initials = profile?.user.name
     ? profile.user.name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
@@ -204,13 +206,13 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                   <div className="space-y-5">
                     <SectionCard
                       title={t('browse.experienceOnVessels')}
-                      action={<StatusPill tone="primary">{profile.vesselExperiences.length}</StatusPill>}
+                      action={<StatusPill tone="primary">{vesselExperiences.length}</StatusPill>}
                     >
-                      {profile.vesselExperiences.length === 0 ? (
+                      {vesselExperiences.length === 0 ? (
                         <p className="text-sm text-muted-foreground">{t('browse.noExperience')}</p>
                       ) : (
                         <div className="space-y-3">
-                          {profile.vesselExperiences.map((exp) => (
+                          {vesselExperiences.map((exp) => (
                             <div key={exp.id} className="rounded-lg border border-border/70 bg-background/60 p-3">
                               <div className="flex flex-wrap items-center gap-2">
                                 <span className="font-medium text-sm">{exp.vesselType}</span>
@@ -265,13 +267,13 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
 
                     <SectionCard
                       title={t('browse.certificates')}
-                      action={<StatusPill tone="primary">{profile.certificates.length}</StatusPill>}
+                      action={<StatusPill tone="primary">{certificates.length}</StatusPill>}
                     >
-                      {profile.certificates.length === 0 ? (
+                      {certificates.length === 0 ? (
                         <p className="text-sm text-muted-foreground">{t('browse.noCertificates')}</p>
                       ) : (
                         <div className="grid gap-2 sm:grid-cols-2">
-                          {profile.certificates.map((cert) => (
+                          {certificates.map((cert) => (
                             <div key={cert.id} className="rounded-lg border border-border/70 bg-background/60 p-3">
                               <div className="flex items-start gap-2">
                                 <FileText className="mt-0.5 size-4 shrink-0 text-primary" />

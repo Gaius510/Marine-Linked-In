@@ -33,7 +33,8 @@ export async function GET(req: Request) {
     db.seafarerProfile.findMany({
       where,
       include: {
-        user: { select: { id: true, name: true, email: true, phone: true, city: true, country: true, createdAt: true, role: true } },
+        user: { select: { id: true, name: true, email: true, role: true, company: true, phone: true, city: true, country: true, createdAt: true } },
+        certificates: { orderBy: { createdAt: 'desc' } },
         vesselExperiences: true,
         _count: { select: { savedBy: true, applications: true } },
       },
@@ -47,7 +48,7 @@ export async function GET(req: Request) {
     db.seafarerProfile.count({ where: { availability: 'ON_BOARD' } }),
     db.user.findMany({
       where: role ? { role: role as 'SEAFARER' | 'RECRUITER' | 'ADMIN' } : undefined,
-      select: { id: true, name: true, email: true, role: true, company: true, city: true, country: true, createdAt: true },
+      select: { id: true, name: true, email: true, role: true, company: true, phone: true, city: true, country: true, createdAt: true },
       orderBy: { createdAt: 'desc' },
     }),
   ])

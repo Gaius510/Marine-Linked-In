@@ -53,3 +53,29 @@ export function formatYears(value: string | number | null | undefined, fallback 
   if (!Number.isFinite(numeric)) return fallback
   return numeric === 1 ? '1 year' : `${numeric} years`
 }
+
+export function formatDurationBetween(
+  start: string | Date | null | undefined,
+  end: string | Date | null | undefined,
+  fallback = '-'
+): string {
+  if (!start || !end) return fallback
+  const startDate = start instanceof Date ? start : new Date(start)
+  const endDate = end instanceof Date ? end : new Date(end)
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime()) || endDate < startDate) {
+    return fallback
+  }
+
+  const totalMonths = Math.max(
+    1,
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 + endDate.getMonth() - startDate.getMonth()
+  )
+  const years = Math.floor(totalMonths / 12)
+  const months = totalMonths % 12
+  const parts = [
+    years ? `${years} ${years === 1 ? 'year' : 'years'}` : '',
+    months ? `${months} ${months === 1 ? 'month' : 'months'}` : '',
+  ].filter(Boolean)
+
+  return parts.length ? parts.join(' ') : '1 month'
+}
