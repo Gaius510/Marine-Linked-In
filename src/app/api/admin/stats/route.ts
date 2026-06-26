@@ -36,6 +36,10 @@ export async function GET(req: Request) {
         user: { select: { id: true, name: true, email: true, role: true, company: true, phone: true, city: true, country: true, createdAt: true } },
         certificates: { orderBy: { createdAt: 'desc' } },
         vesselExperiences: true,
+        travelAuthorizations: {
+          select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
+          orderBy: { createdAt: 'desc' },
+        },
         _count: { select: { savedBy: true, applications: true } },
       },
       orderBy: { user: { createdAt: 'desc' } },

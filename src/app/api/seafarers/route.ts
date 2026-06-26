@@ -38,6 +38,10 @@ export async function GET(req: NextRequest) {
     include: {
       user: { select: { id: true, email: true, name: true, role: true, company: true, phone: true, city: true, country: true } },
       vesselExperiences: true,
+      travelAuthorizations: {
+        select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
+        orderBy: { createdAt: 'desc' },
+      },
       _count: { select: { savedBy: true, applications: true } },
     },
     orderBy: { updatedAt: 'desc' },

@@ -5,6 +5,8 @@ export type Availability = 'AVAILABLE' | 'ON_BOARD' | 'UNAVAILABLE'
 export type JobStatus = 'OPEN' | 'CLOSED'
 export type ApplicationStatus = 'PENDING' | 'REVIEWED' | 'SHORTLISTED' | 'REJECTED' | 'HIRED'
 export type InterviewStatus = 'SCHEDULED' | 'COMPLETED' | 'CANCELLED'
+export type TravelAuthorizationType = 'US_C1_D' | 'SCHENGEN' | 'UK_TRANSIT_OR_SEAFARER' | 'AU_MARITIME_CREW' | 'OTHER'
+export type TravelAuthorizationVerificationStatus = 'UNVERIFIED' | 'VERIFIED' | 'REJECTED'
 
 export interface SafeUser {
   id: string
@@ -46,6 +48,26 @@ export interface VesselExperience {
   chiefEngContact: string | null
 }
 
+export interface TravelAuthorization {
+  id: string
+  seafarerId: string
+  type: TravelAuthorizationType
+  customType: string | null
+  countryCode: string | null
+  documentNumber: string | null
+  issuedAt: string | null
+  expiresAt: string | null
+  notes: string | null
+  verificationStatus: TravelAuthorizationVerificationStatus
+  createdAt: string
+  updatedAt: string
+}
+
+export type PublicTravelAuthorizationSummary = Pick<
+  TravelAuthorization,
+  'id' | 'type' | 'customType' | 'countryCode' | 'expiresAt' | 'verificationStatus'
+>
+
 export interface SeafarerProfile {
   id: string
   userId: string
@@ -69,6 +91,7 @@ export interface SeafarerWithRelations extends SeafarerProfile {
   user: SafeUser
   certificates: Certificate[]
   vesselExperiences: VesselExperience[]
+  travelAuthorizations?: TravelAuthorization[] | PublicTravelAuthorizationSummary[]
   _count?: { savedBy: number; applications: number }
   savedByMe?: boolean
 }

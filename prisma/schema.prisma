@@ -40,13 +40,27 @@ enum InterviewStatus {
   CANCELLED
 }
 
+enum TravelAuthorizationType {
+  US_C1_D
+  SCHENGEN
+  UK_TRANSIT_OR_SEAFARER
+  AU_MARITIME_CREW
+  OTHER
+}
+
+enum TravelAuthorizationVerificationStatus {
+  UNVERIFIED
+  VERIFIED
+  REJECTED
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
   passwordHash String
   name         String
   role         Role     @default(SEAFARER)
-  company      String?  // for recruiters
+  company      String? // for recruiters
   phone        String?
   city         String?
   country      String?
@@ -54,61 +68,82 @@ model User {
   updatedAt    DateTime @updatedAt
 
   seafarerProfile SeafarerProfile?
-  jobs            Job[]          @relation("RecruiterJobs")
-  savedProfiles   SavedProfile[] @relation("RecruiterSaved")
-  messagesSent    Message[]      @relation("RecruiterMessages")
-  interviews      Interview[]    @relation("RecruiterInterviews")
+  jobs            Job[]            @relation("RecruiterJobs")
+  savedProfiles   SavedProfile[]   @relation("RecruiterSaved")
+  messagesSent    Message[]        @relation("RecruiterMessages")
+  interviews      Interview[]      @relation("RecruiterInterviews")
 }
 
 model SeafarerProfile {
-  id           String   @id @default(cuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  rank         String?  // e.g. Master, Chief Officer, Chief Engineer
-  nationality  String?
-  dateOfBirth  String?
-  availability Availability @default(AVAILABLE)
-  availableFrom String? // ISO date string
+  id              String       @id @default(cuid())
+  userId          String       @unique
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rank            String? // e.g. Master, Chief Officer, Chief Engineer
+  nationality     String?
+  dateOfBirth     String?
+  availability    Availability @default(AVAILABLE)
+  availableFrom   String? // ISO date string
   yearsExperience String?
-  bio          String?
-  avatarUrl    String?
-  cocGrade     String?  // Certificate of Competency grade
-  cocExpiry    String?
-  passportNo   String?
-  passportExpiry String?
-  usVisa       String?
-  schengenVisa String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  bio             String?
+  avatarUrl       String?
+  cocGrade        String? // Certificate of Competency grade
+  cocExpiry       String?
+  passportNo      String?
+  passportExpiry  String?
+  usVisa          String?
+  schengenVisa    String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 
-  certificates       Certificate[]
-  vesselExperiences  VesselExperience[]
-  applications       Application[]
-  savedBy            SavedProfile[]
-  messagesReceived   Message[]      @relation("SeafarerMessages")
-  interviews         Interview[]    @relation("SeafarerInterviews")
+  certificates         Certificate[]
+  vesselExperiences    VesselExperience[]
+  applications         Application[]
+  savedBy              SavedProfile[]
+  messagesReceived     Message[]             @relation("SeafarerMessages")
+  interviews           Interview[]           @relation("SeafarerInterviews")
+  travelAuthorizations TravelAuthorization[]
+}
+
+model TravelAuthorization {
+  id                 String                                @id @default(cuid())
+  seafarerId         String
+  seafarer           SeafarerProfile                       @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
+  type               TravelAuthorizationType
+  customType         String?
+  countryCode        String?
+  documentNumber     String?
+  issuedAt           DateTime?
+  expiresAt          DateTime?
+  notes              String?
+  verificationStatus TravelAuthorizationVerificationStatus @default(UNVERIFIED)
+  createdAt          DateTime                              @default(now())
+  updatedAt          DateTime                              @updatedAt
+
+  @@index([seafarerId])
+  @@index([type])
+  @@index([expiresAt])
 }
 
 model Certificate {
-  id          String   @id @default(cuid())
-  seafarerId  String
-  seafarer    SeafarerProfile @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
-  name        String
-  number      String?
-  issuedDate  String?
-  expiryDate  String?
+  id               String          @id @default(cuid())
+  seafarerId       String
+  seafarer         SeafarerProfile @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
+  name             String
+  number           String?
+  issuedDate       String?
+  expiryDate       String?
   issuingAuthority String?
-  createdAt   DateTime @default(now())
+  createdAt        DateTime        @default(now())
 }
 
 model VesselExperience {
-  id              String   @id @default(cuid())
+  id              String          @id @default(cuid())
   seafarerId      String
   seafarer        SeafarerProfile @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
   rank            String?
-  vesselType      String   // Container, Tanker, Bulk Carrier, etc.
+  vesselType      String // Container, Tanker, Bulk Carrier, etc.
   vesselName      String?
-  companyName     String?  // corporate employer
+  companyName     String? // corporate employer
   imoNumber       String?
   grossTonnage    String?
   engineType      String?
@@ -119,84 +154,84 @@ model VesselExperience {
   captainContact  String?
   chiefEngName    String?
   chiefEngContact String?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime        @default(now())
 }
 
 model Job {
-  id              String   @id @default(cuid())
-  recruiterId     String
-  recruiter       User     @relation("RecruiterJobs", fields: [recruiterId], references: [id], onDelete: Cascade)
-  title           String
-  rank            String?
-  vesselType      String?
-  companyName     String
-  salaryMin       String?
-  salaryMax       String?
-  currency        String   @default("USD")
+  id               String    @id @default(cuid())
+  recruiterId      String
+  recruiter        User      @relation("RecruiterJobs", fields: [recruiterId], references: [id], onDelete: Cascade)
+  title            String
+  rank             String?
+  vesselType       String?
+  companyName      String
+  salaryMin        String?
+  salaryMax        String?
+  currency         String    @default("USD")
   contractDuration String?
-  joiningDate     String?
-  location        String?
-  description     String?
-  requirements    String?
-  status          JobStatus @default(OPEN)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  joiningDate      String?
+  location         String?
+  description      String?
+  requirements     String?
+  status           JobStatus @default(OPEN)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  applications    Application[]
-  interviews      Interview[]
+  applications Application[]
+  interviews   Interview[]
 }
 
 model Application {
-  id          String   @id @default(cuid())
+  id          String            @id @default(cuid())
   jobId       String
-  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  job         Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
   seafarerId  String
-  seafarer    SeafarerProfile @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
+  seafarer    SeafarerProfile   @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
   status      ApplicationStatus @default(PENDING)
   message     String?
   coverLetter String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 
   @@unique([jobId, seafarerId])
 }
 
 model SavedProfile {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   recruiterId String
-  recruiter   User     @relation("RecruiterSaved", fields: [recruiterId], references: [id], onDelete: Cascade)
+  recruiter   User            @relation("RecruiterSaved", fields: [recruiterId], references: [id], onDelete: Cascade)
   seafarerId  String
   seafarer    SeafarerProfile @relation(fields: [seafarerId], references: [id], onDelete: Cascade)
   note        String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime        @default(now())
 
   @@unique([recruiterId, seafarerId])
 }
 
 model Message {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   recruiterId String
-  recruiter   User     @relation("RecruiterMessages", fields: [recruiterId], references: [id], onDelete: Cascade)
+  recruiter   User            @relation("RecruiterMessages", fields: [recruiterId], references: [id], onDelete: Cascade)
   seafarerId  String
   seafarer    SeafarerProfile @relation("SeafarerMessages", fields: [seafarerId], references: [id], onDelete: Cascade)
   subject     String
   body        String
-  read        Boolean  @default(false)
-  createdAt   DateTime @default(now())
+  read        Boolean         @default(false)
+  createdAt   DateTime        @default(now())
 }
 
 model Interview {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   recruiterId String
-  recruiter   User     @relation("RecruiterInterviews", fields: [recruiterId], references: [id], onDelete: Cascade)
+  recruiter   User            @relation("RecruiterInterviews", fields: [recruiterId], references: [id], onDelete: Cascade)
   seafarerId  String
   seafarer    SeafarerProfile @relation("SeafarerInterviews", fields: [seafarerId], references: [id], onDelete: Cascade)
   jobId       String?
-  job         Job?     @relation(fields: [jobId], references: [id], onDelete: SetNull)
-  scheduledAt String?  // ISO datetime string
+  job         Job?            @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  scheduledAt String? // ISO datetime string
   location    String?
   notes       String?
   status      InterviewStatus @default(SCHEDULED)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }

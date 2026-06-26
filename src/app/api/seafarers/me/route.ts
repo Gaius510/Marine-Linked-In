@@ -17,6 +17,7 @@ export async function GET() {
       user: { select: { id: true, email: true, name: true, role: true, company: true, phone: true, city: true, country: true } },
       certificates: { orderBy: { createdAt: 'desc' } },
       vesselExperiences: { orderBy: { createdAt: 'desc' } },
+      travelAuthorizations: { orderBy: { createdAt: 'desc' } },
       applications: {
         include: { job: { include: { recruiter: { select: { id: true, name: true, company: true, email: true } } } } },
         orderBy: { createdAt: 'desc' },

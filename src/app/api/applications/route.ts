@@ -34,6 +34,10 @@ export async function GET(req: NextRequest) {
           include: {
             user: { select: { id: true, name: true, email: true, phone: true, city: true, country: true } },
             vesselExperiences: true,
+            travelAuthorizations: {
+              select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
+              orderBy: { createdAt: 'desc' },
+            },
           },
         },
       },

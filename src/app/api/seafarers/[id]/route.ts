@@ -18,6 +18,10 @@ export async function GET(_req: NextRequest, { params }: RouteContext) {
       user: { select: { id: true, email: true, name: true, role: true, company: true, phone: true, city: true, country: true } },
       certificates: { orderBy: { createdAt: 'desc' } },
       vesselExperiences: { orderBy: { createdAt: 'desc' } },
+      travelAuthorizations: {
+        select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
+        orderBy: { createdAt: 'desc' },
+      },
     },
   })
   if (!profile) return NextResponse.json({ error: 'not_found' }, { status: 404 })
