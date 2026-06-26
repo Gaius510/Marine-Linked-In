@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { experienceSchema } from '@/lib/validation/seafarers'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
@@ -10,24 +12,27 @@ export async function POST(req: NextRequest) {
   const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })
   if (!profile) return NextResponse.json({ error: 'no_profile' }, { status: 404 })
 
-  const body = await req.json()
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(experienceSchema, body)
+  if (parsed instanceof NextResponse) return parsed
   const exp = await db.vesselExperience.create({
     data: {
       seafarerId: profile.id,
-      rank: body.rank || null,
-      vesselType: body.vesselType || 'General Cargo',
-      vesselName: body.vesselName || null,
-      companyName: body.companyName || null,
-      imoNumber: body.imoNumber || null,
-      grossTonnage: body.grossTonnage || null,
-      engineType: body.engineType || null,
-      tradeArea: body.tradeArea || null,
-      signOnDate: body.signOnDate || null,
-      signOffDate: body.signOffDate || null,
-      captainName: body.captainName || null,
-      captainContact: body.captainContact || null,
-      chiefEngName: body.chiefEngName || null,
-      chiefEngContact: body.chiefEngContact || null,
+      rank: parsed.rank,
+      vesselType: parsed.vesselType,
+      vesselName: parsed.vesselName,
+      companyName: parsed.companyName,
+      imoNumber: parsed.imoNumber,
+      grossTonnage: parsed.grossTonnage,
+      engineType: parsed.engineType,
+      tradeArea: parsed.tradeArea,
+      signOnDate: parsed.signOnDate,
+      signOffDate: parsed.signOffDate,
+      captainName: parsed.captainName,
+      captainContact: parsed.captainContact,
+      chiefEngName: parsed.chiefEngName,
+      chiefEngContact: parsed.chiefEngContact,
     },
   })
   return NextResponse.json({ experience: exp })

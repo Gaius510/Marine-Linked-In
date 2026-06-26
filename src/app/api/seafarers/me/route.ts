@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { Availability } from '@prisma/client'
+import { seafarerProfileUpdateSchema } from '@/lib/validation/seafarers'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 export async function GET() {
   const user = await getCurrentUser()
@@ -34,20 +36,21 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
   }
 
-  const body = await req.json()
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(seafarerProfileUpdateSchema, body)
+  if (parsed instanceof NextResponse) return parsed
   const allowed = [
     'rank', 'nationality', 'dateOfBirth', 'availability', 'availableFrom', 'yearsExperience',
     'bio', 'cocGrade', 'cocExpiry', 'passportNo', 'passportExpiry', 'usVisa', 'schengenVisa',
   ]
   const data: Record<string, unknown> = {}
   for (const key of allowed) {
-    if (key in body) {
-      data[key] = body[key] === '' ? null : body[key]
+    if (key in parsed) {
+      data[key] = parsed[key as keyof typeof parsed]
     }
   }
-  if (data.availability && !['AVAILABLE', 'ON_BOARD', 'UNAVAILABLE'].includes(data.availability as string)) {
-    delete data.availability
-  } else if (data.availability) {
+  if (data.availability) {
     data.availability = data.availability as Availability
   }
 
@@ -59,9 +62,9 @@ export async function PUT(req: NextRequest) {
 
   // also update some user fields
   const userFields: Record<string, unknown> = {}
-  if ('phone' in body) userFields.phone = body.phone || null
-  if ('city' in body) userFields.city = body.city || null
-  if ('country' in body) userFields.country = body.country || null
+  if ('phone' in parsed) userFields.phone = parsed.phone
+  if ('city' in parsed) userFields.city = parsed.city
+  if ('country' in parsed) userFields.country = parsed.country
   if (Object.keys(userFields).length) {
     await db.user.update({ where: { id: user.id }, data: userFields })
   }

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { Prisma } from '@prisma/client'
+import { jobCreateSchema } from '@/lib/validation/jobs'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser()
@@ -60,24 +62,30 @@ export async function POST(req: NextRequest) {
   if (!user || user.role !== 'RECRUITER') {
     return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
   }
-  const body = await req.json()
-  if (!body.title) return NextResponse.json({ error: 'missing_title' }, { status: 400 })
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(jobCreateSchema, body)
+  if (parsed instanceof NextResponse) {
+    const hasTitle = typeof body === 'object' && body !== null && 'title' in body && typeof body.title === 'string' && body.title.trim()
+    if (!hasTitle) return NextResponse.json({ error: 'missing_title' }, { status: 400 })
+    return parsed
+  }
 
   const job = await db.job.create({
     data: {
       recruiterId: user.id,
-      title: body.title,
-      rank: body.rank || null,
-      vesselType: body.vesselType || null,
-      companyName: body.companyName || user.company || 'Maritime Co',
-      salaryMin: body.salaryMin || null,
-      salaryMax: body.salaryMax || null,
-      currency: body.currency || 'USD',
-      contractDuration: body.contractDuration || null,
-      joiningDate: body.joiningDate || null,
-      location: body.location || null,
-      description: body.description || null,
-      requirements: body.requirements || null,
+      title: parsed.title,
+      rank: parsed.rank,
+      vesselType: parsed.vesselType,
+      companyName: parsed.companyName || user.company || 'Maritime Co',
+      salaryMin: parsed.salaryMin,
+      salaryMax: parsed.salaryMax,
+      currency: parsed.currency,
+      contractDuration: parsed.contractDuration,
+      joiningDate: parsed.joiningDate,
+      location: parsed.location,
+      description: parsed.description,
+      requirements: parsed.requirements,
     },
   })
   return NextResponse.json({ job })

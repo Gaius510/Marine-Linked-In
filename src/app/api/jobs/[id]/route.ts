@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { JobStatus } from '@prisma/client'
+import { jobUpdateSchema } from '@/lib/validation/jobs'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -27,12 +29,15 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
   const job = await db.job.findUnique({ where: { id } })
   if (!job || job.recruiterId !== user.id) return NextResponse.json({ error: 'not_found' }, { status: 404 })
 
-  const body = await req.json()
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(jobUpdateSchema, body)
+  if (parsed instanceof NextResponse) return parsed
   const data: Record<string, unknown> = {}
   for (const k of ['title', 'rank', 'vesselType', 'companyName', 'salaryMin', 'salaryMax', 'currency', 'contractDuration', 'joiningDate', 'location', 'description', 'requirements']) {
-    if (k in body) data[k] = body[k] === '' ? null : body[k]
+    if (k in parsed) data[k] = parsed[k as keyof typeof parsed]
   }
-  if (body.status && ['OPEN', 'CLOSED'].includes(body.status)) data.status = body.status as JobStatus
+  if (parsed.status) data.status = parsed.status as JobStatus
 
   const updated = await db.job.update({ where: { id }, data })
   return NextResponse.json({ job: updated })

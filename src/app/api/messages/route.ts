@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { messageCreateSchema } from '@/lib/validation/messages'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 // GET: messages - recruiter sees sent, seafarer sees received
 export async function GET() {
@@ -35,15 +37,18 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user || user.role !== 'RECRUITER') return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
 
-  const body = await req.json()
-  const seafarerIds: string[] = Array.isArray(body.seafarerIds) ? body.seafarerIds : [body.seafarerId].filter(Boolean)
-  const subject = body.subject || 'Message from a recruiter'
-  const bodyText = body.body
-  if (!seafarerIds.length || !bodyText) return NextResponse.json({ error: 'missing_fields' }, { status: 400 })
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(messageCreateSchema, body)
+  if (parsed instanceof NextResponse) {
+    const hasBody = typeof body === 'object' && body !== null && 'body' in body && body.body
+    if (!hasBody) return NextResponse.json({ error: 'missing_fields' }, { status: 400 })
+    return parsed
+  }
 
   const created = await db.$transaction(
-    seafarerIds.map((sid) =>
-      db.message.create({ data: { recruiterId: user.id, seafarerId: sid, subject, body: bodyText } })
+    parsed.seafarerIds.map((sid) =>
+      db.message.create({ data: { recruiterId: user.id, seafarerId: sid, subject: parsed.subject, body: parsed.body } })
     )
   )
   return NextResponse.json({ count: created.length })

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { experienceUpdateSchema } from '@/lib/validation/seafarers'
+import { dateOrderIssue, parseBody, parseJsonBody, validationError } from '@/lib/validation/shared'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -19,24 +21,32 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
   const res = await getOwnedExperience(id)
   if ('error' in res) return res.error
   const { exp } = res
-  const body = await req.json()
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(experienceUpdateSchema, body)
+  if (parsed instanceof NextResponse) return parsed
+  const signOnDate = 'signOnDate' in parsed ? parsed.signOnDate : exp.signOnDate
+  const signOffDate = 'signOffDate' in parsed ? parsed.signOffDate : exp.signOffDate
+  if (dateOrderIssue(signOnDate, signOffDate)) {
+    return validationError({ signOffDate: 'date_before_start' })
+  }
   const updated = await db.vesselExperience.update({
     where: { id },
     data: {
-      rank: body.rank ?? exp.rank,
-      vesselType: body.vesselType ?? exp.vesselType,
-      vesselName: body.vesselName ?? exp.vesselName,
-      companyName: body.companyName ?? exp.companyName,
-      imoNumber: body.imoNumber ?? exp.imoNumber,
-      grossTonnage: body.grossTonnage ?? exp.grossTonnage,
-      engineType: body.engineType ?? exp.engineType,
-      tradeArea: body.tradeArea ?? exp.tradeArea,
-      signOnDate: body.signOnDate ?? exp.signOnDate,
-      signOffDate: body.signOffDate ?? exp.signOffDate,
-      captainName: body.captainName ?? exp.captainName,
-      captainContact: body.captainContact ?? exp.captainContact,
-      chiefEngName: body.chiefEngName ?? exp.chiefEngName,
-      chiefEngContact: body.chiefEngContact ?? exp.chiefEngContact,
+      rank: 'rank' in parsed ? parsed.rank : exp.rank,
+      vesselType: 'vesselType' in parsed ? parsed.vesselType : exp.vesselType,
+      vesselName: 'vesselName' in parsed ? parsed.vesselName : exp.vesselName,
+      companyName: 'companyName' in parsed ? parsed.companyName : exp.companyName,
+      imoNumber: 'imoNumber' in parsed ? parsed.imoNumber : exp.imoNumber,
+      grossTonnage: 'grossTonnage' in parsed ? parsed.grossTonnage : exp.grossTonnage,
+      engineType: 'engineType' in parsed ? parsed.engineType : exp.engineType,
+      tradeArea: 'tradeArea' in parsed ? parsed.tradeArea : exp.tradeArea,
+      signOnDate,
+      signOffDate,
+      captainName: 'captainName' in parsed ? parsed.captainName : exp.captainName,
+      captainContact: 'captainContact' in parsed ? parsed.captainContact : exp.captainContact,
+      chiefEngName: 'chiefEngName' in parsed ? parsed.chiefEngName : exp.chiefEngName,
+      chiefEngContact: 'chiefEngContact' in parsed ? parsed.chiefEngContact : exp.chiefEngContact,
     },
   })
   return NextResponse.json({ experience: updated })

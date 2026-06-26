@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { savedProfilesCreateSchema } from '@/lib/validation/messages'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 // GET saved profiles for current recruiter
 export async function GET() {
@@ -27,12 +29,17 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user || user.role !== 'RECRUITER') return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
 
-  const body = await req.json()
-  const seafarerIds: string[] = Array.isArray(body.seafarerIds) ? body.seafarerIds : [body.seafarerId].filter(Boolean)
-  if (!seafarerIds.length) return NextResponse.json({ error: 'missing_seafarer' }, { status: 400 })
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(savedProfilesCreateSchema, body)
+  if (parsed instanceof NextResponse) {
+    const hasSeafarer = typeof body === 'object' && body !== null && (('seafarerId' in body && body.seafarerId) || ('seafarerIds' in body && Array.isArray(body.seafarerIds) && body.seafarerIds.length > 0))
+    if (!hasSeafarer) return NextResponse.json({ error: 'missing_seafarer' }, { status: 400 })
+    return parsed
+  }
 
   const created = await db.$transaction(
-    seafarerIds.map((sid) =>
+    parsed.seafarerIds.map((sid) =>
       db.savedProfile.upsert({
         where: { recruiterId_seafarerId: { recruiterId: user.id, seafarerId: sid } },
         update: {},

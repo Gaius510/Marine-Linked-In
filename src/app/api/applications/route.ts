@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { applicationCreateSchema } from '@/lib/validation/applications'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 // GET applications: recruiter sees apps for their jobs; seafarer sees their apps
 export async function GET(req: NextRequest) {
@@ -50,9 +52,15 @@ export async function POST(req: NextRequest) {
   const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })
   if (!profile) return NextResponse.json({ error: 'no_profile' }, { status: 404 })
 
-  const body = await req.json()
-  const { jobId, message } = body
-  if (!jobId) return NextResponse.json({ error: 'missing_job' }, { status: 400 })
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(applicationCreateSchema, body)
+  if (parsed instanceof NextResponse) {
+    const hasJob = typeof body === 'object' && body !== null && 'jobId' in body && body.jobId
+    if (!hasJob) return NextResponse.json({ error: 'missing_job' }, { status: 400 })
+    return parsed
+  }
+  const { jobId, message } = parsed
 
   // prevent duplicate
   const existing = await db.application.findUnique({
@@ -61,7 +69,7 @@ export async function POST(req: NextRequest) {
   if (existing) return NextResponse.json({ error: 'already_applied', application: existing }, { status: 409 })
 
   const application = await db.application.create({
-    data: { jobId, seafarerId: profile.id, message: message || null },
+    data: { jobId, seafarerId: profile.id, message },
   })
   return NextResponse.json({ application })
 }

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { certificateSchema } from '@/lib/validation/seafarers'
+import { parseBody, parseJsonBody } from '@/lib/validation/shared'
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
@@ -10,15 +12,18 @@ export async function POST(req: NextRequest) {
   const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })
   if (!profile) return NextResponse.json({ error: 'no_profile' }, { status: 404 })
 
-  const body = await req.json()
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(certificateSchema, body)
+  if (parsed instanceof NextResponse) return parsed
   const cert = await db.certificate.create({
     data: {
       seafarerId: profile.id,
-      name: body.name || 'Certificate',
-      number: body.number || null,
-      issuedDate: body.issuedDate || null,
-      expiryDate: body.expiryDate || null,
-      issuingAuthority: body.issuingAuthority || null,
+      name: parsed.name,
+      number: parsed.number,
+      issuedDate: parsed.issuedDate,
+      expiryDate: parsed.expiryDate,
+      issuingAuthority: parsed.issuingAuthority,
     },
   })
   return NextResponse.json({ certificate: cert })

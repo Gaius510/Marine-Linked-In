@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { certificateUpdateSchema } from '@/lib/validation/seafarers'
+import { dateOrderIssue, parseBody, parseJsonBody, validationError } from '@/lib/validation/shared'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -19,15 +21,23 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
   const res = await getOwnedCert(id)
   if ('error' in res) return res.error
   const { cert } = res
-  const body = await req.json()
+  const body = await parseJsonBody(req)
+  if (body instanceof NextResponse) return body
+  const parsed = parseBody(certificateUpdateSchema, body)
+  if (parsed instanceof NextResponse) return parsed
+  const issuedDate = 'issuedDate' in parsed ? parsed.issuedDate : cert.issuedDate
+  const expiryDate = 'expiryDate' in parsed ? parsed.expiryDate : cert.expiryDate
+  if (dateOrderIssue(issuedDate, expiryDate)) {
+    return validationError({ expiryDate: 'date_before_issue' })
+  }
   const updated = await db.certificate.update({
     where: { id },
     data: {
-      name: body.name ?? cert.name,
-      number: body.number ?? cert.number,
-      issuedDate: body.issuedDate ?? cert.issuedDate,
-      expiryDate: body.expiryDate ?? cert.expiryDate,
-      issuingAuthority: body.issuingAuthority ?? cert.issuingAuthority,
+      name: 'name' in parsed ? parsed.name : cert.name,
+      number: 'number' in parsed ? parsed.number : cert.number,
+      issuedDate,
+      expiryDate,
+      issuingAuthority: 'issuingAuthority' in parsed ? parsed.issuingAuthority : cert.issuingAuthority,
     },
   })
   return NextResponse.json({ certificate: updated })
