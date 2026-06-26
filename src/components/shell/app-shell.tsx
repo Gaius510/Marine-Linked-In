@@ -8,6 +8,7 @@ import { AuthScreen } from '@/components/auth/auth-screen'
 import { AppHeader } from '@/components/shell/app-header'
 import { AppSidebar } from '@/components/shell/app-sidebar'
 import { AppFooter } from '@/components/shell/app-footer'
+import { useUrlViewSync } from '@/components/shell/use-url-view-sync'
 import { SeafarerPortal } from '@/components/seafarer/seafarer-portal'
 import { RecruiterPortal } from '@/components/recruiter/recruiter-portal'
 import { AdminPortal } from '@/components/admin/admin-portal'
@@ -17,12 +18,13 @@ import { Loader2 } from 'lucide-react'
 export function AppShell() {
   const { user, initialized, init } = useAuthStore()
   const { dir } = useI18n()
+  const navigationReady = useUrlViewSync(user?.role)
 
   useEffect(() => {
     init()
   }, [init])
 
-  if (!initialized) {
+  if (!initialized || (user && !navigationReady)) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-background">
         <BrandLogo size="lg" />

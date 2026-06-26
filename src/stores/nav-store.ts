@@ -1,10 +1,16 @@
 'use client'
 
 import { create } from 'zustand'
+import type { Role } from '@/lib/types'
 
-export type SeafarerView = 'overview' | 'cv' | 'jobs' | 'applications'
-export type RecruiterView = 'overview' | 'browse' | 'postJob' | 'myJobs' | 'saved' | 'interviews' | 'messages'
-export type AdminView = 'overview' | 'masterList'
+export type { AdminView, AppView, RecruiterView, SeafarerView, ViewSlug } from '@/lib/navigation'
+
+interface UrlSyncSnapshot {
+  role: Role | null
+  pathname: string
+  searchKey: string
+  view: string
+}
 
 interface NavState {
   view: string
@@ -12,6 +18,8 @@ interface NavState {
   // optional context (e.g. selected seafarer/job id)
   contextId: string | null
   setContext: (id: string | null) => void
+  urlSyncSnapshot: UrlSyncSnapshot
+  setUrlSyncSnapshot: (snapshot: UrlSyncSnapshot) => void
 }
 
 export const useNavStore = create<NavState>((set) => ({
@@ -19,4 +27,11 @@ export const useNavStore = create<NavState>((set) => ({
   setView: (view) => set({ view, contextId: null }),
   contextId: null,
   setContext: (id) => set({ contextId: id }),
+  urlSyncSnapshot: {
+    role: null,
+    pathname: '',
+    searchKey: '',
+    view: '',
+  },
+  setUrlSyncSnapshot: (urlSyncSnapshot) => set({ urlSyncSnapshot }),
 }))
