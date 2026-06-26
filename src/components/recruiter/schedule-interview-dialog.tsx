@@ -7,9 +7,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { FieldError } from '@/components/shared/field-error'
 import { StatusPill } from '@/components/shared/status-pill'
 import { api } from '@/lib/api'
+import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
 import { useI18n } from '@/lib/i18n'
+import { interviewCreateSchema, type InterviewCreateInput } from '@/lib/validation/interviews'
 import { toast } from 'sonner'
 import { CalendarClock, Loader2, MapPin, UserRound } from 'lucide-react'
 
@@ -31,17 +34,10 @@ export function ScheduleInterviewDialog({
   const [scheduledAt, setScheduledAt] = useState('')
   const [location, setLocation] = useState('')
   const [notes, setNotes] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const scheduledAtError = submitted && !scheduledAt
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
 
   const mutation = useMutation({
-    mutationFn: () =>
-      api.post('/api/interviews', {
-        seafarerId,
-        scheduledAt: new Date(scheduledAt).toISOString(),
-        location: location || undefined,
-        notes: notes || undefined,
-      }),
+    mutationFn: (payload: InterviewCreateInput) => api.post('/api/interviews', payload),
     onSuccess: () => {
       toast.success(t('interview.scheduleSuccess'))
       qc.invalidateQueries({ queryKey: ['interviews'] })
@@ -49,9 +45,15 @@ export function ScheduleInterviewDialog({
       setScheduledAt('')
       setLocation('')
       setNotes('')
-      setSubmitted(false)
+      setFieldErrors({})
     },
     onError: (err: Error) => {
+      const fields = apiFieldErrors(err)
+      if (fields) {
+        setFieldErrors(fields)
+        focusFirstInvalid(fields, { scheduledAt: 'int-datetime', location: 'int-location', notes: 'int-notes' })
+        return
+      }
       toast.error(t('common.error'))
       console.error(err)
     },
@@ -59,15 +61,28 @@ export function ScheduleInterviewDialog({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    if (!scheduledAt || !seafarerId) return
-    mutation.mutate()
+    setFieldErrors({})
+    const result = validateFields(interviewCreateSchema, {
+      seafarerId,
+      scheduledAt,
+      location: location || undefined,
+      notes: notes || undefined,
+    })
+    if (result.errors) {
+      setFieldErrors(result.errors)
+      focusFirstInvalid(result.errors, { scheduledAt: 'int-datetime', location: 'int-location', notes: 'int-notes' })
+      return
+    }
+    mutation.mutate({
+      ...result.data,
+      scheduledAt: new Date(result.data.scheduledAt).toISOString(),
+    })
   }
 
   const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange(nextOpen)
     if (!nextOpen) {
-      setSubmitted(false)
+      setFieldErrors({})
     }
   }
 
@@ -82,7 +97,7 @@ export function ScheduleInterviewDialog({
               : t('interview.scheduleTitle')}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div className="rounded-lg border border-border/80 bg-secondary/45 p-3">
             <div className="flex items-start gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-card text-primary">
@@ -107,16 +122,14 @@ export function ScheduleInterviewDialog({
               id="int-datetime"
               type="datetime-local"
               value={scheduledAt}
-              onChange={(e) => setScheduledAt(e.target.value)}
-              required
-              aria-invalid={scheduledAtError}
-              aria-describedby={scheduledAtError ? 'int-datetime-error' : undefined}
+              onChange={(e) => {
+                setScheduledAt(e.target.value)
+                setFieldErrors((current) => ({ ...current, scheduledAt: '' }))
+              }}
+              aria-invalid={!!fieldErrors.scheduledAt}
+              aria-describedby={fieldErrors.scheduledAt ? 'int-datetime-error' : undefined}
             />
-            {scheduledAtError && (
-              <p id="int-datetime-error" className="text-xs text-destructive">
-                {t('interview.dateRequired')}
-              </p>
-            )}
+            <FieldError id="int-datetime-error" code={fieldErrors.scheduledAt} t={t} />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="int-location">{t('interview.locationLabel')}</Label>
@@ -125,20 +138,32 @@ export function ScheduleInterviewDialog({
               <Input
                 id="int-location"
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => {
+                  setLocation(e.target.value)
+                  setFieldErrors((current) => ({ ...current, location: '' }))
+                }}
                 placeholder="Rotterdam / Zoom / Phone"
                 className="ps-9"
+                aria-invalid={!!fieldErrors.location}
+                aria-describedby={fieldErrors.location ? 'int-location-error' : undefined}
               />
             </div>
+            <FieldError id="int-location-error" code={fieldErrors.location} t={t} />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="int-notes">{t('interview.notesLabel')}</Label>
             <Textarea
               id="int-notes"
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) => {
+                setNotes(e.target.value)
+                setFieldErrors((current) => ({ ...current, notes: '' }))
+              }}
               rows={3}
+              aria-invalid={!!fieldErrors.notes}
+              aria-describedby={fieldErrors.notes ? 'int-notes-error' : undefined}
             />
+            <FieldError id="int-notes-error" code={fieldErrors.notes} t={t} />
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>

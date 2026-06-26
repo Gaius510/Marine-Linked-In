@@ -67,6 +67,22 @@ const en: Dict = {
   'common.close2': 'Close',
   'common.empty': 'Nothing to show yet',
 
+  // Validation
+  'validation.required': 'This field is required',
+  'validation.invalid': 'Enter a valid value',
+  'validation.invalid_email': 'Enter a valid email address',
+  'validation.short_password': 'Password must be at least 6 characters',
+  'validation.too_long': 'This value is too long',
+  'validation.invalid_number': 'Enter a valid number',
+  'validation.invalid_date': 'Enter a valid date',
+  'validation.invalid_status': 'Choose a valid status',
+  'validation.invalid_role': 'Choose a valid account type',
+  'validation.invalid_availability': 'Choose a valid availability',
+  'validation.company_required': 'Company name is required',
+  'validation.date_before_start': 'End date cannot be before start date',
+  'validation.date_before_issue': 'Expiry date cannot be before issue date',
+  'validation.invalid_json': 'The request could not be read',
+
   // Roles
   'role.seafarer': 'Seafarer',
   'role.recruiter': 'Recruiter',
@@ -608,6 +624,22 @@ const ar: Dict = {
   'common.min': 'أدنى',
   'common.close2': 'إغلاق',
   'common.empty': 'لا يوجد ما يُعرض بعد',
+
+  // Validation
+  'validation.required': 'هذا الحقل مطلوب',
+  'validation.invalid': 'أدخل قيمة صالحة',
+  'validation.invalid_email': 'أدخل بريدًا إلكترونيًا صالحًا',
+  'validation.short_password': 'يجب أن تتكون كلمة المرور من 6 أحرف على الأقل',
+  'validation.too_long': 'هذه القيمة طويلة جدًا',
+  'validation.invalid_number': 'أدخل رقمًا صالحًا',
+  'validation.invalid_date': 'أدخل تاريخًا صالحًا',
+  'validation.invalid_status': 'اختر حالة صالحة',
+  'validation.invalid_role': 'اختر نوع حساب صالحًا',
+  'validation.invalid_availability': 'اختر توفرًا صالحًا',
+  'validation.company_required': 'اسم الشركة مطلوب',
+  'validation.date_before_start': 'لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء',
+  'validation.date_before_issue': 'لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ الإصدار',
+  'validation.invalid_json': 'تعذر قراءة الطلب',
 
   // Roles
   'role.seafarer': 'بحّار',

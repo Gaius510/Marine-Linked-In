@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { applicationCreateSchema } from '@/lib/validation/applications'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 // GET applications: recruiter sees apps for their jobs; seafarer sees their apps
 export async function GET(req: NextRequest) {

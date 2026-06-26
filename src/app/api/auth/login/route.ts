@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { verifyPassword, setSessionCookie } from '@/lib/auth'
 import { loginSchema } from '@/lib/validation/auth'
-import { parseBody, parseJsonBody, validationError } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody, validationError } from '@/lib/validation/server'
 
 export async function POST(req: NextRequest) {
   try {

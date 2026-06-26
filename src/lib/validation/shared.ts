@@ -1,4 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
 export const cuid = z.string().trim().min(1, 'required')
@@ -48,10 +47,6 @@ export function optionalNumericString(max = 50) {
   })
 }
 
-export function validationError(fields: Record<string, string> = {}) {
-  return NextResponse.json({ error: 'validation_error', fields }, { status: 400 })
-}
-
 export function zodFieldErrors(error: z.ZodError): Record<string, string> {
   const fields: Record<string, string> = {}
   for (const issue of error.issues) {
@@ -59,20 +54,6 @@ export function zodFieldErrors(error: z.ZodError): Record<string, string> {
     if (!fields[key]) fields[key] = issue.message || 'invalid'
   }
   return fields
-}
-
-export async function parseJsonBody(req: NextRequest): Promise<unknown | NextResponse> {
-  try {
-    return await req.json()
-  } catch {
-    return validationError({ _root: 'invalid_json' })
-  }
-}
-
-export function parseBody<T>(schema: z.ZodType<T>, body: unknown): T | NextResponse {
-  const parsed = schema.safeParse(body)
-  if (!parsed.success) return validationError(zodFieldErrors(parsed.error))
-  return parsed.data
 }
 
 export function dateOrderIssue(start: string | null | undefined, end: string | null | undefined): boolean {

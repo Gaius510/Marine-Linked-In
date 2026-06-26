@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { interviewCreateSchema } from '@/lib/validation/interviews'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 // GET interviews - recruiter sees theirs, seafarer sees theirs
 export async function GET() {

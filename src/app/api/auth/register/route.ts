@@ -3,7 +3,7 @@ import { db } from '@/lib/db'
 import { hashPassword, setSessionCookie } from '@/lib/auth'
 import { Role } from '@prisma/client'
 import { registerSchema } from '@/lib/validation/auth'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 export async function POST(req: NextRequest) {
   try {

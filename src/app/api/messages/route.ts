@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { messageCreateSchema } from '@/lib/validation/messages'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 // GET: messages - recruiter sees sent, seafarer sees received
 export async function GET() {

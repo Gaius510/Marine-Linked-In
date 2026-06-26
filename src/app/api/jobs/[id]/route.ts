@@ -3,7 +3,7 @@ import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { JobStatus } from '@prisma/client'
 import { jobUpdateSchema } from '@/lib/validation/jobs'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 type RouteContext = { params: Promise<{ id: string }> }
 

@@ -10,7 +10,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { BrandLogo } from '@/components/shared/brand-logo'
+import { FieldError } from '@/components/shared/field-error'
 import { brand } from '@/lib/brand'
+import { loginSchema, registerSchema } from '@/lib/validation/auth'
+import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
 import { toast } from 'sonner'
 import {
   Ship,
@@ -57,6 +60,7 @@ export function AuthScreen() {
 
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
+  const [loginErrors, setLoginErrors] = useState<FieldErrors>({})
 
   const [regName, setRegName] = useState('')
   const [regEmail, setRegEmail] = useState('')
@@ -66,6 +70,7 @@ export function AuthScreen() {
   const [regPhone, setRegPhone] = useState('')
   const [regCity, setRegCity] = useState('')
   const [regCountry, setRegCountry] = useState('')
+  const [registerErrors, setRegisterErrors] = useState<FieldErrors>({})
 
   const errorMap: Record<string, string> = {
     invalid_credentials: t('auth.invalidCredentials'),
@@ -79,10 +84,24 @@ export function AuthScreen() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
+    setLoginErrors({})
+    const payload = { email: loginEmail, password: loginPassword }
+    const result = validateFields(loginSchema, payload)
+    if (result.errors) {
+      setLoginErrors(result.errors)
+      focusFirstInvalid(result.errors, { email: 'login-email', password: 'login-password' })
+      return
+    }
     try {
-      await login(loginEmail, loginPassword)
+      await login(result.data.email, result.data.password)
       toast.success(t('auth.loginSuccess'))
     } catch (err) {
+      const fields = apiFieldErrors(err)
+      if (fields) {
+        setLoginErrors(fields)
+        focusFirstInvalid(fields, { email: 'login-email', password: 'login-password' })
+        return
+      }
       const key = (err as Error).message
       toast.error(errorMap[key] || t('common.error'))
     }
@@ -90,25 +109,63 @@ export function AuthScreen() {
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault()
-    if (regRole === 'RECRUITER' && !regCompany.trim()) {
-      toast.error(t('auth.fillCompany'))
+    setRegisterErrors({})
+    const payload = {
+      email: regEmail,
+      password: regPassword,
+      name: regName,
+      role: regRole,
+      company: regCompany || undefined,
+      phone: regPhone || undefined,
+      city: regCity || undefined,
+      country: regCountry || undefined,
+    }
+    const result = validateFields(registerSchema, payload)
+    if (result.errors) {
+      setRegisterErrors(result.errors)
+      focusFirstInvalid(result.errors, {
+        email: 'reg-email',
+        password: 'reg-password',
+        name: 'reg-name',
+        company: 'reg-company',
+        phone: 'reg-phone',
+        city: 'reg-city',
+        country: 'reg-country',
+      })
       return
     }
 
     try {
       await register({
-        email: regEmail,
-        password: regPassword,
-        name: regName,
-        role: regRole,
-        company: regCompany || undefined,
-        phone: regPhone || undefined,
-        city: regCity || undefined,
-        country: regCountry || undefined,
+        ...result.data,
+        company: result.data.company ?? undefined,
+        phone: result.data.phone ?? undefined,
+        city: result.data.city ?? undefined,
+        country: result.data.country ?? undefined,
       })
       toast.success(t('auth.registerSuccess'))
     } catch (err) {
+      const fields = apiFieldErrors(err)
+      if (fields) {
+        setRegisterErrors(fields)
+        focusFirstInvalid(fields, {
+          email: 'reg-email',
+          password: 'reg-password',
+          name: 'reg-name',
+          company: 'reg-company',
+          phone: 'reg-phone',
+          city: 'reg-city',
+          country: 'reg-country',
+        })
+        return
+      }
       const key = (err as Error).message
+      if (key === 'company_required') {
+        const fields = { company: 'company_required' }
+        setRegisterErrors(fields)
+        focusFirstInvalid(fields, { company: 'reg-company' })
+        return
+      }
       toast.error(errorMap[key] || t('common.error'))
     }
   }
@@ -185,18 +242,23 @@ export function AuthScreen() {
                   <CardDescription className="text-base">{t('auth.loginSubtitle')}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleLogin} className="space-y-4">
+                  <form onSubmit={handleLogin} className="space-y-4" noValidate>
                     <div className="space-y-2">
                       <Label htmlFor="login-email">{t('auth.email')}</Label>
                       <Input
                         id="login-email"
                         type="email"
-                        required
                         value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
+                        onChange={(e) => {
+                          setLoginEmail(e.target.value)
+                          setLoginErrors((current) => ({ ...current, email: '' }))
+                        }}
                         placeholder="you@example.com"
                         className="h-12 rounded-xl"
+                        aria-invalid={!!loginErrors.email}
+                        aria-describedby={loginErrors.email ? 'login-email-error' : undefined}
                       />
+                      <FieldError id="login-email-error" code={loginErrors.email} t={t} />
                     </div>
 
                     <div className="space-y-2">
@@ -204,12 +266,17 @@ export function AuthScreen() {
                       <Input
                         id="login-password"
                         type="password"
-                        required
                         value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
+                        onChange={(e) => {
+                          setLoginPassword(e.target.value)
+                          setLoginErrors((current) => ({ ...current, password: '' }))
+                        }}
                         placeholder="••••••••"
                         className="h-12 rounded-xl"
+                        aria-invalid={!!loginErrors.password}
+                        aria-describedby={loginErrors.password ? 'login-password-error' : undefined}
                       />
+                      <FieldError id="login-password-error" code={loginErrors.password} t={t} />
                     </div>
 
                     <Button
@@ -263,7 +330,7 @@ export function AuthScreen() {
                 </CardHeader>
 
                 <CardContent>
-                  <form onSubmit={handleRegister} className="space-y-4">
+                  <form onSubmit={handleRegister} className="space-y-4" noValidate>
                     <div className="space-y-2">
                       <Label>{t('auth.accountType')}</Label>
                       <RadioGroup value={regRole} onValueChange={(v) => setRegRole(v as Role)} className="grid grid-cols-2 gap-3">
@@ -282,17 +349,20 @@ export function AuthScreen() {
 
                     <div className="space-y-2">
                       <Label htmlFor="reg-name">{t('auth.name')}</Label>
-                      <Input id="reg-name" required value={regName} onChange={(e) => setRegName(e.target.value)} className="h-11 rounded-xl" />
+                      <Input id="reg-name" value={regName} onChange={(e) => { setRegName(e.target.value); setRegisterErrors((current) => ({ ...current, name: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.name} aria-describedby={registerErrors.name ? 'reg-name-error' : undefined} />
+                      <FieldError id="reg-name-error" code={registerErrors.name} t={t} />
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="reg-email">{t('auth.email')}</Label>
-                      <Input id="reg-email" type="email" required value={regEmail} onChange={(e) => setRegEmail(e.target.value)} className="h-11 rounded-xl" />
+                      <Input id="reg-email" type="email" value={regEmail} onChange={(e) => { setRegEmail(e.target.value); setRegisterErrors((current) => ({ ...current, email: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.email} aria-describedby={registerErrors.email ? 'reg-email-error' : undefined} />
+                      <FieldError id="reg-email-error" code={registerErrors.email} t={t} />
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="reg-password">{t('auth.password')}</Label>
-                      <Input id="reg-password" type="password" required minLength={6} value={regPassword} onChange={(e) => setRegPassword(e.target.value)} className="h-11 rounded-xl" />
+                      <Input id="reg-password" type="password" value={regPassword} onChange={(e) => { setRegPassword(e.target.value); setRegisterErrors((current) => ({ ...current, password: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.password} aria-describedby={registerErrors.password ? 'reg-password-error' : undefined} />
+                      <FieldError id="reg-password-error" code={registerErrors.password} t={t} />
                     </div>
 
                     {regRole === 'RECRUITER' && (
@@ -300,24 +370,28 @@ export function AuthScreen() {
                         <Label htmlFor="reg-company">
                           {t('auth.company')} <span className="text-destructive">*</span>
                         </Label>
-                        <Input id="reg-company" required value={regCompany} onChange={(e) => setRegCompany(e.target.value)} className="h-11 rounded-xl" />
+                        <Input id="reg-company" value={regCompany} onChange={(e) => { setRegCompany(e.target.value); setRegisterErrors((current) => ({ ...current, company: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.company} aria-describedby={registerErrors.company ? 'reg-company-error' : undefined} />
+                        <FieldError id="reg-company-error" code={registerErrors.company} t={t} />
                       </div>
                     )}
 
                     <div className="grid grid-cols-2 gap-3">
                       <div className="space-y-2">
                         <Label htmlFor="reg-phone">{t('auth.phone')}</Label>
-                        <Input id="reg-phone" value={regPhone} onChange={(e) => setRegPhone(e.target.value)} className="h-11 rounded-xl" />
+                        <Input id="reg-phone" value={regPhone} onChange={(e) => { setRegPhone(e.target.value); setRegisterErrors((current) => ({ ...current, phone: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.phone} aria-describedby={registerErrors.phone ? 'reg-phone-error' : undefined} />
+                        <FieldError id="reg-phone-error" code={registerErrors.phone} t={t} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="reg-city">{t('auth.city')}</Label>
-                        <Input id="reg-city" value={regCity} onChange={(e) => setRegCity(e.target.value)} className="h-11 rounded-xl" />
+                        <Input id="reg-city" value={regCity} onChange={(e) => { setRegCity(e.target.value); setRegisterErrors((current) => ({ ...current, city: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.city} aria-describedby={registerErrors.city ? 'reg-city-error' : undefined} />
+                        <FieldError id="reg-city-error" code={registerErrors.city} t={t} />
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="reg-country">{t('auth.country')}</Label>
-                      <Input id="reg-country" value={regCountry} onChange={(e) => setRegCountry(e.target.value)} className="h-11 rounded-xl" />
+                      <Input id="reg-country" value={regCountry} onChange={(e) => { setRegCountry(e.target.value); setRegisterErrors((current) => ({ ...current, country: '' })) }} className="h-11 rounded-xl" aria-invalid={!!registerErrors.country} aria-describedby={registerErrors.country ? 'reg-country-error' : undefined} />
+                      <FieldError id="reg-country-error" code={registerErrors.country} t={t} />
                     </div>
 
                     <Button type="submit" className="h-12 w-full rounded-xl text-base" disabled={loading}>

@@ -12,9 +12,12 @@ import {
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { FieldError } from '@/components/shared/field-error'
 import { SectionCard } from '@/components/shared/section-card'
 import { StatusPill } from '@/components/shared/status-pill'
+import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
 import { formatDate, formatSalaryRange, safeText } from '@/lib/format'
+import { applicationCreateSchema, type ApplicationCreateInput } from '@/lib/validation/applications'
 import { Briefcase, Building2, CheckCircle2, Clock, Loader2, Send, Ship, Wallet } from 'lucide-react'
 
 interface ApplyDialogProps {
@@ -35,22 +38,27 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
   const { t } = useI18n()
   const qc = useQueryClient()
   const [message, setMessage] = useState('')
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
 
   const alreadyApplied = !!job?.myApplicationStatus
 
   const mutation = useMutation({
-    mutationFn: () => api.post<{ application: unknown }>('/api/applications', {
-      jobId: job?.id,
-      message: message.trim() || undefined,
-    }),
+    mutationFn: (payload: ApplicationCreateInput) => api.post<{ application: unknown }>('/api/applications', payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['seafarer', 'me'] })
       qc.invalidateQueries({ queryKey: ['jobs'] })
       toast.success(t('jobs.applySuccess'))
       setMessage('')
+      setFieldErrors({})
       onOpenChange(false)
     },
     onError: (err: Error) => {
+      const fields = apiFieldErrors(err)
+      if (fields) {
+        setFieldErrors(fields)
+        focusFirstInvalid(fields, { message: 'apply-message' })
+        return
+      }
       if (err.message === 'already_applied') {
         toast.error(t('jobs.alreadyApplied'))
       } else {
@@ -62,7 +70,10 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
   if (!job) return null
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) setMessage('')
+    if (!nextOpen) {
+      setMessage('')
+      setFieldErrors({})
+    }
     onOpenChange(nextOpen)
   }
 
@@ -128,9 +139,20 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
             onSubmit={(event) => {
               event.preventDefault()
               if (mutation.isPending) return
-              mutation.mutate()
+              setFieldErrors({})
+              const result = validateFields(applicationCreateSchema, {
+                jobId: job.id,
+                message: message.trim() || undefined,
+              })
+              if (result.errors) {
+                setFieldErrors(result.errors)
+                focusFirstInvalid(result.errors, { message: 'apply-message' })
+                return
+              }
+              mutation.mutate(result.data)
             }}
             className="space-y-4"
+            noValidate
           >
             <div className="space-y-1.5">
               <Label htmlFor="apply-message">
@@ -143,8 +165,11 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
                 rows={5}
                 placeholder={t('jobs.applyMessagePlaceholder')}
                 disabled={mutation.isPending}
+                aria-invalid={!!fieldErrors.message}
+                aria-describedby={fieldErrors.message ? 'apply-message-error' : 'apply-message-help'}
               />
-              <p className="text-xs text-muted-foreground">{t('jobs.applyMessageHelp')}</p>
+              <p id="apply-message-help" className="text-xs text-muted-foreground">{t('jobs.applyMessageHelp')}</p>
+              <FieldError id="apply-message-error" code={fieldErrors.message} t={t} />
             </div>
 
             <DialogFooter className="gap-2">

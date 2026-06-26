@@ -3,7 +3,7 @@ import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { Prisma } from '@prisma/client'
 import { jobCreateSchema } from '@/lib/validation/jobs'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser()

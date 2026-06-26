@@ -16,7 +16,9 @@ import { CvFormField } from './cv-form-field'
 import type { SeafarerCvProfile } from './types'
 import type { Availability } from '@/lib/types'
 import { RANKS } from '@/lib/types'
+import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
 import { useI18n } from '@/lib/i18n'
+import { seafarerProfileUpdateSchema } from '@/lib/validation/seafarers'
 import { Anchor, Loader2, Save } from 'lucide-react'
 
 interface MaritimeForm {
@@ -49,21 +51,49 @@ export function MaritimeDetailsSection({
   const { t } = useI18n()
   const mutation = useUpdateSeafarerProfile()
   const [form, setForm] = useState<MaritimeForm>(() => toForm(profile))
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const [lastProfile, setLastProfile] = useState(profile)
 
   if (profile !== lastProfile) {
     setLastProfile(profile)
     setForm(toForm(profile))
+    setFieldErrors({})
   }
 
-  const set = <K extends keyof MaritimeForm>(key: K, value: MaritimeForm[K]) =>
+  const fieldIds: Record<string, string> = {
+    rank: 'cv-rank',
+    yearsExperience: 'cv-years-experience',
+    cocGrade: 'cv-coc-grade',
+    cocExpiry: 'cv-coc-expiry',
+    availability: 'cv-availability-AVAILABLE',
+    availableFrom: 'cv-available-from',
+  }
+
+  const set = <K extends keyof MaritimeForm>(key: K, value: MaritimeForm[K]) => {
     setForm((current) => ({ ...current, [key]: value }))
+    setFieldErrors((current) => ({ ...current, [key]: '' }))
+  }
 
   const save = () => {
     if (mutation.isPending) return
-    mutation.mutate(form, {
+    setFieldErrors({})
+    const result = validateFields(seafarerProfileUpdateSchema, form)
+    if (result.errors) {
+      setFieldErrors(result.errors)
+      focusFirstInvalid(result.errors, fieldIds)
+      return
+    }
+    mutation.mutate(result.data, {
       onSuccess: () => toast.success(t('cv.maritimeSaved')),
-      onError: () => toast.error(t('common.error')),
+      onError: (err) => {
+        const fields = apiFieldErrors(err)
+        if (fields) {
+          setFieldErrors(fields)
+          focusFirstInvalid(fields, fieldIds)
+          return
+        }
+        toast.error(t('common.error'))
+      },
     })
   }
 
@@ -82,15 +112,16 @@ export function MaritimeDetailsSection({
     >
       <form
         className="space-y-5"
+        noValidate
         onSubmit={(event) => {
           event.preventDefault()
           save()
         }}
       >
         <div className="grid gap-4 sm:grid-cols-2">
-          <CvFormField label={t('cv.rank')}>
+          <CvFormField id="cv-rank" label={t('cv.rank')} error={fieldErrors.rank}>
             <Select value={form.rank} onValueChange={(value) => set('rank', value)}>
-              <SelectTrigger className="w-full" aria-label={t('cv.rank')}>
+              <SelectTrigger id="cv-rank" className="w-full" aria-label={t('cv.rank')} aria-invalid={!!fieldErrors.rank} aria-describedby={fieldErrors.rank ? 'cv-rank-error' : undefined}>
                 <SelectValue placeholder={t('cv.rank')} />
               </SelectTrigger>
               <SelectContent>
@@ -100,7 +131,7 @@ export function MaritimeDetailsSection({
               </SelectContent>
             </Select>
           </CvFormField>
-          <CvFormField id="cv-years-experience" label={t('cv.yearsExperience')}>
+          <CvFormField id="cv-years-experience" label={t('cv.yearsExperience')} error={fieldErrors.yearsExperience}>
             <Input
               id="cv-years-experience"
               type="number"
@@ -108,24 +139,28 @@ export function MaritimeDetailsSection({
               max={70}
               value={form.yearsExperience}
               onChange={(event) => set('yearsExperience', event.target.value)}
+              aria-invalid={!!fieldErrors.yearsExperience}
+              aria-describedby={fieldErrors.yearsExperience ? 'cv-years-experience-error' : undefined}
             />
           </CvFormField>
-          <CvFormField id="cv-coc-grade" label={t('cv.cocGrade')}>
+          <CvFormField id="cv-coc-grade" label={t('cv.cocGrade')} error={fieldErrors.cocGrade}>
             <Input
               id="cv-coc-grade"
               value={form.cocGrade}
               onChange={(event) => set('cocGrade', event.target.value)}
               placeholder="e.g. II/2 Chief Mate"
+              aria-invalid={!!fieldErrors.cocGrade}
+              aria-describedby={fieldErrors.cocGrade ? 'cv-coc-grade-error' : undefined}
             />
           </CvFormField>
-          <CvFormField id="cv-coc-expiry" label={t('cv.cocExpiry')}>
-            <Input id="cv-coc-expiry" type="date" value={form.cocExpiry} onChange={(event) => set('cocExpiry', event.target.value)} />
+          <CvFormField id="cv-coc-expiry" label={t('cv.cocExpiry')} error={fieldErrors.cocExpiry}>
+            <Input id="cv-coc-expiry" type="date" value={form.cocExpiry} onChange={(event) => set('cocExpiry', event.target.value)} aria-invalid={!!fieldErrors.cocExpiry} aria-describedby={fieldErrors.cocExpiry ? 'cv-coc-expiry-error' : undefined} />
           </CvFormField>
         </div>
 
         <Separator />
 
-        <CvFormField label={t('cv.availability')}>
+        <CvFormField id="cv-availability" label={t('cv.availability')} error={fieldErrors.availability}>
           <RadioGroup
             value={form.availability}
             onValueChange={(value) => set('availability', value as Availability)}
@@ -137,7 +172,7 @@ export function MaritimeDetailsSection({
                 htmlFor={`cv-availability-${option}`}
                 className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-accent has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-secondary"
               >
-                <RadioGroupItem id={`cv-availability-${option}`} value={option} />
+                <RadioGroupItem id={`cv-availability-${option}`} value={option} aria-invalid={!!fieldErrors.availability} />
                 <span className="text-sm font-medium">{t(`availability.${option}`)}</span>
               </label>
             ))}
@@ -145,13 +180,15 @@ export function MaritimeDetailsSection({
         </CvFormField>
 
         {form.availability === 'AVAILABLE' && (
-          <CvFormField id="cv-available-from" label={t('cv.availableFrom')}>
+          <CvFormField id="cv-available-from" label={t('cv.availableFrom')} error={fieldErrors.availableFrom}>
             <Input
               id="cv-available-from"
               type="date"
               value={form.availableFrom}
               onChange={(event) => set('availableFrom', event.target.value)}
               className="sm:max-w-xs"
+              aria-invalid={!!fieldErrors.availableFrom}
+              aria-describedby={fieldErrors.availableFrom ? 'cv-available-from-error' : undefined}
             />
           </CvFormField>
         )}

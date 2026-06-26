@@ -3,7 +3,7 @@ import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { Availability } from '@prisma/client'
 import { seafarerProfileUpdateSchema } from '@/lib/validation/seafarers'
-import { parseBody, parseJsonBody } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
 export async function GET() {
   const user = await getCurrentUser()

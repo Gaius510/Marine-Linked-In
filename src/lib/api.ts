@@ -1,5 +1,17 @@
 import type { SafeUser } from './types'
 
+export class ApiError extends Error {
+  fields?: Record<string, string>
+  status: number
+
+  constructor(message: string, status: number, fields?: Record<string, string>) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+    this.fields = fields
+  }
+}
+
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     headers: { 'Content-Type': 'application/json', ...(options?.headers || {}) },
@@ -7,7 +19,8 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
   })
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
-    throw new Error((data as { error?: string }).error || 'request_failed')
+    const payload = data as { error?: string; fields?: Record<string, string> }
+    throw new ApiError(payload.error || 'request_failed', res.status, payload.fields)
   }
   return data as T
 }

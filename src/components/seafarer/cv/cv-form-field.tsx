@@ -1,5 +1,9 @@
+'use client'
+
 import type { ReactNode } from 'react'
+import { FieldError } from '@/components/shared/field-error'
 import { Label } from '@/components/ui/label'
+import { useI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 
 export function CvFormField({
@@ -7,14 +11,18 @@ export function CvFormField({
   label,
   required,
   helper,
+  error,
   children,
 }: {
   id?: string
   label: string
   required?: boolean
   helper?: ReactNode
+  error?: string
   children: ReactNode
 }) {
+  const { t } = useI18n()
+
   return (
     <div className="space-y-1.5">
       <Label htmlFor={id}>
@@ -22,7 +30,8 @@ export function CvFormField({
         {required && <span className="ms-0.5 text-destructive">*</span>}
       </Label>
       {children}
-      {helper && <p className="text-xs text-muted-foreground">{helper}</p>}
+      {helper && !error && <p className="text-xs text-muted-foreground">{helper}</p>}
+      {id && <FieldError id={`${id}-error`} code={error} t={t} />}
     </div>
   )
 }

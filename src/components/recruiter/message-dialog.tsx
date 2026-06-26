@@ -7,9 +7,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { FieldError } from '@/components/shared/field-error'
 import { StatusPill } from '@/components/shared/status-pill'
 import { api } from '@/lib/api'
+import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
 import { useI18n } from '@/lib/i18n'
+import { messageCreateSchema, type MessageCreateInput } from '@/lib/validation/messages'
 import { toast } from 'sonner'
 import { Loader2, Mail, Users } from 'lucide-react'
 
@@ -38,29 +41,29 @@ export function MessageDialog({
   const qc = useQueryClient()
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
 
   const isBulk = !!seafarerIds && seafarerIds.length > 0
   const count = isBulk ? seafarerIds!.length : 1
-  const bodyError = submitted && !body.trim()
 
   const mutation = useMutation({
-    mutationFn: () => {
-      const payload = isBulk
-        ? { seafarerIds: seafarerIds!, subject, body }
-        : { seafarerId: seafarerId!, subject, body }
-      return api.post<{ count: number }>('/api/messages', payload)
-    },
+    mutationFn: (payload: MessageCreateInput) => api.post<{ count: number }>('/api/messages', payload),
     onSuccess: (data) => {
       toast.success(t(isBulk ? 'browse.bulkMessageSuccess' : 'browse.messageSingleSuccess', { count: data.count }))
       qc.invalidateQueries({ queryKey: ['messages'] })
       onOpenChange(false)
       setSubject('')
       setBody('')
-      setSubmitted(false)
+      setFieldErrors({})
       if (isBulk) onBulkSuccess?.()
     },
     onError: (err: Error) => {
+      const fields = apiFieldErrors(err)
+      if (fields) {
+        setFieldErrors(fields)
+        focusFirstInvalid(fields, { subject: 'msg-subject', body: 'msg-body', seafarerId: 'msg-body' })
+        return
+      }
       toast.error(t('common.error'))
       console.error(err)
     },
@@ -68,15 +71,23 @@ export function MessageDialog({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    if (!body.trim()) return
-    mutation.mutate()
+    setFieldErrors({})
+    const payload = isBulk
+      ? { seafarerIds: seafarerIds!, subject, body }
+      : { seafarerId: seafarerId!, subject, body }
+    const result = validateFields(messageCreateSchema, payload)
+    if (result.errors) {
+      setFieldErrors(result.errors)
+      focusFirstInvalid(result.errors, { subject: 'msg-subject', body: 'msg-body', seafarerId: 'msg-body' })
+      return
+    }
+    mutation.mutate(result.data)
   }
 
   const handleOpenChange = (nextOpen: boolean) => {
     onOpenChange(nextOpen)
     if (!nextOpen) {
-      setSubmitted(false)
+      setFieldErrors({})
     }
   }
 
@@ -93,7 +104,7 @@ export function MessageDialog({
               : t('browse.singleMessageDescription', { name: recipientName ?? t('interview.candidate') })}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div className="rounded-lg border border-border/80 bg-secondary/45 p-3">
             <div className="flex items-start gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-card text-primary">
@@ -106,6 +117,7 @@ export function MessageDialog({
                 <div className="mt-1 text-sm text-muted-foreground">
                   {isBulk ? t('browse.selectedCandidates', { count }) : recipientName}
                 </div>
+                <FieldError id="msg-recipient-error" code={fieldErrors.seafarerId} t={t} />
               </div>
               {isBulk && <StatusPill tone="primary">{count}</StatusPill>}
             </div>
@@ -116,27 +128,31 @@ export function MessageDialog({
             <Input
               id="msg-subject"
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => {
+                setSubject(e.target.value)
+                setFieldErrors((current) => ({ ...current, subject: '' }))
+              }}
               placeholder={t('browse.subjectPlaceholder')}
+              aria-invalid={!!fieldErrors.subject}
+              aria-describedby={fieldErrors.subject ? 'msg-subject-error' : undefined}
             />
+            <FieldError id="msg-subject-error" code={fieldErrors.subject} t={t} />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="msg-body">{t('browse.bulkMessageBody')}</Label>
             <Textarea
               id="msg-body"
               value={body}
-              onChange={(e) => setBody(e.target.value)}
+              onChange={(e) => {
+                setBody(e.target.value)
+                setFieldErrors((current) => ({ ...current, body: '' }))
+              }}
               placeholder={t('browse.bodyPlaceholder')}
               rows={5}
-              required
-              aria-invalid={bodyError}
-              aria-describedby={bodyError ? 'msg-body-error' : undefined}
+              aria-invalid={!!fieldErrors.body}
+              aria-describedby={fieldErrors.body ? 'msg-body-error' : undefined}
             />
-            {bodyError && (
-              <p id="msg-body-error" className="text-xs text-destructive">
-                {t('browse.messageRequired')}
-              </p>
-            )}
+            <FieldError id="msg-body-error" code={fieldErrors.body} t={t} />
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>

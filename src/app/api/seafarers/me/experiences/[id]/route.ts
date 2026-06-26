@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
 import { experienceUpdateSchema } from '@/lib/validation/seafarers'
-import { dateOrderIssue, parseBody, parseJsonBody, validationError } from '@/lib/validation/shared'
+import { dateOrderIssue } from '@/lib/validation/shared'
+import { parseBody, parseJsonBody, validationError } from '@/lib/validation/server'
 
 type RouteContext = { params: Promise<{ id: string }> }
 

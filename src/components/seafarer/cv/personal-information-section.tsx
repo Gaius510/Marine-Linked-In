@@ -14,7 +14,9 @@ import { useUpdateSeafarerProfile } from '@/components/seafarer/use-seafarer-pro
 import { CvFormField, CvReadOnlyField } from './cv-form-field'
 import type { SeafarerCvProfile } from './types'
 import { NATIONALITIES } from '@/lib/types'
+import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
 import { useI18n } from '@/lib/i18n'
+import { seafarerProfileUpdateSchema } from '@/lib/validation/seafarers'
 import { Save, UserRound, Loader2 } from 'lucide-react'
 
 interface PersonalForm {
@@ -47,21 +49,49 @@ export function PersonalInformationSection({
   const { t } = useI18n()
   const mutation = useUpdateSeafarerProfile()
   const [form, setForm] = useState<PersonalForm>(() => toForm(profile))
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const [lastProfile, setLastProfile] = useState(profile)
 
   if (profile !== lastProfile) {
     setLastProfile(profile)
     setForm(toForm(profile))
+    setFieldErrors({})
   }
 
-  const set = <K extends keyof PersonalForm>(key: K, value: PersonalForm[K]) =>
+  const fieldIds: Record<string, string> = {
+    phone: 'cv-phone',
+    city: 'cv-city',
+    country: 'cv-country',
+    nationality: 'cv-nationality',
+    dateOfBirth: 'cv-date-of-birth',
+    bio: 'cv-bio',
+  }
+
+  const set = <K extends keyof PersonalForm>(key: K, value: PersonalForm[K]) => {
     setForm((current) => ({ ...current, [key]: value }))
+    setFieldErrors((current) => ({ ...current, [key]: '' }))
+  }
 
   const save = () => {
     if (mutation.isPending) return
-    mutation.mutate(form, {
+    setFieldErrors({})
+    const result = validateFields(seafarerProfileUpdateSchema, form)
+    if (result.errors) {
+      setFieldErrors(result.errors)
+      focusFirstInvalid(result.errors, fieldIds)
+      return
+    }
+    mutation.mutate(result.data, {
       onSuccess: () => toast.success(t('cv.personalSaved')),
-      onError: () => toast.error(t('common.error')),
+      onError: (err) => {
+        const fields = apiFieldErrors(err)
+        if (fields) {
+          setFieldErrors(fields)
+          focusFirstInvalid(fields, fieldIds)
+          return
+        }
+        toast.error(t('common.error'))
+      },
     })
   }
 
@@ -78,6 +108,7 @@ export function PersonalInformationSection({
     >
       <form
         className="space-y-5"
+        noValidate
         onSubmit={(event) => {
           event.preventDefault()
           save()
@@ -89,12 +120,12 @@ export function PersonalInformationSection({
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <CvFormField id="cv-phone" label={t('auth.phone')}>
-            <Input id="cv-phone" value={form.phone} onChange={(event) => set('phone', event.target.value)} placeholder="+1 234 567 8900" />
+          <CvFormField id="cv-phone" label={t('auth.phone')} error={fieldErrors.phone}>
+            <Input id="cv-phone" value={form.phone} onChange={(event) => set('phone', event.target.value)} placeholder="+1 234 567 8900" aria-invalid={!!fieldErrors.phone} aria-describedby={fieldErrors.phone ? 'cv-phone-error' : undefined} />
           </CvFormField>
-          <CvFormField label={t('cv.nationality')}>
+          <CvFormField id="cv-nationality" label={t('cv.nationality')} error={fieldErrors.nationality}>
             <Select value={form.nationality} onValueChange={(value) => set('nationality', value)}>
-              <SelectTrigger className="w-full" aria-label={t('cv.nationality')}>
+              <SelectTrigger id="cv-nationality" className="w-full" aria-label={t('cv.nationality')} aria-invalid={!!fieldErrors.nationality} aria-describedby={fieldErrors.nationality ? 'cv-nationality-error' : undefined}>
                 <SelectValue placeholder={t('cv.nationality')} />
               </SelectTrigger>
               <SelectContent>
@@ -104,24 +135,26 @@ export function PersonalInformationSection({
               </SelectContent>
             </Select>
           </CvFormField>
-          <CvFormField id="cv-city" label={t('auth.city')}>
-            <Input id="cv-city" value={form.city} onChange={(event) => set('city', event.target.value)} />
+          <CvFormField id="cv-city" label={t('auth.city')} error={fieldErrors.city}>
+            <Input id="cv-city" value={form.city} onChange={(event) => set('city', event.target.value)} aria-invalid={!!fieldErrors.city} aria-describedby={fieldErrors.city ? 'cv-city-error' : undefined} />
           </CvFormField>
-          <CvFormField id="cv-country" label={t('auth.country')}>
-            <Input id="cv-country" value={form.country} onChange={(event) => set('country', event.target.value)} />
+          <CvFormField id="cv-country" label={t('auth.country')} error={fieldErrors.country}>
+            <Input id="cv-country" value={form.country} onChange={(event) => set('country', event.target.value)} aria-invalid={!!fieldErrors.country} aria-describedby={fieldErrors.country ? 'cv-country-error' : undefined} />
           </CvFormField>
-          <CvFormField id="cv-date-of-birth" label={t('cv.dateOfBirth')}>
-            <Input id="cv-date-of-birth" type="date" value={form.dateOfBirth} onChange={(event) => set('dateOfBirth', event.target.value)} />
+          <CvFormField id="cv-date-of-birth" label={t('cv.dateOfBirth')} error={fieldErrors.dateOfBirth}>
+            <Input id="cv-date-of-birth" type="date" value={form.dateOfBirth} onChange={(event) => set('dateOfBirth', event.target.value)} aria-invalid={!!fieldErrors.dateOfBirth} aria-describedby={fieldErrors.dateOfBirth ? 'cv-date-of-birth-error' : undefined} />
           </CvFormField>
         </div>
 
-        <CvFormField id="cv-bio" label={t('cv.bio')} helper={t('cv.bioHelper')}>
+        <CvFormField id="cv-bio" label={t('cv.bio')} helper={t('cv.bioHelper')} error={fieldErrors.bio}>
           <Textarea
             id="cv-bio"
             rows={4}
             value={form.bio}
             onChange={(event) => set('bio', event.target.value)}
             placeholder={t('cv.bioPlaceholder')}
+            aria-invalid={!!fieldErrors.bio}
+            aria-describedby={fieldErrors.bio ? 'cv-bio-error' : undefined}
           />
         </CvFormField>
 
