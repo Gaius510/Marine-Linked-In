@@ -61,6 +61,7 @@ export function AuthScreen() {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const [loginErrors, setLoginErrors] = useState<FieldErrors>({})
+  const [loginFormError, setLoginFormError] = useState<string | null>(null)
 
   const [regName, setRegName] = useState('')
   const [regEmail, setRegEmail] = useState('')
@@ -85,6 +86,7 @@ export function AuthScreen() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setLoginErrors({})
+    setLoginFormError(null)
     const payload = { email: loginEmail, password: loginPassword }
     const result = validateFields(loginSchema, payload)
     if (result.errors) {
@@ -103,6 +105,10 @@ export function AuthScreen() {
         return
       }
       const key = (err as Error).message
+      if (key === 'invalid_credentials') {
+        setLoginFormError(t('auth.invalidCredentials'))
+        return
+      }
       toast.error(errorMap[key] || t('common.error'))
     }
   }
@@ -173,6 +179,8 @@ export function AuthScreen() {
   function quickLogin(email: string, password: string) {
     setLoginEmail(email)
     setLoginPassword(password)
+    setLoginErrors({})
+    setLoginFormError(null)
     setMode('login')
   }
 
@@ -252,6 +260,7 @@ export function AuthScreen() {
                         onChange={(e) => {
                           setLoginEmail(e.target.value)
                           setLoginErrors((current) => ({ ...current, email: '' }))
+                          setLoginFormError(null)
                         }}
                         placeholder="you@example.com"
                         className="h-12 rounded-xl"
@@ -270,6 +279,7 @@ export function AuthScreen() {
                         onChange={(e) => {
                           setLoginPassword(e.target.value)
                           setLoginErrors((current) => ({ ...current, password: '' }))
+                          setLoginFormError(null)
                         }}
                         placeholder="••••••••"
                         className="h-12 rounded-xl"
@@ -278,6 +288,16 @@ export function AuthScreen() {
                       />
                       <FieldError id="login-password-error" code={loginErrors.password} t={t} />
                     </div>
+
+                    {loginFormError && (
+                      <div
+                        role="alert"
+                        aria-live="polite"
+                        className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-sm text-destructive"
+                      >
+                        {loginFormError}
+                      </div>
+                    )}
 
                     <Button
                       type="submit"

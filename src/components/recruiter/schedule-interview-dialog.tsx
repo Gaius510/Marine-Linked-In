@@ -35,6 +35,7 @@ export function ScheduleInterviewDialog({
   const [location, setLocation] = useState('')
   const [notes, setNotes] = useState('')
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const minScheduledAt = toDatetimeLocalValue(new Date(Date.now() + 60_000))
 
   const mutation = useMutation({
     mutationFn: (payload: InterviewCreateInput) => api.post('/api/interviews', payload),
@@ -122,6 +123,7 @@ export function ScheduleInterviewDialog({
               id="int-datetime"
               type="datetime-local"
               value={scheduledAt}
+              min={minScheduledAt}
               onChange={(e) => {
                 setScheduledAt(e.target.value)
                 setFieldErrors((current) => ({ ...current, scheduledAt: '' }))
@@ -184,4 +186,9 @@ export function ScheduleInterviewDialog({
       </DialogContent>
     </Dialog>
   )
+}
+
+function toDatetimeLocalValue(date: Date) {
+  const offsetMs = date.getTimezoneOffset() * 60_000
+  return new Date(date.getTime() - offsetMs).toISOString().slice(0, 16)
 }

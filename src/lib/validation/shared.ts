@@ -33,6 +33,16 @@ export const requiredDateString = z.string().trim().min(1, 'required').transform
   return value
 })
 
+export const requiredFutureDateString = requiredDateString.refine(
+  (value) => new Date(value).getTime() > Date.now(),
+  'date_must_be_future'
+)
+
+export const optionalFutureDateString = optionalDateString.refine(
+  (value) => !value || new Date(value).getTime() > Date.now(),
+  'date_must_be_future'
+)
+
 export function optionalNumericString(max = 50) {
   return z.preprocess(
     (value) => (typeof value === 'number' ? String(value) : typeof value === 'string' ? value.trim() : value),
