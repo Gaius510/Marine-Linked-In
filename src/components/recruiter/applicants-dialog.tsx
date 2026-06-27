@@ -63,7 +63,7 @@ export function ApplicantsDialog({ job, onOpenChange, onViewProfile }: Applicant
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[92vh] gap-0 overflow-hidden p-0 sm:max-w-[min(58rem,calc(100vw-2rem))]">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] gap-0 overflow-hidden p-0 sm:max-w-[min(58rem,calc(100vw-2rem))]">
         <DialogHeader className="border-b border-border/70 bg-card/95 px-5 py-4 pe-12 text-start">
           <DialogTitle>{job ? t('jobs.applicantsFor', { title: job.title }) : t('jobs.viewApplicants')}</DialogTitle>
           <DialogDescription>
@@ -71,7 +71,7 @@ export function ApplicantsDialog({ job, onOpenChange, onViewProfile }: Applicant
           </DialogDescription>
         </DialogHeader>
 
-        <div className="scrollbar-thin max-h-[calc(92vh-5.75rem)] overflow-y-auto p-5">
+        <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
           {isLoading ? (
             <div className="space-y-3">
               {Array.from({ length: 3 }).map((_, i) => (
@@ -180,24 +180,25 @@ function ApplicantItem({
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-border/70 pt-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex min-w-0 flex-col gap-2 border-t border-border/70 pt-3 sm:flex-row sm:items-center sm:justify-between">
         <Button
           variant="outline"
           size="sm"
+          className="w-full sm:w-auto"
           onClick={() => onViewProfile?.(application.seafarerId)}
           disabled={!onViewProfile}
         >
           <Eye className="size-4" />
           {t('common.viewProfile')}
         </Button>
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
           <span className="text-xs text-muted-foreground">{t('jobs.changeStatus')}</span>
           <Select
             value={application.status}
             onValueChange={(value) => onStatusChange(value as ApplicationStatus)}
             disabled={updating}
           >
-            <SelectTrigger size="sm" className="h-8 w-44" aria-label={t('jobs.changeStatus')}>
+            <SelectTrigger size="sm" className="h-8 w-full sm:w-44" aria-label={t('jobs.changeStatus')}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

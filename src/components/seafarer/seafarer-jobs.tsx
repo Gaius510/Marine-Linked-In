@@ -149,7 +149,7 @@ export function SeafarerJobs() {
             {activeFilters.map((filter) => (
               <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
                 <span className="text-muted-foreground">{filter.label}:</span>
-                <span className="max-w-[12rem] truncate">{filter.value}</span>
+                <span className="min-w-0 max-w-[12rem] truncate">{filter.value}</span>
                 <button
                   type="button"
                   onClick={() => removeFilter(filter.key)}

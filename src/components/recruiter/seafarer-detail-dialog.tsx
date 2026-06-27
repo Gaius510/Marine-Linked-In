@@ -84,7 +84,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-h-[92vh] gap-0 overflow-hidden p-0 sm:max-w-[min(64rem,calc(100vw-2rem))]">
+        <DialogContent className="max-h-[calc(100dvh-2rem)] gap-0 overflow-hidden p-0 sm:max-w-[min(64rem,calc(100vw-2rem))]">
           <DialogHeader className="border-b border-border/70 bg-card/95 px-5 py-4 pe-12 text-start">
             <DialogTitle>{profile?.user.name ?? t('browse.detailTitle')}</DialogTitle>
             <DialogDescription>
@@ -99,7 +99,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
               <Skeleton className="h-44 w-full rounded-lg" />
             </div>
           ) : (
-            <div className="scrollbar-thin max-h-[calc(92vh-5.75rem)] overflow-y-auto p-5">
+            <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
               <div className="space-y-5">
                 <section className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">

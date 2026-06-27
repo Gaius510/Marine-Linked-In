@@ -18,17 +18,17 @@ export function SectionCard({
   contentClassName?: string
 }) {
   return (
-    <Card className={cn('border-border/80 bg-card/95 p-4 sm:p-6', className)}>
+    <Card className={cn('min-w-0 max-w-full p-4 sm:p-6', className)}>
       {(title || subtitle || action) && (
-        <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="mb-4 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
-            {title && <h2 className="text-sm font-semibold">{title}</h2>}
-            {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
+            {title && <h2 className="text-sm font-semibold tracking-tight">{title}</h2>}
+            {subtitle && <p className="mt-1 text-xs leading-5 text-muted-foreground">{subtitle}</p>}
           </div>
-          {action && <div className="shrink-0">{action}</div>}
+          {action && <div className="w-full shrink-0 sm:w-auto">{action}</div>}
         </div>
       )}
-      <div className={contentClassName}>{children}</div>
+      <div className={cn('min-w-0 max-w-full', contentClassName)}>{children}</div>
     </Card>
   )
 }

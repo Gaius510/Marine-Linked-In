@@ -30,7 +30,7 @@ export function JobDetailDialog({ job, open, onOpenChange, onApply }: JobDetailD
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[92vh] gap-0 overflow-hidden p-0 sm:max-w-[min(58rem,calc(100vw-2rem))]">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] gap-0 overflow-hidden p-0 sm:max-w-[min(58rem,calc(100vw-2rem))]">
         <DialogHeader className="border-b border-border/70 bg-card/95 px-5 py-4 pe-12 text-start">
           <DialogTitle className="text-xl">{job.title}</DialogTitle>
           <DialogDescription>
@@ -41,7 +41,7 @@ export function JobDetailDialog({ job, open, onOpenChange, onApply }: JobDetailD
           </DialogDescription>
         </DialogHeader>
 
-        <div className="scrollbar-thin max-h-[calc(92vh-9rem)] overflow-y-auto p-5">
+        <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
           <div className="space-y-5">
             <SectionCard
               title={t('jobs.positionSummary')}

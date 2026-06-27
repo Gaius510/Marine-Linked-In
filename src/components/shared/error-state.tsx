@@ -13,11 +13,11 @@ interface ErrorStateProps {
 export function ErrorState({ onRetry, message }: ErrorStateProps) {
   const { t } = useI18n()
   return (
-    <Card className="p-8 sm:p-12 text-center">
-      <div className="mx-auto size-12 rounded-full bg-destructive/10 text-destructive flex items-center justify-center mb-4">
+    <Card className="p-8 text-center sm:p-12">
+      <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-destructive/10 text-destructive ring-1 ring-destructive/15">
         <AlertTriangle className="size-6" />
       </div>
-      <p className="text-sm text-muted-foreground mb-1">
+      <p className="mb-1 text-sm leading-6 text-muted-foreground">
         {message || t('common.error')}
       </p>
       {onRetry && (

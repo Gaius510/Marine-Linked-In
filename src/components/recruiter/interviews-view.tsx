@@ -204,10 +204,11 @@ function InterviewItem({
       </div>
 
       {isScheduled && (
-        <div className="flex flex-col gap-2 border-t border-border/70 pt-3 sm:flex-row sm:justify-end">
+        <div className="flex min-w-0 flex-col gap-2 border-t border-border/70 pt-3 sm:flex-row sm:justify-end [&>[data-slot=button]]:min-w-0">
           <Button
             variant="outline"
             size="sm"
+            className="w-full sm:w-auto"
             onClick={() => onViewProfile?.(interview.seafarerId)}
             disabled={!onViewProfile}
           >
@@ -217,6 +218,7 @@ function InterviewItem({
           <Button
             variant="outline"
             size="sm"
+            className="w-full sm:w-auto"
             onClick={() => onUpdateStatus('COMPLETED')}
             disabled={updating}
           >
@@ -226,7 +228,7 @@ function InterviewItem({
           <Button
             variant="ghost"
             size="sm"
-            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+            className="w-full text-destructive hover:bg-destructive/10 hover:text-destructive sm:w-auto"
             onClick={() => onUpdateStatus('CANCELLED')}
             disabled={updating}
           >
@@ -237,7 +239,7 @@ function InterviewItem({
       )}
       {!isScheduled && onViewProfile && (
         <div className="flex justify-end border-t border-border/70 pt-3">
-          <Button variant="outline" size="sm" onClick={() => onViewProfile(interview.seafarerId)}>
+          <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => onViewProfile(interview.seafarerId)}>
             <Eye className="size-4" />
             {t('common.viewProfile')}
           </Button>

@@ -32,12 +32,12 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
   return (
     <Card
       className={cn(
-        'p-4 transition-all',
-        onClick && 'hover:border-primary/30 hover:shadow-md',
+        'min-w-0 p-4',
+        onClick && 'motion-card-hover cursor-pointer hover:border-primary/35',
         selected && 'border-primary/45 bg-secondary/45 shadow-sm ring-1 ring-primary/20'
       )}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex min-w-0 items-start gap-3">
         {selectable && (
           <Checkbox
             checked={selected}
@@ -50,7 +50,7 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
           <AvatarFallback className="rounded-xl bg-secondary font-semibold text-primary">{initials}</AvatarFallback>
         </Avatar>
         <div className="min-w-0 flex-1">
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0">
               <button
                 type="button"
@@ -62,9 +62,9 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
               </button>
               <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
                 {seafarer.rank && (
-                  <span className="flex items-center gap-1 font-medium text-foreground">
+                  <span className="flex min-w-0 items-center gap-1 font-medium text-foreground">
                     <Anchor className="size-3.5" />
-                    {seafarer.rank}
+                    <span className="truncate">{seafarer.rank}</span>
                   </span>
                 )}
                 {seafarer.yearsExperience && (
@@ -75,16 +75,16 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
                 )}
               </div>
             </div>
-            <AvailabilityBadge availability={seafarer.availability} t={t} />
+            <AvailabilityBadge availability={seafarer.availability} t={t} className="self-start" />
           </div>
 
           <div className="mt-3 grid gap-1.5 text-xs text-muted-foreground">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               {seafarer.nationality && <span>{seafarer.nationality}</span>}
               {location && (
-                <span className="flex items-center gap-1">
+                <span className="flex min-w-0 items-center gap-1">
                   <MapPin className="size-3" />
-                  {location}
+                  <span className="truncate">{location}</span>
                 </span>
               )}
             </div>
@@ -124,7 +124,7 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
         </div>
       </div>
       {(onClick || actions) && (
-        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border/70 pt-3">
+        <div className="mt-4 flex min-w-0 flex-wrap items-stretch gap-2 border-t border-border/70 pt-3 [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
           {onClick && (
             <Button type="button" variant="outline" size="sm" className="h-8 flex-1" onClick={onClick}>
               <Eye className="size-4" />

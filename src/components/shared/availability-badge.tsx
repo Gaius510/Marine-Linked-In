@@ -10,10 +10,18 @@ const config: Record<Availability, { labelKey: string; tone: StatusTone; dot: st
   UNAVAILABLE: { labelKey: 'availability.UNAVAILABLE', tone: 'neutral', dot: 'bg-muted-foreground' },
 }
 
-export function AvailabilityBadge({ availability, t }: { availability: Availability; t: (k: string) => string }) {
+export function AvailabilityBadge({
+  availability,
+  t,
+  className,
+}: {
+  availability: Availability
+  t: (k: string) => string
+  className?: string
+}) {
   const c = config[availability]
   return (
-    <StatusPill tone={c.tone} className="gap-1.5 font-medium">
+    <StatusPill tone={c.tone} className={cn('gap-1.5 font-medium', className)}>
       <span className={cn('size-1.5 rounded-full', c.dot)} />
       {t(c.labelKey)}
     </StatusPill>

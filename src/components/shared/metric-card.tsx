@@ -27,7 +27,7 @@ export function MetricCard({
   className?: string
 }) {
   return (
-    <Card className={cn('border-border/80 bg-card/95 p-4 sm:p-5', className)}>
+    <Card className={cn('p-4 sm:p-5', className)}>
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           <div className="text-xs sm:text-sm text-muted-foreground truncate">{label}</div>

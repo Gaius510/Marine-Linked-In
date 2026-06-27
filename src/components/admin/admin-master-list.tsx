@@ -289,7 +289,7 @@ export function AdminMasterList() {
         >
           <div className="flex flex-col gap-3">
             {/* Row 1: search + view toggle */}
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex min-w-0 flex-col gap-3 sm:flex-row">
               <div className="relative flex-1 min-w-0">
                 <Search className="absolute top-1/2 -translate-y-1/2 start-3 size-4 text-muted-foreground pointer-events-none" />
                 <Input
@@ -310,7 +310,7 @@ export function AdminMasterList() {
                   </button>
                 )}
               </div>
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="hidden shrink-0 items-center gap-2 md:flex">
                 <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as 'table' | 'cards')}>
                   <TabsList>
                     <TabsTrigger value="table" className="gap-1.5">
@@ -327,7 +327,7 @@ export function AdminMasterList() {
             </div>
 
             {/* Row 2: select filters */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-5">
               <Select value={filters.rank} onValueChange={(v) => setField('rank', v)}>
                 <SelectTrigger className="w-full" aria-label={t('admin.rank')}>
                   <SelectValue placeholder={t('admin.rank')} />
@@ -388,11 +388,11 @@ export function AdminMasterList() {
             </div>
 
             {activeFilters.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex min-w-0 flex-wrap gap-2">
                 {activeFilters.map((filter) => (
                   <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
                     <span className="text-muted-foreground">{filter.label}:</span>
-                    <span className="max-w-[12rem] truncate">{filter.value}</span>
+                    <span className="min-w-0 max-w-[12rem] truncate">{filter.value}</span>
                     <button
                       type="button"
                       onClick={() => removeFilter(filter.key)}
@@ -450,113 +450,116 @@ export function AdminMasterList() {
         <>
           {/* TABLE VIEW */}
           {viewMode === 'table' && (
-            <Card className="overflow-hidden p-0">
+            <Card className="hidden overflow-hidden p-0 md:flex">
               <div className="overflow-x-auto">
-              <Table className="min-w-[980px]">
-                <TableHeader>
-                  <TableRow className="bg-muted/40 hover:bg-muted/40">
-                    <TableHead className="ps-4">{t('admin.name')}</TableHead>
-                    <TableHead>{t('admin.rank')}</TableHead>
-                    <TableHead>{t('admin.nationality')}</TableHead>
-                    <TableHead>{t('admin.availability')}</TableHead>
-                    <TableHead>{t('seafarer.cvProgress')}</TableHead>
-                    <TableHead className="text-end">{t('admin.yearsExp')}</TableHead>
-                    <TableHead>{t('admin.vesselExp')}</TableHead>
-                    <TableHead>{t('admin.cityCountry')}</TableHead>
-                    <TableHead>{t('admin.registeredDate')}</TableHead>
-                    <TableHead className="pe-4 text-end">{t('common.actions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {seafarers.map((s) => {
-                    const vesselExperiences = s.vesselExperiences ?? []
-                    const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType)))
-                    const completion = computeCompleteness({
-                      ...s,
-                      certificates: s.certificates ?? [],
-                      vesselExperiences,
-                    })
-                    return (
-                      <TableRow key={s.id}>
-                        <TableCell className="ps-4 font-medium">
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-2">
-                              <button
-                                type="button"
-                                onClick={() => openDetail(s)}
-                                className="max-w-[180px] cursor-pointer truncate rounded-sm text-start font-medium hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                              >
-                                {s.user.name}
-                              </button>
-                              {s._count && s._count.savedBy > 0 && (
-                                <Badge variant="secondary" className="text-[10px] font-normal gap-1 shrink-0">
-                                  <span className="size-1.5 rounded-full bg-emerald-500" />
-                                  {s._count.savedBy}
-                                </Badge>
-                              )}
+                <Table className="min-w-[980px]">
+                  <TableHeader>
+                    <TableRow className="bg-muted/40 hover:bg-muted/40">
+                      <TableHead className="ps-4">{t('admin.name')}</TableHead>
+                      <TableHead>{t('admin.rank')}</TableHead>
+                      <TableHead>{t('admin.nationality')}</TableHead>
+                      <TableHead>{t('admin.availability')}</TableHead>
+                      <TableHead>{t('seafarer.cvProgress')}</TableHead>
+                      <TableHead className="text-end">{t('admin.yearsExp')}</TableHead>
+                      <TableHead>{t('admin.vesselExp')}</TableHead>
+                      <TableHead>{t('admin.cityCountry')}</TableHead>
+                      <TableHead>{t('admin.registeredDate')}</TableHead>
+                      <TableHead className="pe-4 text-end">{t('common.actions')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {seafarers.map((s) => {
+                      const vesselExperiences = s.vesselExperiences ?? []
+                      const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType)))
+                      const completion = computeCompleteness({
+                        ...s,
+                        certificates: s.certificates ?? [],
+                        vesselExperiences,
+                      })
+                      return (
+                        <TableRow key={s.id}>
+                          <TableCell className="ps-4 font-medium">
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => openDetail(s)}
+                                  className="max-w-[180px] cursor-pointer truncate rounded-sm text-start font-medium hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                                >
+                                  {s.user.name}
+                                </button>
+                                {s._count && s._count.savedBy > 0 && (
+                                  <Badge variant="secondary" className="gap-1 text-[10px] font-normal">
+                                    <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" />
+                                    {s._count.savedBy}
+                                  </Badge>
+                                )}
+                              </div>
+                              <div className="mt-0.5 max-w-[220px] truncate text-xs text-muted-foreground">{s.user.email}</div>
                             </div>
-                            <div className="mt-0.5 max-w-[220px] truncate text-xs text-muted-foreground">{s.user.email}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {s.rank ? (
-                            <Badge variant="outline" className="font-normal">{s.rank}</Badge>
-                          ) : (
-                            <span className="text-muted-foreground">—</span>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">{s.nationality ?? '—'}</TableCell>
-                        <TableCell>
-                          <AvailabilityBadge availability={s.availability} t={t} />
-                        </TableCell>
-                        <TableCell>
-                          <StatusPill tone={completionTone(completion)}>
-                            {completion}% {completion >= 80 ? t('cv.complete') : t('cv.incomplete')}
-                          </StatusPill>
-                        </TableCell>
-                        <TableCell className="text-end tabular-nums">{formatYears(s.yearsExperience, '—')}</TableCell>
-                        <TableCell>
-                          {vesselTypes.length === 0 ? (
-                            <span className="text-muted-foreground text-xs">—</span>
-                          ) : (
-                            <div className="flex items-center gap-1 flex-wrap max-w-[220px]">
-                              {vesselTypes.slice(0, 2).map((vt) => (
-                                <Badge key={vt} variant="secondary" className="text-[10px] font-normal">
-                                  {vt}
-                                </Badge>
-                              ))}
-                              {vesselTypes.length > 2 && (
-                                <Badge variant="outline" className="text-[10px] font-normal">
-                                  +{vesselTypes.length - 2}
-                                </Badge>
-                              )}
-                            </div>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-muted-foreground text-xs">
-                          {[s.user.city, s.user.country].filter(Boolean).join(', ') || '—'}
-                        </TableCell>
-                        <TableCell className="text-muted-foreground text-xs whitespace-nowrap">
-                          {formatDate(s.user.createdAt)}
-                        </TableCell>
-                        <TableCell className="pe-4 text-end">
-                          <Button variant="outline" size="sm" onClick={() => openDetail(s)}>
-                            <Eye className="size-4" />
-                            {t('common.viewProfile')}
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
+                          </TableCell>
+                          <TableCell>
+                            {s.rank ? (
+                              <Badge variant="outline" className="font-normal">{s.rank}</Badge>
+                            ) : (
+                              <span className="text-muted-foreground">—</span>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">{s.nationality ?? '—'}</TableCell>
+                          <TableCell>
+                            <AvailabilityBadge availability={s.availability} t={t} />
+                          </TableCell>
+                          <TableCell>
+                            <StatusPill tone={completionTone(completion)}>
+                              {completion}% {completion >= 80 ? t('cv.complete') : t('cv.incomplete')}
+                            </StatusPill>
+                          </TableCell>
+                          <TableCell className="text-end tabular-nums">{formatYears(s.yearsExperience, '—')}</TableCell>
+                          <TableCell>
+                            {vesselTypes.length === 0 ? (
+                              <span className="text-muted-foreground text-xs">—</span>
+                            ) : (
+                              <div className="flex max-w-[220px] flex-wrap items-center gap-1">
+                                {vesselTypes.slice(0, 2).map((vt) => (
+                                  <Badge key={vt} variant="secondary" className="text-[10px] font-normal">
+                                    {vt}
+                                  </Badge>
+                                ))}
+                                {vesselTypes.length > 2 && (
+                                  <Badge variant="outline" className="text-[10px] font-normal">
+                                    +{vesselTypes.length - 2}
+                                  </Badge>
+                                )}
+                              </div>
+                            )}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground text-xs">
+                            {[s.user.city, s.user.country].filter(Boolean).join(', ') || '—'}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground whitespace-nowrap text-xs">
+                            {formatDate(s.user.createdAt)}
+                          </TableCell>
+                          <TableCell className="pe-4 text-end">
+                            <Button variant="outline" size="sm" onClick={() => openDetail(s)}>
+                              <Eye className="size-4" />
+                              {t('common.viewProfile')}
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
               </div>
             </Card>
           )}
 
           {/* CARD VIEW */}
-          {viewMode === 'cards' && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[700px] overflow-y-auto scrollbar-thin pe-1">
+          {(viewMode === 'cards' || viewMode === 'table') && (
+            <div className={viewMode === 'table'
+              ? 'grid grid-cols-1 gap-3 md:hidden'
+              : 'grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'}
+            >
               {seafarers.map((s) => (
                 <SeafarerCard
                   key={s.id}

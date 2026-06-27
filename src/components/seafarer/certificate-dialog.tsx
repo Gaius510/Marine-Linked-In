@@ -116,7 +116,7 @@ export function CertificateDialog({ open, onOpenChange, certificate }: Certifica
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[92vh] overflow-y-auto sm:max-w-lg scrollbar-thin">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-lg scrollbar-thin">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Award className="size-5 text-primary" />

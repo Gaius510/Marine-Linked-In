@@ -46,11 +46,11 @@ export function SavedView() {
   return (
     <div className="space-y-4">
       <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
-        <div>
+        <div className="min-w-0">
           <h1 className="text-2xl font-bold tracking-tight">{t('saved.title')}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{t('saved.subtitle')}</p>
         </div>
-        <Button variant="outline" onClick={() => setView('browse')}>
+        <Button variant="outline" className="w-full sm:w-auto" onClick={() => setView('browse')}>
           {t('saved.browseCta')}
         </Button>
       </PageToolbar>

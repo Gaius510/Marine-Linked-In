@@ -9,7 +9,7 @@ export function PageToolbar({
   className?: string
 }) {
   return (
-    <div className={cn('flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between', className)}>
+    <div className={cn('flex min-w-0 max-w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between', className)}>
       {children}
     </div>
   )

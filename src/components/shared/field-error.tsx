@@ -9,11 +9,9 @@ export function FieldError({
   code?: string
   t: Translate
 }) {
-  if (!code) return null
-
   return (
-    <p id={id} className="text-xs text-destructive">
-      {translateFieldError(t, code)}
+    <p id={id} className="min-h-4 text-xs font-medium text-destructive">
+      {code ? translateFieldError(t, code) : null}
     </p>
   )
 }

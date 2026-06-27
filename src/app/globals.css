@@ -50,6 +50,14 @@
 
 :root {
   --radius: 0.625rem;
+  --motion-fast: 120ms;
+  --motion-standard: 180ms;
+  --motion-slow: 260ms;
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-surface: 0 1px 2px rgb(11 38 51 / 0.05), 0 10px 30px rgb(11 38 51 / 0.06);
+  --shadow-surface-hover: 0 2px 6px rgb(11 38 51 / 0.08), 0 16px 38px rgb(11 38 51 / 0.1);
+  --shadow-dialog: 0 24px 70px rgb(11 38 51 / 0.24);
   --brand-navy: #0b2633;
   --brand-teal: #167d86;
   --brand-seafoam: #e4f4f1;
@@ -92,6 +100,9 @@
 }
 
 .dark {
+  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.24), 0 12px 32px rgb(0 0 0 / 0.18);
+  --shadow-surface-hover: 0 2px 6px rgb(0 0 0 / 0.28), 0 16px 42px rgb(0 0 0 / 0.24);
+  --shadow-dialog: 0 24px 70px rgb(0 0 0 / 0.46);
   --brand-navy: #0b2633;
   --brand-teal: #48aeb7;
   --brand-seafoam: #153b43;
@@ -139,6 +150,275 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+  button:disabled,
+  [role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
+@layer utilities {
+  .motion-fast {
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  .motion-standard {
+    transition-duration: var(--motion-standard);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  .motion-button {
+    transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  .motion-button:not(:disabled):not([aria-disabled="true"]):active {
+    transform: translateY(1px) scale(0.99);
+  }
+
+  .motion-card-hover {
+    transition-property: border-color, box-shadow, background-color, transform;
+    transition-duration: var(--motion-standard);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  .motion-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-surface-hover);
+  }
+
+  .motion-nav-item {
+    transition-property: color, background-color, border-color, box-shadow, transform;
+    transition-duration: var(--motion-standard);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  .motion-view {
+    animation: crewlink-view-enter var(--motion-slow) var(--motion-ease-emphasized) both;
+  }
+
+  .motion-dialog-content {
+    will-change: opacity, scale;
+  }
+
+  .motion-dialog-content[data-state="open"] {
+    animation: crewlink-dialog-in var(--motion-slow) var(--motion-ease-emphasized) both;
+  }
+
+  .motion-dialog-content[data-state="closed"] {
+    animation: crewlink-dialog-out var(--motion-standard) var(--motion-ease) both;
+  }
+
+  .motion-overlay[data-state="open"] {
+    animation: crewlink-overlay-in var(--motion-standard) var(--motion-ease) both;
+  }
+
+  .motion-overlay[data-state="closed"] {
+    animation: crewlink-overlay-out var(--motion-standard) var(--motion-ease) both;
+  }
+
+  .surface-card {
+    background: color-mix(in oklab, var(--card) 94%, transparent);
+    border-color: color-mix(in oklab, var(--border) 86%, transparent);
+    box-shadow: var(--shadow-surface);
+  }
+
+  .surface-panel {
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--card) 96%, transparent), color-mix(in oklab, var(--card) 90%, transparent));
+    border-color: color-mix(in oklab, var(--border) 88%, transparent);
+    box-shadow: var(--shadow-surface);
+  }
+
+  .auth-atmosphere {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .auth-atmosphere::before,
+  .auth-atmosphere::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    z-index: 0;
+    border-radius: 9999px;
+    filter: blur(44px);
+    opacity: 0.72;
+    will-change: transform, opacity;
+  }
+
+  .auth-atmosphere::before {
+    width: min(34rem, 82vw);
+    height: min(34rem, 82vw);
+    inset-block-start: -8rem;
+    inset-inline-end: -10rem;
+    background:
+      radial-gradient(circle at 36% 34%, rgb(22 125 134 / 0.34), transparent 58%),
+      radial-gradient(circle at 68% 70%, rgb(228 244 241 / 0.5), transparent 62%);
+    animation: crewlink-auth-drift 18s var(--motion-ease-emphasized) infinite alternate;
+  }
+
+  .auth-atmosphere::after {
+    width: min(30rem, 88vw);
+    height: min(22rem, 68vw);
+    inset-block-end: -7rem;
+    inset-inline-start: -8rem;
+    background:
+      radial-gradient(circle at 42% 44%, rgb(242 107 94 / 0.14), transparent 54%),
+      radial-gradient(circle at 66% 62%, rgb(22 125 134 / 0.28), transparent 66%);
+    animation: crewlink-auth-drift-secondary 22s var(--motion-ease-emphasized) infinite alternate;
+  }
+
+  .auth-horizon {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .auth-horizon::before {
+    content: "";
+    position: absolute;
+    inset-inline: -8%;
+    inset-block-start: 18%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(22 125 134 / 0.24), rgb(255 255 255 / 0.74), rgb(22 125 134 / 0.16), transparent);
+    opacity: 0.68;
+  }
+
+  .auth-horizon::after {
+    content: "";
+    position: absolute;
+    inset-inline: -12%;
+    inset-block-start: 18%;
+    height: 18rem;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.42), transparent 28%),
+      repeating-linear-gradient(90deg, rgb(22 125 134 / 0.08) 0 1px, transparent 1px 5.5rem);
+    mask-image: linear-gradient(180deg, black, transparent 78%);
+    opacity: 0.42;
+  }
+}
+
+@keyframes crewlink-view-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes crewlink-dialog-in {
+  from {
+    opacity: 0;
+    scale: 0.985;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes crewlink-dialog-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.985;
+  }
+}
+
+@keyframes crewlink-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes crewlink-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes crewlink-auth-drift {
+  from {
+    opacity: 0.58;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0.78;
+    transform: translate3d(-1.5rem, 1.25rem, 0) scale(1.05);
+  }
+}
+
+@keyframes crewlink-auth-drift-secondary {
+  from {
+    opacity: 0.5;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0.68;
+    transform: translate3d(1.25rem, -1rem, 0) scale(1.04);
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 850px) {
+  .auth-feature-list {
+    gap: 0.625rem;
+  }
+
+  .auth-feature-list > * {
+    padding: 0.625rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 750px) {
+  .auth-feature-list > *:last-child {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+
+  .motion-view,
+  .motion-card-hover:hover,
+  .motion-button:not(:disabled):not([aria-disabled="true"]):active,
+  .auth-atmosphere::before,
+  .auth-atmosphere::after {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .motion-dialog-content {
+    animation: none !important;
+    scale: 1 !important;
   }
 }
 

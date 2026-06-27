@@ -23,7 +23,7 @@ export function StatusPill({
   className?: string
 }) {
   return (
-    <Badge variant="outline" className={cn('shrink-0', toneClasses[tone], className)}>
+    <Badge variant="outline" className={cn('min-w-0 max-w-full', toneClasses[tone], className)}>
       {children}
     </Badge>
   )

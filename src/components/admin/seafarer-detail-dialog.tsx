@@ -102,13 +102,13 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[92vh] gap-0 overflow-hidden p-0 sm:max-w-[min(64rem,calc(100vw-2rem))]">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] gap-0 overflow-hidden p-0 sm:max-w-[min(64rem,calc(100vw-2rem))]">
         <DialogHeader className="border-b bg-secondary/35 px-5 py-4 sm:px-6">
           <DialogTitle>{t('admin.seafarerDetails')}</DialogTitle>
           <DialogDescription>{seafarer.user.name}</DialogDescription>
         </DialogHeader>
 
-        <div className="max-h-[calc(92vh-5rem)] overflow-y-auto px-5 py-5 sm:px-6">
+        <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-6">
           <div className="space-y-5">
             <section className="flex flex-col gap-4 rounded-xl border border-border/80 bg-card/95 p-4 sm:flex-row sm:items-start sm:justify-between sm:p-5">
               <div className="flex min-w-0 items-start gap-4">

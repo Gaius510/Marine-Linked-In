@@ -49,7 +49,7 @@ export function MessagesView({ onViewProfile }: { onViewProfile?: (seafarerId: s
             {isLoading ? t('common.loading') : t('messages.summary', { count: messages.length })}
           </p>
         </div>
-        <Button variant="outline" onClick={() => setView('browse')}>
+        <Button variant="outline" className="w-full sm:w-auto" onClick={() => setView('browse')}>
           <UserRound className="size-4" />
           {t('common.browseSeafarers')}
         </Button>
@@ -151,7 +151,7 @@ function MessageItem({
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-end gap-2 border-t border-border/70 pt-3">
+      <div className="flex min-w-0 flex-wrap items-stretch justify-end gap-2 border-t border-border/70 pt-3 [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
         {onViewProfile && (
           <Button type="button" variant="outline" size="sm" onClick={() => onViewProfile(message.seafarerId)}>
             <Eye className="size-4" />

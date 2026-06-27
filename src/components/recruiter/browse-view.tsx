@@ -268,7 +268,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
               {activeFilters.map((filter) => (
                 <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
                   <span className="text-muted-foreground">{filter.label}:</span>
-                  <span className="max-w-[11rem] truncate">{filter.value}</span>
+                  <span className="min-w-0 max-w-[11rem] truncate">{filter.value}</span>
                   <button
                     type="button"
                     onClick={() => removeFilter(filter.key)}
@@ -300,7 +300,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex min-w-0 flex-wrap items-stretch gap-2 sm:items-center [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
                 <Button
                   variant="outline"
                   size="sm"
@@ -346,7 +346,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
               onCheckedChange={(v) => toggleSelectAll(!!v)}
               aria-label={allSelected ? t('browse.clearSelection') : t('common.selectAll')}
             />
-            <span className="text-muted-foreground">
+            <span className="min-w-0 text-muted-foreground">
               {allSelected ? t('browse.clearSelection') : t('common.selectAll')}
             </span>
           </label>

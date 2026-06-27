@@ -3,6 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { StatusPill } from '@/components/shared/status-pill'
 import { formatDate, formatSalaryRange, safeText } from '@/lib/format'
+import { cn } from '@/lib/utils'
 import { Briefcase, MapPin, Wallet, CalendarClock, Clock, Building2, Users } from 'lucide-react'
 import type { ApplicationStatus, Job } from '@/lib/types'
 import { useI18n } from '@/lib/i18n'
@@ -31,8 +32,13 @@ export function JobCard({ job, actions, onClick, showApplicants, showStatus, sho
   const applicantsCount = job._count?.applications ?? 0
 
   return (
-    <Card className="flex h-full flex-col p-4 transition-all hover:border-primary/30 hover:shadow-md">
-      <div className="flex items-start justify-between gap-2">
+    <Card
+      className={cn(
+        'flex h-full min-w-0 flex-col p-4',
+        (onClick || actions) && 'motion-card-hover hover:border-primary/35'
+      )}
+    >
+      <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 flex-1">
           <button
             type="button"
@@ -42,10 +48,10 @@ export function JobCard({ job, actions, onClick, showApplicants, showStatus, sho
           >
             {job.title}
           </button>
-          <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1">
+          <div className="mt-1 flex min-w-0 items-center gap-2 text-sm text-muted-foreground">
+            <span className="flex min-w-0 items-center gap-1">
               <Building2 className="size-3.5" />
-              {safeText(job.companyName)}
+              <span className="truncate">{safeText(job.companyName)}</span>
             </span>
           </div>
         </div>
@@ -61,30 +67,30 @@ export function JobCard({ job, actions, onClick, showApplicants, showStatus, sho
         )}
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground">
+      <div className="mt-3 flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-muted-foreground">
         {job.rank && (
-          <span className="flex items-center gap-1 font-medium text-foreground">
+          <span className="flex min-w-0 items-center gap-1 font-medium text-foreground">
             <Briefcase className="size-3.5" />
-            {job.rank}
+            <span className="truncate">{job.rank}</span>
           </span>
         )}
-        {job.vesselType && <span>{job.vesselType}</span>}
+        {job.vesselType && <span className="min-w-0 truncate">{job.vesselType}</span>}
         {job.location && (
-          <span className="flex items-center gap-1">
+          <span className="flex min-w-0 items-center gap-1">
             <MapPin className="size-3.5" />
-            {job.location}
+            <span className="truncate">{job.location}</span>
           </span>
         )}
         {salary && (
-          <span className="flex items-center gap-1">
+          <span className="flex min-w-0 items-center gap-1">
             <Wallet className="size-3.5" />
-            {salary}
+            <span className="truncate">{salary}</span>
           </span>
         )}
         {job.contractDuration && (
-          <span className="flex items-center gap-1">
+          <span className="flex min-w-0 items-center gap-1">
             <Clock className="size-3.5" />
-            {job.contractDuration}
+            <span className="truncate">{job.contractDuration}</span>
           </span>
         )}
         {job.joiningDate && (
@@ -104,16 +110,20 @@ export function JobCard({ job, actions, onClick, showApplicants, showStatus, sho
         </div>
       )}
 
-      <div className="mt-auto flex items-center justify-between gap-2 pt-4">
+      <div className="mt-auto flex min-w-0 flex-col items-stretch gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
         {showApplicants ? (
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
             <Users className="size-3.5" />
-            {t('jobs.applicantsCount', { count: applicantsCount })}
+            <span className="truncate">{t('jobs.applicantsCount', { count: applicantsCount })}</span>
           </div>
         ) : (
           <div />
         )}
-        {actions && <div className="flex flex-wrap items-center justify-end gap-2">{actions}</div>}
+        {actions && (
+          <div className="flex min-w-0 flex-wrap items-stretch gap-2 sm:justify-end [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
+            {actions}
+          </div>
+        )}
       </div>
     </Card>
   )
