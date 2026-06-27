@@ -10,24 +10,21 @@ import { Input } from '@/components/ui/input'
 import { useUpdateSeafarerProfile } from '@/components/seafarer/use-seafarer-profile'
 import { CvFormField } from './cv-form-field'
 import { getExpiryState } from './cv-status'
+import { TravelAuthorizationsSection } from './travel-authorizations-section'
 import type { SeafarerCvProfile } from './types'
-import { formatDate, safeText } from '@/lib/format'
+import { formatDate } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
-import { CalendarClock, FileText, Globe2, Loader2, Save, ShieldCheck } from 'lucide-react'
+import { CalendarClock, FileText, Loader2, Save, ShieldCheck } from 'lucide-react'
 
 interface DocumentsForm {
   passportNo: string
   passportExpiry: string
-  usVisa: string
-  schengenVisa: string
 }
 
 function toForm(profile: SeafarerCvProfile): DocumentsForm {
   return {
     passportNo: profile.passportNo || '',
     passportExpiry: profile.passportExpiry || '',
-    usVisa: profile.usVisa || '',
-    schengenVisa: profile.schengenVisa || '',
   }
 }
 
@@ -92,41 +89,15 @@ export function DocumentsSection({
           <CvFormField id="cv-passport-expiry" label={t('cv.passportExpiry')}>
             <Input id="cv-passport-expiry" type="date" value={form.passportExpiry} onChange={(event) => set('passportExpiry', event.target.value)} />
           </CvFormField>
-          <CvFormField id="cv-us-visa" label={t('cv.usVisa')}>
-            <Input
-              id="cv-us-visa"
-              value={form.usVisa}
-              onChange={(event) => set('usVisa', event.target.value)}
-              placeholder="e.g. Valid C1/D until 2027"
-            />
-          </CvFormField>
-          <CvFormField id="cv-schengen-visa" label={t('cv.schengenVisa')}>
-            <Input
-              id="cv-schengen-visa"
-              value={form.schengenVisa}
-              onChange={(event) => set('schengenVisa', event.target.value)}
-              placeholder="e.g. Valid until 2026"
-            />
-          </CvFormField>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2">
           <DocumentStatus
             icon={<CalendarClock className="size-4" />}
             label={t('cv.passportExpiry')}
             value={formatDate(form.passportExpiry, t('common.notProvided'))}
             status={passportState ? t(passportState.key) : undefined}
             tone={passportState?.tone}
-          />
-          <DocumentStatus
-            icon={<Globe2 className="size-4" />}
-            label={t('cv.usVisa')}
-            value={safeText(form.usVisa, t('common.notProvided'))}
-          />
-          <DocumentStatus
-            icon={<Globe2 className="size-4" />}
-            label={t('cv.schengenVisa')}
-            value={safeText(form.schengenVisa, t('common.notProvided'))}
           />
         </div>
 
@@ -137,6 +108,10 @@ export function DocumentsSection({
           </Button>
         </div>
       </form>
+
+      <div className="mt-6 border-t pt-5">
+        <TravelAuthorizationsSection travelAuthorizations={profile.travelAuthorizations ?? []} />
+      </div>
     </SectionCard>
   )
 }
