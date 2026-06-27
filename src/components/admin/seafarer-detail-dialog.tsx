@@ -14,6 +14,10 @@ import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { EmptyState } from '@/components/shared/empty-state'
 import { SectionCard } from '@/components/shared/section-card'
 import { StatusPill } from '@/components/shared/status-pill'
+import {
+  legacyTravelAuthorizationFallbacks,
+  TravelAuthorizationSummaryList,
+} from '@/components/shared/travel-authorization-summary-list'
 import { useI18n } from '@/lib/i18n'
 import { formatDate, formatYears, safeText } from '@/lib/format'
 import type { SeafarerWithOptionalRelations } from '@/lib/types'
@@ -39,6 +43,7 @@ import {
   PhoneCall,
   ShipWheel,
   ClipboardList,
+  ShieldCheck,
 } from 'lucide-react'
 
 interface SeafarerDetailDialogProps {
@@ -83,6 +88,9 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
 
   const vesselExperiences = seafarer.vesselExperiences ?? []
   const certificates = seafarer.certificates ?? []
+  const travelAuthorizations = seafarer.travelAuthorizations?.length
+    ? seafarer.travelAuthorizations
+    : legacyTravelAuthorizationFallbacks(seafarer)
   const savedBy = seafarer._count?.savedBy ?? 0
   const applications = seafarer._count?.applications ?? 0
   const initials = seafarer.user.name
@@ -190,9 +198,19 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                     <InfoRow icon={Calendar} label={t('cv.cocExpiry')} value={formatDate(seafarer.cocExpiry, '')} />
                     <InfoRow icon={FileText} label={t('cv.passportNo')} value={seafarer.passportNo} />
                     <InfoRow icon={Calendar} label={t('cv.passportExpiry')} value={formatDate(seafarer.passportExpiry, '')} />
-                    <InfoRow icon={Globe} label={t('cv.usVisa')} value={seafarer.usVisa} />
-                    <InfoRow icon={Globe} label={t('cv.schengenVisa')} value={seafarer.schengenVisa} />
                   </div>
+                </SectionCard>
+
+                <SectionCard
+                  title={
+                    <span className="inline-flex items-center gap-2">
+                      <ShieldCheck className="size-4 text-primary" />
+                      {t('travelAuth.readinessTitle')}
+                    </span>
+                  }
+                  subtitle={t('travelAuth.readinessDescription')}
+                >
+                  <TravelAuthorizationSummaryList travelAuthorizations={travelAuthorizations} />
                 </SectionCard>
               </div>
 

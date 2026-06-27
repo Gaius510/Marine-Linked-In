@@ -304,6 +304,11 @@ const en: Dict = {
   'travelAuth.verification.UNVERIFIED': 'Unverified',
   'travelAuth.verification.VERIFIED': 'Verified',
   'travelAuth.verification.REJECTED': 'Rejected',
+  'travelAuth.emptyTitle': 'No travel authorizations recorded',
+  'travelAuth.emptyDescription': 'No visa or route-specific authorization summaries are available for this profile.',
+  'travelAuth.readinessTitle': 'Travel and Visa Readiness',
+  'travelAuth.readinessDescription': 'Sanitized visa and travel authorization summaries. Document numbers and private notes are not shown.',
+  'travelAuth.unknownType': 'Unknown authorization',
 
   // Availability options
   'availability.AVAILABLE': 'Available',
@@ -584,7 +589,7 @@ const en: Dict = {
   'admin.accountContact': 'Account and contact',
   'admin.accountContactDesc': 'Registered account details and profile summary.',
   'admin.maritimeQualifications': 'Maritime qualifications',
-  'admin.maritimeQualificationsDesc': 'Rank, readiness, COC, passport, and existing visa fields.',
+  'admin.maritimeQualificationsDesc': 'Rank, readiness, COC, and passport details.',
   'admin.vesselExperienceDesc': 'Recorded sea service and vessel history.',
   'admin.certificatesDesc': 'Certificates and training records available on the profile.',
   'admin.experiencesCount': '{count} vessel experiences',
@@ -904,6 +909,11 @@ const ar: Dict = {
   'travelAuth.verification.UNVERIFIED': 'غير موثقة',
   'travelAuth.verification.VERIFIED': 'موثقة',
   'travelAuth.verification.REJECTED': 'مرفوضة',
+  'travelAuth.emptyTitle': 'لا توجد تصاريح سفر مسجلة',
+  'travelAuth.emptyDescription': 'لا توجد ملخصات تأشيرات أو تصاريح خاصة بالمسار لهذا الملف.',
+  'travelAuth.readinessTitle': 'جاهزية السفر والتأشيرات',
+  'travelAuth.readinessDescription': 'ملخصات آمنة للتأشيرات وتصاريح السفر. لا تظهر أرقام المستندات أو الملاحظات الخاصة.',
+  'travelAuth.unknownType': 'تصريح غير معروف',
 
   // Availability
   'availability.AVAILABLE': 'متاح',
@@ -1184,7 +1194,7 @@ const ar: Dict = {
   'admin.accountContact': 'الحساب والتواصل',
   'admin.accountContactDesc': 'تفاصيل الحساب المسجل وملخص الملف.',
   'admin.maritimeQualifications': 'المؤهلات البحرية',
-  'admin.maritimeQualificationsDesc': 'الرتبة والجاهزية وشهادة الكفاءة وجواز السفر وحقول التأشيرات الحالية.',
+  'admin.maritimeQualificationsDesc': 'الرتبة والجاهزية وشهادة الكفاءة وتفاصيل جواز السفر.',
   'admin.vesselExperienceDesc': 'الخدمة البحرية المسجلة وتاريخ السفن.',
   'admin.certificatesDesc': 'الشهادات وسجلات التدريب المتاحة في الملف.',
   'admin.experiencesCount': '{count} خبرة على السفن',

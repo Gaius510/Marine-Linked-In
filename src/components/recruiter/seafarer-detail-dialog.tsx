@@ -9,6 +9,10 @@ import { Button } from '@/components/ui/button'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { SectionCard } from '@/components/shared/section-card'
 import { StatusPill } from '@/components/shared/status-pill'
+import {
+  legacyTravelAuthorizationFallbacks,
+  TravelAuthorizationSummaryList,
+} from '@/components/shared/travel-authorization-summary-list'
 import { api } from '@/lib/api'
 import { formatDate, formatYears, safeText } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
@@ -18,7 +22,7 @@ import { ScheduleInterviewDialog } from './schedule-interview-dialog'
 import { toast } from 'sonner'
 import {
   Anchor, MapPin, Calendar, Mail, Phone, FileText,
-  Award, UserCheck, Users, Clock, Briefcase, Bookmark,
+  Award, UserCheck, Users, Clock, Briefcase, Bookmark, ShieldCheck,
 } from 'lucide-react'
 
 interface SeafarerDetailDialogProps {
@@ -45,6 +49,11 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
   const profile = data?.profile
   const vesselExperiences = profile?.vesselExperiences ?? []
   const certificates = profile?.certificates ?? []
+  const travelAuthorizations = profile
+    ? profile.travelAuthorizations?.length
+      ? profile.travelAuthorizations
+      : legacyTravelAuthorizationFallbacks(profile)
+    : []
   const savedByMe = !!data?.savedByMe
   const initials = profile?.user.name
     ? profile.user.name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
@@ -70,8 +79,6 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
     { label: t('cv.cocExpiry'), value: profile.cocExpiry ? formatDate(profile.cocExpiry) : null },
     { label: t('cv.passportNo'), value: profile.passportNo },
     { label: t('cv.passportExpiry'), value: profile.passportExpiry ? formatDate(profile.passportExpiry) : null },
-    { label: t('cv.usVisa'), value: profile.usVisa },
-    { label: t('cv.schengenVisa'), value: profile.schengenVisa },
   ].filter((row) => row.value) : []
 
   return (
@@ -188,6 +195,14 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                           ))}
                         </div>
                       )}
+                    </SectionCard>
+
+                    <SectionCard
+                      title={t('travelAuth.readinessTitle')}
+                      subtitle={t('travelAuth.readinessDescription')}
+                      action={<ShieldCheck className="size-4 text-primary" />}
+                    >
+                      <TravelAuthorizationSummaryList travelAuthorizations={travelAuthorizations} />
                     </SectionCard>
 
                     {profile._count && (
