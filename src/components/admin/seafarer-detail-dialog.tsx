@@ -26,8 +26,6 @@ import {
   Anchor,
   Ship,
   MapPin,
-  Phone,
-  Mail,
   Calendar,
   Globe,
   Award,
@@ -40,8 +38,6 @@ import {
   UserCheck,
   Send,
   Bookmark,
-  PhoneCall,
-  ShipWheel,
   ClipboardList,
   ShieldCheck,
 } from 'lucide-react'
@@ -168,8 +164,7 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                   subtitle={t('admin.accountContactDesc')}
                 >
                   <div className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 xl:grid-cols-1">
-                    <InfoRow icon={Mail} label={t('admin.email')} value={seafarer.user.email} />
-                    <InfoRow icon={Phone} label={t('auth.phone')} value={seafarer.user.phone} />
+                    <InfoRow icon={UserCheck} label={t('common.status')} value={t('privacy.directContactHidden')} />
                     <InfoRow icon={MapPin} label={t('admin.cityCountry')} value={joined([seafarer.user.city, seafarer.user.country])} />
                     <InfoRow icon={Calendar} label={t('cv.dateOfBirth')} value={formatDate(seafarer.dateOfBirth, '')} />
                   </div>
@@ -196,8 +191,7 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                     <InfoRow icon={Award} label={t('cv.yearsExperience')} value={formatYears(seafarer.yearsExperience, '')} />
                     <InfoRow icon={FileText} label={t('cv.cocGrade')} value={seafarer.cocGrade} />
                     <InfoRow icon={Calendar} label={t('cv.cocExpiry')} value={formatDate(seafarer.cocExpiry, '')} />
-                    <InfoRow icon={FileText} label={t('cv.passportNo')} value={seafarer.passportNo} />
-                    <InfoRow icon={Calendar} label={t('cv.passportExpiry')} value={formatDate(seafarer.passportExpiry, '')} />
+                    <InfoRow icon={Calendar} label={t('cv.passportExpiry')} value={passportReadiness(seafarer.passportRecorded, seafarer.passportExpiry, t)} />
                   </div>
                 </SectionCard>
 
@@ -263,18 +257,15 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                             <InfoRow icon={Compass} label={t('cv.tradeArea')} value={experience.tradeArea} />
                           </div>
 
-                          {(experience.captainName || experience.captainContact || experience.chiefEngName || experience.chiefEngContact) && (
+                          {experience.referenceContactAvailable && (
                             <>
                               <Separator className="my-3" />
                               <div className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                                 {t('admin.supervisorContacts')}
                               </div>
-                              <div className="grid grid-cols-1 gap-x-3 sm:grid-cols-2">
-                                <InfoRow icon={ShipWheel} label={t('cv.captainName')} value={experience.captainName} />
-                                <InfoRow icon={PhoneCall} label={t('cv.captainContact')} value={experience.captainContact} />
-                                <InfoRow icon={Cog} label={t('cv.chiefEngName')} value={experience.chiefEngName} />
-                                <InfoRow icon={PhoneCall} label={t('cv.chiefEngContact')} value={experience.chiefEngContact} />
-                              </div>
+                              <p className="rounded-lg bg-muted/45 p-3 text-sm text-muted-foreground">
+                                {t('privacy.referencesAvailable')}
+                              </p>
                             </>
                           )}
                         </article>
@@ -312,7 +303,7 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                             )}
                           </div>
                           <div className="mt-2 grid grid-cols-1 gap-x-3 sm:grid-cols-2">
-                            <InfoRow icon={FileText} label={t('cv.certNumber')} value={certificate.number} />
+                            <InfoRow icon={FileText} label={t('cv.certNumber')} value={t('privacy.certificateNumberHidden')} />
                             <InfoRow icon={Building2} label={t('cv.issuingAuthority')} value={certificate.issuingAuthority} />
                           </div>
                         </article>
@@ -327,4 +318,19 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
       </DialogContent>
     </Dialog>
   )
+}
+
+function passportReadiness(
+  passportRecorded: boolean | undefined,
+  passportExpiry: string | null | undefined,
+  t: (key: string, params?: Record<string, string | number>) => string
+) {
+  if (!passportRecorded && !passportExpiry) return t('privacy.passportNotRecorded')
+  if (!passportExpiry) return t('privacy.passportExpiryMissing')
+  const expiry = new Date(passportExpiry)
+  const formatted = formatDate(passportExpiry)
+  if (!Number.isNaN(expiry.getTime()) && expiry.getTime() < Date.now()) {
+    return t('privacy.passportExpired', { date: formatted })
+  }
+  return t('privacy.passportValidUntil', { date: formatted })
 }

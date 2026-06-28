@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 import { interviewCreateSchema } from '@/lib/validation/interviews'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
@@ -13,12 +14,36 @@ export async function GET() {
     const interviews = await db.interview.findMany({
       where: { recruiterId: user.id },
       include: {
-        seafarer: { include: { user: { select: { id: true, name: true, email: true, phone: true } } } },
+        seafarer: {
+          include: {
+            user: { select: { id: true, name: true, city: true, country: true } },
+            certificates: { orderBy: { createdAt: 'desc' } },
+            vesselExperiences: true,
+            travelAuthorizations: {
+              select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
+              orderBy: { createdAt: 'desc' },
+            },
+          },
+        },
         job: true,
       },
       orderBy: { scheduledAt: 'asc' },
     })
-    return NextResponse.json({ interviews })
+    return NextResponse.json({
+      interviews: interviews.map((interview) => ({
+        id: interview.id,
+        recruiterId: interview.recruiterId,
+        seafarerId: interview.seafarerId,
+        jobId: interview.jobId,
+        scheduledAt: interview.scheduledAt,
+        location: interview.location,
+        notes: interview.notes,
+        status: interview.status,
+        createdAt: interview.createdAt,
+        job: interview.job,
+        seafarer: sanitizeSeafarerForCandidateAccess(interview.seafarer),
+      })),
+    })
   }
   if (user.role === 'SEAFARER') {
     const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })
@@ -31,7 +56,21 @@ export async function GET() {
       },
       orderBy: { scheduledAt: 'asc' },
     })
-    return NextResponse.json({ interviews })
+    return NextResponse.json({
+      interviews: interviews.map((interview) => ({
+        id: interview.id,
+        recruiterId: interview.recruiterId,
+        seafarerId: interview.seafarerId,
+        jobId: interview.jobId,
+        scheduledAt: interview.scheduledAt,
+        location: interview.location,
+        notes: null,
+        status: interview.status,
+        createdAt: interview.createdAt,
+        recruiter: interview.recruiter,
+        job: interview.job,
+      })),
+    })
   }
   return NextResponse.json({ interviews: [] })
 }

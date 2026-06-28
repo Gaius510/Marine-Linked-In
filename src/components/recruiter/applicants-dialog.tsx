@@ -168,7 +168,7 @@ function ApplicantItem({
             </StatusPill>
           </div>
 
-          <div className="mt-3 rounded-lg bg-muted/45 p-3 text-sm text-muted-foreground">
+          <div className="mt-3 rounded-lg border border-border/60 bg-muted/35 p-3 text-sm text-muted-foreground">
             <div className="mb-1 flex items-center gap-1 text-xs font-medium uppercase text-muted-foreground">
               <UserRound className="size-3.5" />
               {t('jobs.candidateSummary')}
@@ -182,7 +182,6 @@ function ApplicantItem({
 
       <div className="flex min-w-0 flex-col gap-2 border-t border-border/70 pt-3 sm:flex-row sm:items-center sm:justify-between">
         <Button
-          variant="outline"
           size="sm"
           className="w-full sm:w-auto"
           onClick={() => onViewProfile?.(application.seafarerId)}

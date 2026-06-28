@@ -53,6 +53,9 @@ export function RecruiterPortal() {
         <>
           <OverviewView
             onPostJob={() => setView('postJob')}
+            onBrowseSeafarers={() => setView('browse')}
+            onManageJobs={() => setView('myJobs')}
+            onViewMessages={() => setView('messages')}
             onViewProfile={openProfile}
             onViewAllApplicants={() => setView('myJobs')}
             onViewAllInterviews={() => setView('interviews')}

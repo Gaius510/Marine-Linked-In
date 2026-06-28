@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess, sanitizeUserForCandidateAccess } from '@/lib/privacy'
 import { Availability } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 
@@ -26,14 +27,14 @@ export async function GET(req: Request) {
   if (availability) where.availability = availability as Availability
   if (vesselType) where.vesselExperiences = { some: { vesselType } }
   if (search) {
-    where.user = { OR: [{ name: { contains: search } }, { email: { contains: search } }] }
+    where.user = { name: { contains: search } }
   }
 
   const [seafarers, totalSeafarers, totalRecruiters, totalJobs, totalApplications, availableNow, onBoard, allUsers] = await Promise.all([
     db.seafarerProfile.findMany({
       where,
       include: {
-        user: { select: { id: true, name: true, email: true, role: true, company: true, phone: true, city: true, country: true, createdAt: true } },
+        user: { select: { id: true, name: true, role: true, company: true, city: true, country: true, createdAt: true } },
         certificates: { orderBy: { createdAt: 'desc' } },
         vesselExperiences: true,
         travelAuthorizations: {
@@ -52,7 +53,7 @@ export async function GET(req: Request) {
     db.seafarerProfile.count({ where: { availability: 'ON_BOARD' } }),
     db.user.findMany({
       where: role ? { role: role as 'SEAFARER' | 'RECRUITER' | 'ADMIN' } : undefined,
-      select: { id: true, name: true, email: true, role: true, company: true, phone: true, city: true, country: true, createdAt: true },
+      select: { id: true, name: true, role: true, company: true, city: true, country: true, createdAt: true },
       orderBy: { createdAt: 'desc' },
     }),
   ])
@@ -66,8 +67,8 @@ export async function GET(req: Request) {
       })
 
   return NextResponse.json({
-    seafarers: filteredSeafarers,
-    allUsers,
+    seafarers: filteredSeafarers.map((profile) => sanitizeSeafarerForCandidateAccess(profile)),
+    allUsers: allUsers.map((listedUser) => sanitizeUserForCandidateAccess(listedUser)),
     stats: {
       totalSeafarers,
       totalRecruiters,

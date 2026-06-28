@@ -22,6 +22,7 @@ import { ScheduleInterviewDialog } from './schedule-interview-dialog'
 import { SeafarerDetailDialog } from './seafarer-detail-dialog'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import type { SeafarerWithRelations } from '@/lib/types'
 import { VESSEL_TYPES, RANKS, NATIONALITIES } from '@/lib/types'
@@ -55,6 +56,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
 
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS)
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   // Dialogs state
   const [detailId, setDetailId] = useState<string | null>(null)
@@ -197,16 +199,28 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
         }
         subtitle={hasFilters ? t('browse.activeFilters', { count: activeFilters.length }) : t('browse.subtitle')}
         action={
-          hasFilters ? (
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 text-xs">
-              <X className="size-3.5" />
-              {t('browse.clearAllFilters')}
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setMobileFiltersOpen((open) => !open)}
+              className="h-8 text-xs md:hidden"
+              aria-expanded={mobileFiltersOpen}
+            >
+              <Filter className="size-3.5" />
+              {t('common.filter')}
             </Button>
-          ) : undefined
+            {hasFilters ? (
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 text-xs">
+                <X className="size-3.5" />
+                {t('browse.clearAllFilters')}
+              </Button>
+            ) : null}
+          </div>
         }
         className="p-4 sm:p-5"
       >
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[minmax(260px,1.6fr)_repeat(4,minmax(0,1fr))]">
+        <div>
           <div>
             <Label className="sr-only" htmlFor="search">{t('common.search')}</Label>
             <div className="relative">
@@ -220,6 +234,12 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
               />
             </div>
           </div>
+        </div>
+
+        <div className={cn(
+          'mt-3 gap-3 md:grid md:grid-cols-2 xl:grid-cols-4',
+          mobileFiltersOpen ? 'grid' : 'hidden'
+        )}>
           <SelectField
             label={t('browse.filterRank')}
             value={filters.rank}
@@ -247,7 +267,10 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
           />
         </div>
 
-        <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <div className={cn(
+          'mt-3 flex-col gap-3 lg:flex-row lg:items-end lg:justify-between',
+          mobileFiltersOpen ? 'flex' : 'hidden md:flex'
+        )}>
           <div className="w-full sm:max-w-56 space-y-1">
             <Label htmlFor="min-years" className="text-xs text-muted-foreground">
               {t('browse.filterExperience')}
@@ -262,26 +285,26 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
               className="h-9"
             />
           </div>
-
-          {activeFilters.length > 0 && (
-            <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2 lg:justify-end">
-              {activeFilters.map((filter) => (
-                <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
-                  <span className="text-muted-foreground">{filter.label}:</span>
-                  <span className="min-w-0 max-w-[11rem] truncate">{filter.value}</span>
-                  <button
-                    type="button"
-                    onClick={() => removeFilter(filter.key)}
-                    className="rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    aria-label={`${t('common.clear')} ${filter.label}`}
-                  >
-                    <X className="size-3" />
-                  </button>
-                </StatusPill>
-              ))}
-            </div>
-          )}
         </div>
+
+        {activeFilters.length > 0 && (
+          <div className="mt-3 flex min-w-0 flex-wrap items-center gap-2">
+            {activeFilters.map((filter) => (
+              <StatusPill key={filter.key} tone="primary" className="gap-1.5 rounded-md px-2 py-1 font-normal">
+                <span className="text-muted-foreground">{filter.label}:</span>
+                <span className="min-w-0 max-w-[11rem] truncate">{filter.value}</span>
+                <button
+                  type="button"
+                  onClick={() => removeFilter(filter.key)}
+                  className="rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  aria-label={`${t('common.clear')} ${filter.label}`}
+                >
+                  <X className="size-3" />
+                </button>
+              </StatusPill>
+            ))}
+          </div>
+        )}
       </SectionCard>
 
       {/* Bulk action bar */}
@@ -330,9 +353,9 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
       )}
 
       {/* Results header */}
-      <PageToolbar className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
-        <div className="text-sm">
-          <span className="font-medium text-foreground">
+      <PageToolbar className="rounded-xl border border-border/70 bg-card/85 px-3 py-3 shadow-sm">
+        <div className="min-w-0 text-sm">
+          <span className="font-semibold text-foreground">
             {isLoading ? t('common.loading') : `${resultCount} ${t('browse.profilesFound')}`}
           </span>
           {hasFilters && !isLoading ? (

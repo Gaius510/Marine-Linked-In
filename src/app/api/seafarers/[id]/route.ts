@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -15,7 +16,7 @@ export async function GET(_req: NextRequest, { params }: RouteContext) {
   const profile = await db.seafarerProfile.findUnique({
     where: { id },
     include: {
-      user: { select: { id: true, email: true, name: true, role: true, company: true, phone: true, city: true, country: true } },
+      user: { select: { id: true, name: true, role: true, company: true, city: true, country: true } },
       certificates: { orderBy: { createdAt: 'desc' } },
       vesselExperiences: { orderBy: { createdAt: 'desc' } },
       travelAuthorizations: {
@@ -31,5 +32,8 @@ export async function GET(_req: NextRequest, { params }: RouteContext) {
     const saved = await db.savedProfile.findUnique({ where: { recruiterId_seafarerId: { recruiterId: user.id, seafarerId: id } } })
     savedByMe = !!saved
   }
-  return NextResponse.json({ profile, savedByMe })
+  return NextResponse.json({
+    profile: sanitizeSeafarerForCandidateAccess(profile, { savedByMe }),
+    savedByMe,
+  })
 }

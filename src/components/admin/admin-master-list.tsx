@@ -130,8 +130,6 @@ function escapeCsv(value: string | null | undefined): string {
 function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, vars?: Record<string, string | number>) => string) {
   const headers = [
     t('admin.name'),
-    t('admin.email'),
-    t('auth.phone'),
     t('admin.rank'),
     t('admin.nationality'),
     t('admin.availability'),
@@ -143,8 +141,6 @@ function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, va
   ]
   const rows = seafarers.map((s) => [
     s.user.name,
-    s.user.email,
-    s.user.phone,
     s.rank,
     s.nationality,
     s.availability,
@@ -495,7 +491,6 @@ export function AdminMasterList() {
                                   </Badge>
                                 )}
                               </div>
-                              <div className="mt-0.5 max-w-[220px] truncate text-xs text-muted-foreground">{s.user.email}</div>
                             </div>
                           </TableCell>
                           <TableCell>

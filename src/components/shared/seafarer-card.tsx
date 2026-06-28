@@ -6,9 +6,10 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { AvailabilityBadge } from './availability-badge'
 import { StatusPill } from '@/components/shared/status-pill'
+import { legacyTravelAuthorizationFallbacks } from '@/components/shared/travel-authorization-summary-list'
 import { formatDate, formatYears } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { Ship, MapPin, Calendar, Anchor, Clock, Eye } from 'lucide-react'
+import { Ship, MapPin, Calendar, Anchor, Clock, Eye, ShieldCheck, Gauge } from 'lucide-react'
 import type { SeafarerWithOptionalRelations } from '@/lib/types'
 import { useI18n } from '@/lib/i18n'
 
@@ -26,15 +27,32 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
   const { t } = useI18n()
   const initials = seafarer.user.name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
   const vesselExperiences = seafarer.vesselExperiences ?? []
+  const certificates = seafarer.certificates ?? []
+  const travelAuthorizations = seafarer.travelAuthorizations?.length
+    ? seafarer.travelAuthorizations
+    : legacyTravelAuthorizationFallbacks(seafarer)
   const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType))).slice(0, 3)
   const location = [seafarer.user.city, seafarer.user.country].filter(Boolean).join(', ')
+  const profileSignals = [
+    seafarer.rank,
+    seafarer.yearsExperience,
+    seafarer.availability,
+    seafarer.nationality,
+    seafarer.bio,
+    vesselExperiences.length,
+    certificates.length,
+    travelAuthorizations.length,
+  ]
+  const profileScore = Math.round((profileSignals.filter(Boolean).length / profileSignals.length) * 100)
 
   return (
     <Card
       className={cn(
-        'min-w-0 p-4',
-        onClick && 'motion-card-hover cursor-pointer hover:border-primary/35',
-        selected && 'border-primary/45 bg-secondary/45 shadow-sm ring-1 ring-primary/20'
+        'relative min-w-0 overflow-hidden p-4',
+        onClick && 'motion-card-hover hover:border-primary/35',
+        selected && 'border-primary/45 bg-secondary/45 shadow-sm ring-1 ring-primary/20',
+        'before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-primary/80 before:opacity-0',
+        selected && 'before:opacity-100'
       )}
     >
       <div className="flex min-w-0 items-start gap-3">
@@ -96,6 +114,23 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
             )}
           </div>
 
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <div className="rounded-lg border border-border/70 bg-muted/35 px-2.5 py-2">
+              <div className="flex min-w-0 items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+                <Gauge className="size-3.5 shrink-0 text-primary" />
+                <span className="truncate">{t('seafarer.profileStrength')}</span>
+              </div>
+              <div className="mt-1 text-sm font-semibold text-foreground">{profileScore}%</div>
+            </div>
+            <div className="rounded-lg border border-border/70 bg-muted/35 px-2.5 py-2">
+              <div className="flex min-w-0 items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
+                <ShieldCheck className="size-3.5 shrink-0 text-primary" />
+                <span className="truncate">{t('travelAuth.readinessTitle')}</span>
+              </div>
+              <div className="mt-1 text-sm font-semibold text-foreground">{travelAuthorizations.length}</div>
+            </div>
+          </div>
+
           <div className="mt-3 flex flex-wrap gap-1.5">
             {vesselTypes.length > 0 ? (
               vesselTypes.map((vt) => (
@@ -126,7 +161,7 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
       {(onClick || actions) && (
         <div className="mt-4 flex min-w-0 flex-wrap items-stretch gap-2 border-t border-border/70 pt-3 [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
           {onClick && (
-            <Button type="button" variant="outline" size="sm" className="h-8 flex-1" onClick={onClick}>
+            <Button type="button" size="sm" className="h-8 flex-1" onClick={onClick}>
               <Eye className="size-4" />
               {t('common.viewProfile')}
             </Button>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 import { Prisma, Availability } from '@prisma/client'
 
 export async function GET(req: NextRequest) {
@@ -26,17 +27,15 @@ export async function GET(req: NextRequest) {
   }
   if (search) {
     where.user = {
-      OR: [
-        { name: { contains: search } },
-        { email: { contains: search } },
-      ]
+      name: { contains: search },
     }
   }
 
   const profiles = await db.seafarerProfile.findMany({
     where,
     include: {
-      user: { select: { id: true, email: true, name: true, role: true, company: true, phone: true, city: true, country: true } },
+      user: { select: { id: true, name: true, role: true, company: true, city: true, country: true } },
+      certificates: { orderBy: { createdAt: 'desc' } },
       vesselExperiences: true,
       travelAuthorizations: {
         select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
@@ -62,11 +61,9 @@ export async function GET(req: NextRequest) {
         return Number.isFinite(years) && years >= minYearsNumber
       })
 
-  const result = filteredProfiles.map((p) => ({
-    ...p,
-    availability: p.availability,
-    savedByMe: savedIds.has(p.id),
-  }))
+  const result = filteredProfiles.map((profile) =>
+    sanitizeSeafarerForCandidateAccess(profile, { savedByMe: savedIds.has(profile.id) })
+  )
 
   return NextResponse.json({ seafarers: result, total: result.length })
 }

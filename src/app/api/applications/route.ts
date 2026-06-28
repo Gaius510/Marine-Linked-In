@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 import { applicationCreateSchema } from '@/lib/validation/applications'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
@@ -32,7 +33,8 @@ export async function GET(req: NextRequest) {
         job: true,
         seafarer: {
           include: {
-            user: { select: { id: true, name: true, email: true, phone: true, city: true, country: true } },
+            user: { select: { id: true, name: true, city: true, country: true } },
+            certificates: { orderBy: { createdAt: 'desc' } },
             vesselExperiences: true,
             travelAuthorizations: {
               select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
@@ -43,7 +45,19 @@ export async function GET(req: NextRequest) {
       },
       orderBy: { createdAt: 'desc' },
     })
-    return NextResponse.json({ applications })
+    return NextResponse.json({
+      applications: applications.map((application) => ({
+        id: application.id,
+        jobId: application.jobId,
+        seafarerId: application.seafarerId,
+        status: application.status,
+        message: application.message,
+        coverLetter: application.coverLetter,
+        createdAt: application.createdAt,
+        job: application.job,
+        seafarer: sanitizeSeafarerForCandidateAccess(application.seafarer),
+      })),
+    })
   }
 
   return NextResponse.json({ applications: [] })

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 import { savedProfilesCreateSchema } from '@/lib/validation/messages'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
@@ -14,7 +15,8 @@ export async function GET() {
     include: {
       seafarer: {
         include: {
-          user: { select: { id: true, name: true, email: true, phone: true, city: true, country: true } },
+          user: { select: { id: true, name: true, city: true, country: true } },
+          certificates: { orderBy: { createdAt: 'desc' } },
           vesselExperiences: true,
           travelAuthorizations: {
             select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
@@ -25,7 +27,16 @@ export async function GET() {
     },
     orderBy: { createdAt: 'desc' },
   })
-  return NextResponse.json({ saved })
+  return NextResponse.json({
+    saved: saved.map((item) => ({
+      id: item.id,
+      recruiterId: item.recruiterId,
+      seafarerId: item.seafarerId,
+      note: item.note,
+      createdAt: item.createdAt,
+      seafarer: sanitizeSeafarerForCandidateAccess(item.seafarer, { savedByMe: true }),
+    })),
+  })
 }
 
 // POST: save one or many seafarers (bulk)

@@ -111,7 +111,6 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
                 actions={
                   <>
                     <Button
-                      variant="outline"
                       size="sm"
                       className="h-8"
                       onClick={() => setApplicantsJob({ id: job.id, title: job.title })}

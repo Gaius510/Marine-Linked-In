@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { SeafarerCard } from '@/components/shared/seafarer-card'
 import { EmptyState } from '@/components/shared/empty-state'
 import { PageToolbar } from '@/components/shared/page-toolbar'
+import { StatusPill } from '@/components/shared/status-pill'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { MessageDialog } from './message-dialog'
@@ -49,6 +50,11 @@ export function SavedView() {
         <div className="min-w-0">
           <h1 className="text-2xl font-bold tracking-tight">{t('saved.title')}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{t('saved.subtitle')}</p>
+          {!isLoading && saved.length > 0 && (
+            <div className="mt-3">
+              <StatusPill tone="primary">{saved.length} {t('common.saved')}</StatusPill>
+            </div>
+          )}
         </div>
         <Button variant="outline" className="w-full sm:w-auto" onClick={() => setView('browse')}>
           {t('saved.browseCta')}

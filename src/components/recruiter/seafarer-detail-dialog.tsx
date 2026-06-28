@@ -21,8 +21,8 @@ import { MessageDialog } from './message-dialog'
 import { ScheduleInterviewDialog } from './schedule-interview-dialog'
 import { toast } from 'sonner'
 import {
-  Anchor, MapPin, Calendar, Mail, Phone, FileText,
-  Award, UserCheck, Users, Clock, Briefcase, Bookmark, ShieldCheck,
+  Anchor, MapPin, Calendar, Mail, FileText,
+  Award, Users, Clock, Briefcase, Bookmark, ShieldCheck,
 } from 'lucide-react'
 
 interface SeafarerDetailDialogProps {
@@ -77,8 +77,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
   const qualificationRows = profile ? [
     { label: t('cv.cocGrade'), value: profile.cocGrade },
     { label: t('cv.cocExpiry'), value: profile.cocExpiry ? formatDate(profile.cocExpiry) : null },
-    { label: t('cv.passportNo'), value: profile.passportNo },
-    { label: t('cv.passportExpiry'), value: profile.passportExpiry ? formatDate(profile.passportExpiry) : null },
+    { label: t('cv.passportExpiry'), value: passportReadiness(profile.passportRecorded, profile.passportExpiry, t) },
   ].filter((row) => row.value) : []
 
   return (
@@ -103,62 +102,83 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
               <div className="space-y-5">
                 <section className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                    <div className="flex min-w-0 items-start gap-4">
-                      <Avatar className="size-16 shrink-0 rounded-xl">
-                        <AvatarFallback className="rounded-xl bg-secondary text-lg font-semibold text-primary">
-                          {initials}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <h2 className="text-xl font-semibold tracking-tight">{profile.user.name}</h2>
-                          <AvailabilityBadge availability={profile.availability} t={t} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex min-w-0 items-start gap-4">
+                        <Avatar className="size-16 shrink-0 rounded-xl">
+                          <AvatarFallback className="rounded-xl bg-secondary text-lg font-semibold text-primary">
+                            {initials}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h2 className="text-xl font-semibold tracking-tight">{profile.user.name}</h2>
+                            <AvailabilityBadge availability={profile.availability} t={t} />
+                          </div>
+                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+                            {profile.rank && (
+                              <span className="flex items-center gap-1 font-medium text-foreground">
+                                <Anchor className="size-3.5" />
+                                {profile.rank}
+                              </span>
+                            )}
+                            {profile.yearsExperience && (
+                              <span className="flex items-center gap-1">
+                                <Clock className="size-3.5" />
+                                {formatYears(profile.yearsExperience)}
+                              </span>
+                            )}
+                            {profile.nationality && <span>{profile.nationality}</span>}
+                            {location && (
+                              <span className="flex items-center gap-1">
+                                <MapPin className="size-3.5" />
+                                {location}
+                              </span>
+                            )}
+                            {profile.availableFrom && (
+                              <span className="flex items-center gap-1">
+                                <Calendar className="size-3.5" />
+                                {t('browse.availableFrom')}: {formatDate(profile.availableFrom)}
+                              </span>
+                            )}
+                          </div>
                         </div>
-                        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-                          {profile.rank && (
-                            <span className="flex items-center gap-1 font-medium text-foreground">
-                              <Anchor className="size-3.5" />
-                              {profile.rank}
-                            </span>
-                          )}
-                          {profile.yearsExperience && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="size-3.5" />
-                              {formatYears(profile.yearsExperience)}
-                            </span>
-                          )}
-                          {profile.nationality && <span>{profile.nationality}</span>}
-                          {location && (
-                            <span className="flex items-center gap-1">
-                              <MapPin className="size-3.5" />
-                              {location}
-                            </span>
-                          )}
-                          {profile.availableFrom && (
-                            <span className="flex items-center gap-1">
-                              <Calendar className="size-3.5" />
-                              {t('browse.availableFrom')}: {formatDate(profile.availableFrom)}
-                            </span>
-                          )}
-                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                        <ProfileStat
+                          icon={<Briefcase className="size-4" />}
+                          label={t('browse.experienceOnVessels')}
+                          value={vesselExperiences.length}
+                        />
+                        <ProfileStat
+                          icon={<FileText className="size-4" />}
+                          label={t('browse.certificates')}
+                          value={certificates.length}
+                        />
+                        <ProfileStat
+                          icon={<ShieldCheck className="size-4" />}
+                          label={t('travelAuth.readinessTitle')}
+                          value={travelAuthorizations.length}
+                        />
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2 lg:justify-end">
+                    <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap lg:justify-end">
                       <Button
-                        variant={savedByMe ? 'secondary' : 'outline'}
+                        variant={savedByMe ? 'secondary' : 'default'}
                         size="sm"
+                        className="w-full sm:w-auto"
                         onClick={() => saveMutation.mutate({ id: profile.id, save: !savedByMe })}
                         disabled={saveMutation.isPending}
                       >
                         <Bookmark className={savedByMe ? 'fill-current' : ''} />
                         {savedByMe ? t('browse.saved') : t('browse.save')}
                       </Button>
-                      <Button variant="outline" size="sm" onClick={() => setMessageOpen(true)}>
+                      <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => setMessageOpen(true)}>
                         <Mail className="size-4" />
                         {t('browse.message')}
                       </Button>
-                      <Button size="sm" onClick={() => setScheduleOpen(true)}>
+                      <Button size="sm" className="w-full sm:w-auto" onClick={() => setScheduleOpen(true)}>
                         <Users className="size-4" />
                         {t('browse.schedule')}
                       </Button>
@@ -175,13 +195,8 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                       <p className="text-sm leading-6 text-muted-foreground">
                         {safeText(profile.bio, t('common.notProvided'))}
                       </p>
-                      <div className="mt-4 grid gap-2 text-sm">
-                        {profile.user.email && (
-                          <ContactLine icon={<Mail className="size-4" />} value={profile.user.email} />
-                        )}
-                        {profile.user.phone && (
-                          <ContactLine icon={<Phone className="size-4" />} value={profile.user.phone} />
-                        )}
+                      <div className="mt-4 rounded-lg border border-border/70 bg-muted/35 p-3 text-sm text-muted-foreground">
+                        {t('privacy.directContactHidden')}
                       </div>
                     </SectionCard>
 
@@ -252,26 +267,9 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                                 {exp.grossTonnage && <span>GT {exp.grossTonnage}</span>}
                                 {exp.tradeArea && <span>{exp.tradeArea}</span>}
                               </div>
-                              {(exp.captainName || exp.captainContact || exp.chiefEngName || exp.chiefEngContact) && (
+                              {exp.referenceContactAvailable && (
                                 <div className="mt-3 rounded-md bg-muted/55 p-2 text-xs text-muted-foreground">
-                                  <div className="mb-1 flex items-center gap-1 font-medium text-foreground">
-                                    <UserCheck className="size-3" />
-                                    {t('browse.supervisorContacts')}
-                                  </div>
-                                  <div className="grid gap-1 sm:grid-cols-2">
-                                    {exp.captainName && (
-                                      <div>
-                                        <span>{t('cv.captainName')}:</span> {exp.captainName}
-                                        {exp.captainContact && ` · ${exp.captainContact}`}
-                                      </div>
-                                    )}
-                                    {exp.chiefEngName && (
-                                      <div>
-                                        <span>{t('cv.chiefEngName')}:</span> {exp.chiefEngName}
-                                        {exp.chiefEngContact && ` · ${exp.chiefEngContact}`}
-                                      </div>
-                                    )}
-                                  </div>
+                                  {t('privacy.referencesAvailable')}
                                 </div>
                               )}
                             </div>
@@ -330,13 +328,31 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
   )
 }
 
-function ContactLine({ icon, value }: { icon: React.ReactNode; value: string }) {
+function ProfileStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
   return (
-    <div className="flex min-w-0 items-center gap-2 text-muted-foreground">
-      <span className="text-primary">{icon}</span>
-      <span className="truncate">{value}</span>
+    <div className="rounded-lg border border-border/70 bg-background/65 px-3 py-2">
+      <div className="flex min-w-0 items-center gap-2 text-[11px] font-medium text-muted-foreground">
+        <span className="shrink-0 text-primary">{icon}</span>
+        <span className="truncate">{label}</span>
+      </div>
+      <div className="mt-1 text-lg font-semibold tracking-tight">{value}</div>
     </div>
   )
+}
+
+function passportReadiness(
+  passportRecorded: boolean | undefined,
+  passportExpiry: string | null | undefined,
+  t: (key: string, params?: Record<string, string | number>) => string
+) {
+  if (!passportRecorded && !passportExpiry) return t('privacy.passportNotRecorded')
+  if (!passportExpiry) return t('privacy.passportExpiryMissing')
+  const expiry = new Date(passportExpiry)
+  const formatted = formatDate(passportExpiry)
+  if (!Number.isNaN(expiry.getTime()) && expiry.getTime() < Date.now()) {
+    return t('privacy.passportExpired', { date: formatted })
+  }
+  return t('privacy.passportValidUntil', { date: formatted })
 }
 
 function QualRow({ label, value }: { label: string; value: string | null | undefined }) {

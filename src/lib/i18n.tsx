@@ -67,6 +67,17 @@ const en: Dict = {
   'common.close2': 'Close',
   'common.empty': 'Nothing to show yet',
 
+  // Privacy
+  'privacy.directContactHidden': 'Direct contact details are kept private. Use CrewLink messaging for outreach.',
+  'privacy.passportRecorded': 'Passport recorded',
+  'privacy.passportNotRecorded': 'Passport not recorded',
+  'privacy.passportValidUntil': 'Passport valid until {date}',
+  'privacy.passportExpired': 'Passport expired on {date}',
+  'privacy.passportExpiryMissing': 'Passport expiry not provided',
+  'privacy.referencesAvailable': 'Professional references available',
+  'privacy.referencesNotProvided': 'Reference information not provided',
+  'privacy.certificateNumberHidden': 'Certificate number hidden',
+
   // Validation
   'validation.required': 'This field is required',
   'validation.invalid': 'Enter a valid value',
@@ -671,6 +682,17 @@ const ar: Dict = {
   'common.min': 'أدنى',
   'common.close2': 'إغلاق',
   'common.empty': 'لا يوجد ما يُعرض بعد',
+
+  // Privacy
+  'privacy.directContactHidden': 'تبقى بيانات الاتصال المباشر خاصة. استخدم رسائل CrewLink للتواصل.',
+  'privacy.passportRecorded': 'جواز السفر مسجل',
+  'privacy.passportNotRecorded': 'جواز السفر غير مسجل',
+  'privacy.passportValidUntil': 'جواز السفر صالح حتى {date}',
+  'privacy.passportExpired': 'انتهت صلاحية جواز السفر في {date}',
+  'privacy.passportExpiryMissing': 'تاريخ انتهاء جواز السفر غير متوفر',
+  'privacy.referencesAvailable': 'المراجع المهنية متوفرة',
+  'privacy.referencesNotProvided': 'معلومات المراجع غير متوفرة',
+  'privacy.certificateNumberHidden': 'رقم الشهادة مخفي',
 
   // Validation
   'validation.required': 'هذا الحقل مطلوب',

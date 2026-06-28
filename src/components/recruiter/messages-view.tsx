@@ -153,7 +153,7 @@ function MessageItem({
 
       <div className="flex min-w-0 flex-wrap items-stretch justify-end gap-2 border-t border-border/70 pt-3 [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
         {onViewProfile && (
-          <Button type="button" variant="outline" size="sm" onClick={() => onViewProfile(message.seafarerId)}>
+          <Button type="button" size="sm" onClick={() => onViewProfile(message.seafarerId)}>
             <Eye className="size-4" />
             {t('common.viewProfile')}
           </Button>

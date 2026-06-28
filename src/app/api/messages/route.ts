@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { getCurrentUser } from '@/lib/auth'
+import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 import { messageCreateSchema } from '@/lib/validation/messages'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
 
@@ -13,11 +14,32 @@ export async function GET() {
     const messages = await db.message.findMany({
       where: { recruiterId: user.id },
       include: {
-        seafarer: { include: { user: { select: { id: true, name: true, email: true } } } },
+        seafarer: {
+          include: {
+            user: { select: { id: true, name: true, city: true, country: true } },
+            certificates: { orderBy: { createdAt: 'desc' } },
+            vesselExperiences: true,
+            travelAuthorizations: {
+              select: { id: true, type: true, customType: true, countryCode: true, expiresAt: true, verificationStatus: true },
+              orderBy: { createdAt: 'desc' },
+            },
+          },
+        },
       },
       orderBy: { createdAt: 'desc' },
     })
-    return NextResponse.json({ messages })
+    return NextResponse.json({
+      messages: messages.map((message) => ({
+        id: message.id,
+        recruiterId: message.recruiterId,
+        seafarerId: message.seafarerId,
+        subject: message.subject,
+        body: message.body,
+        read: message.read,
+        createdAt: message.createdAt,
+        seafarer: sanitizeSeafarerForCandidateAccess(message.seafarer),
+      })),
+    })
   }
   if (user.role === 'SEAFARER') {
     const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })

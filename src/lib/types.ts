@@ -46,6 +46,7 @@ export interface VesselExperience {
   captainContact: string | null
   chiefEngName: string | null
   chiefEngContact: string | null
+  referenceContactAvailable?: boolean
 }
 
 export interface TravelAuthorization {
@@ -82,6 +83,7 @@ export interface SeafarerProfile {
   cocGrade: string | null
   cocExpiry: string | null
   passportNo: string | null
+  passportRecorded?: boolean
   passportExpiry: string | null
   usVisa: string | null
   schengenVisa: string | null
