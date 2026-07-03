@@ -5,4 +5,4 @@ services:
       - "3000:3000"
     environment:
       DATABASE_URL: "file:../db/custom.db"
-      SESSION_SECRET: "docker-session-secret-change-me"
+      SESSION_SECRET: "${SESSION_SECRET:?SESSION_SECRET must be set}"

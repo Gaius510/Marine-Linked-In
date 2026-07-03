@@ -1,17 +1,8 @@
 import { scryptSync, randomBytes, timingSafeEqual, createHmac } from 'crypto'
 import { cookies } from 'next/headers'
 import { db } from './db'
+import { getSessionSecret } from './session-secret.mjs'
 
-function getSessionSecret(): string {
-  const secret = process.env.SESSION_SECRET
-  if (secret) return secret
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error('SESSION_SECRET is required in production')
-  }
-  return 'maritime-network-dev-secret-change-me'
-}
-
-const SESSION_SECRET = getSessionSecret()
 const COOKIE_NAME = 'maritime_session'
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7 days (seconds)
 
@@ -32,7 +23,7 @@ export function verifyPassword(password: string, stored: string): boolean {
 
 export function createSessionToken(userId: string): string {
   const payload = `${userId}.${Math.floor(Date.now() / 1000)}`
-  const sig = createHmac('sha256', SESSION_SECRET).update(payload).digest('hex')
+  const sig = createHmac('sha256', getSessionSecret()).update(payload).digest('hex')
   return `${payload}.${sig}`
 }
 
@@ -43,7 +34,7 @@ export function verifySessionToken(token: string): { userId: string; issuedAt: n
   const issuedAt = parseInt(parts[1], 10)
   const sig = parts[2]
   const payload = `${userId}.${issuedAt}`
-  const expectedSig = createHmac('sha256', SESSION_SECRET).update(payload).digest('hex')
+  const expectedSig = createHmac('sha256', getSessionSecret()).update(payload).digest('hex')
   if (sig.length !== expectedSig.length) return null
   if (!timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSig))) return null
   const age = Math.floor(Date.now() / 1000) - issuedAt

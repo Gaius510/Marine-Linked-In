@@ -8,7 +8,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV DATABASE_URL="file:../db/custom.db"
-ENV SESSION_SECRET="docker-session-secret-change-me"
 RUN npx prisma generate
 RUN npm run build
 
@@ -21,5 +20,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/scripts ./scripts
+COPY --from=builder /app/src/lib/session-secret.mjs ./src/lib/session-secret.mjs
 EXPOSE 3000
 CMD ["npm", "run", "start"]
