@@ -7,20 +7,20 @@ Task: Foundation — database schema, seed data, i18n (EN/AR + RTL), auth system
 
 Work Log:
 - Designed Prisma schema: User, SeafarerProfile, Certificate, VesselExperience, Job, Application, SavedProfile, Message, Interview. Pushed to SQLite.
-- Seeded 1 admin, 3 recruiters, 25 seafarers (each with profile + 1-3 vessel experiences + certificates), 12 jobs.
-- Demo accounts: admin@maritimenet.com/admin123, sarah@maersk-recruit.com/recruiter123, seafarer1@maritimenet.com/seafarer123
+- Seeded 3 demo recruiters, 25 demo seafarers (each with profile + 1-3 vessel experiences + certificates), and 12 jobs. Administrator accounts are provisioned separately.
+- Development demo accounts cover recruiter and seafarer roles only.
 - Built i18n system (src/lib/i18n.tsx): full EN + AR dictionaries, RTL support, localStorage persistence, lazy init to avoid hydration mismatch.
 - Built auth: src/lib/auth.ts (scrypt password hashing, HMAC session tokens, httpOnly cookies), API routes /api/auth/{register,login,logout,me}.
 - Built resource APIs: /api/seafarers (list+filter, recruiter/admin), /api/seafarers/me (GET/PUT profile), /api/seafarers/me/experiences & certificates (POST/PUT/DELETE), /api/seafarers/[id], /api/jobs (GET/POST), /api/jobs/[id] (GET/PUT/DELETE), /api/applications (GET/POST + status PUT), /api/saved (GET/POST bulk + DELETE), /api/messages (GET/POST bulk), /api/interviews (GET/POST + PUT status), /api/admin/stats (GET with filters + all users).
 - Built stores: src/stores/auth-store.ts (Zustand), src/stores/nav-store.ts (SPA view switching).
 - Theme: maritime teal palette in globals.css (oklch teal primary, emerald/amber accents). NOT indigo/blue.
 - App shell: sticky header (brand, lang toggle, theme toggle, user menu w/ logout), responsive sidebar nav (desktop sidebar + mobile bottom nav), sticky footer with mt-auto.
-- Auth UI: split-screen login/register with role selection (seafarer/recruiter), demo account quick-login.
+- Auth UI: split-screen login/register with role selection (seafarer/recruiter), with non-admin demo account quick-login.
 - Shared components: PageHeader, StatCard, AvailabilityBadge, SeafarerCard, JobCard.
 - Lint passes clean. Dev server healthy on port 3000.
 
 Stage Summary:
-- Foundation complete and verified. App loads /, shows auth screen, login works for all 3 demo roles.
+- Foundation complete and verified. App loads /, shows the auth screen, and supports non-admin demo logins. Administrator access requires separate provisioning.
 - Key contracts for portal subagents:
   * Auth: `useAuthStore()` → { user: SafeUser, login, register, logout }. user.role is 'SEAFARER'|'RECRUITER'|'ADMIN'.
   * Navigation: `useNavStore()` → { view, setView, contextId, setContext }. setView resets contextId.
@@ -168,7 +168,7 @@ Work Log:
 - Fixed parallel-edit integration issues: deduplicated `common.delete` key in both en/ar i18n dicts; added `seafarer?` relation to Message & Interview types; cast Availability enum in /api/seafarers route; added `@@unique([jobId, seafarerId])` to Application model + re-pushed schema; typed recruiters array in seed.ts.
 - Restarted dev server to load regenerated Prisma client (compound unique).
 - Agent Browser verification (all golden paths):
-  * Auth screen renders: split-screen, login/register tabs, role selection, 3 demo quick-login buttons.
+  * Auth screen renders: split-screen, login/register tabs, role selection, and non-admin demo quick-login buttons.
   * Seafarer login (seafarer1): dashboard with CV completeness, latest jobs, recent applications.
   * CV builder: 5 tabs (Personal/Maritime/Vessel experience/Certificates/Documents). "Add vessel experience" dialog contains dedicated "Supervisor contacts" section with Captain + Chief Engineer name/contact fields — satisfies the verification user story.
   * Jobs feed: 12 vacancies with search + rank/vessel filters. Apply flow: dialog → submit → "Application submitted!" toast → button becomes disabled "Applied".
@@ -176,7 +176,7 @@ Work Log:
   * Recruiter login (sarah): dashboard with 4 stat cards + recent applicants + upcoming interviews.
   * Browse seafarers: 4 filter dropdowns + search; per-card Save/Message/Schedule; "Select all" checkbox; selecting 2 seafarers reveals sticky bulk-action bar (Save selected / Message selected). Bulk save → toast + cards flip to "Saved"; confirmed both seafarers appear on Saved profiles page.
   * Post job form: all fields (title, rank, vessel, company pre-filled, salary, currency, duration, joining, location, description, requirements).
-  * Admin login (admin): dashboard with 6 stat cards + rank-breakdown chart + recent seafarers.
+  * Admin portal: dashboard with 6 stat cards + rank-breakdown chart + recent seafarers, verified with a separately provisioned local administrator.
   * Master database: 6 multi-criteria filters (search/rank/vessel/nationality/availability/minYears); live count updates (25 → 14 when filtering Available → 25 after Clear); table + card view toggle; clickable rows open detail dialog.
   * Sticky footer: verified sticks to viewport bottom when content short (tall viewport test: footerBottom=winH=2200) and pushed down naturally when content long (footer at 1968px on tall page).
   * Mobile (390px): desktop sidebar `display:none`, mobile bottom nav active with nav items.
@@ -184,7 +184,7 @@ Work Log:
 
 Stage Summary:
 - All 4 phases complete and browser-verified. Lint clean (0 errors), TypeScript clean (0 errors in app code).
-- Demo accounts: admin@maritimenet.com/admin123, sarah@maersk-recruit.com/recruiter123, seafarer1@maritimenet.com/seafarer123 (plus 24 more seafarers, 2 more recruiters, 12 jobs seeded).
+- Demo accounts cover recruiter and seafarer roles only (plus additional seeded profiles and jobs). Administrator credentials are never seeded.
 - Final status: production-ready. App is interactive end-to-end across all 3 roles with EN/AR + RTL.
 
 ---

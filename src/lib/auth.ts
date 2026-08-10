@@ -1,25 +1,12 @@
-import { scryptSync, randomBytes, timingSafeEqual, createHmac } from 'crypto'
+import { timingSafeEqual, createHmac } from 'crypto'
 import { cookies } from 'next/headers'
 import { db } from './db'
 import { getSessionSecret } from './session-secret.mjs'
 
+export { hashPassword, verifyPassword } from './password'
+
 const COOKIE_NAME = 'maritime_session'
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7 days (seconds)
-
-export function hashPassword(password: string): string {
-  const salt = randomBytes(16).toString('hex')
-  const hash = scryptSync(password, salt, 64).toString('hex')
-  return `${salt}:${hash}`
-}
-
-export function verifyPassword(password: string, stored: string): boolean {
-  const [salt, hash] = stored.split(':')
-  if (!salt || !hash) return false
-  const hashBuf = Buffer.from(hash, 'hex')
-  const testBuf = scryptSync(password, salt, 64)
-  if (hashBuf.length !== testBuf.length) return false
-  return timingSafeEqual(hashBuf, testBuf)
-}
 
 export function createSessionToken(userId: string): string {
   const payload = `${userId}.${Math.floor(Date.now() / 1000)}`

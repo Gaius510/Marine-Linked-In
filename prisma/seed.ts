@@ -1,13 +1,7 @@
 import { PrismaClient, Role, Availability, JobStatus, User } from '@prisma/client'
-import { scryptSync, randomBytes } from 'crypto'
+import { hashPassword } from '../src/lib/password'
 
 const db = new PrismaClient()
-
-function hashPassword(password: string): string {
-  const salt = randomBytes(16).toString('hex')
-  const hash = scryptSync(password, salt, 64).toString('hex')
-  return `${salt}:${hash}`
-}
 
 const vesselTypes = ['Container Ship', 'Oil Tanker', 'Chemical Tanker', 'Bulk Carrier', 'LNG Carrier', 'LPG Carrier', 'General Cargo', 'Ro-Ro', 'Passenger', 'Offshore Supply', 'DP AHTS', 'Cruise Ship', 'Car Carrier', 'Reefer']
 const ranks = ['Master', 'Chief Officer', '2nd Officer', '3rd Officer', 'Chief Engineer', '2nd Engineer', '3rd Engineer', '4th Engineer', 'ETO', 'Bosun', 'AB Seaman', 'Oiler', 'Cook', 'Deck Cadet', 'Engine Cadet']
@@ -27,22 +21,7 @@ function pickN<T>(arr: T[], n: number): T[] {
 async function main() {
   console.log('Seeding database...')
 
-  // Admin
-  const admin = await db.user.upsert({
-    where: { email: 'admin@maritimenet.com' },
-    update: {},
-    create: {
-      email: 'admin@maritimenet.com',
-      passwordHash: hashPassword('admin123'),
-      name: 'Platform Admin',
-      role: Role.ADMIN,
-      phone: '+971 50 000 0000',
-      city: 'Dubai',
-      country: 'UAE',
-    },
-  })
-
-  // Recruiters
+  // Development-only demo recruiters
   const recruiterData = [
     { name: 'Sarah Mitchell', email: 'sarah@maersk-recruit.com', company: 'Maersk Crewing', country: 'Denmark', city: 'Copenhagen' },
     { name: 'Ahmed Al-Rashid', email: 'ahmed@gulf-maritime.ae', company: 'Gulf Maritime Services', country: 'UAE', city: 'Dubai' },
@@ -58,7 +37,7 @@ async function main() {
     recruiters.push(u)
   }
 
-  // Seafarers
+  // Development-only demo seafarers
   const seafarerNames = [
     'Juan Dela Cruz', 'Rajesh Kumar', 'Andriy Kovalenko', 'Dmitri Petrov', 'Budi Santoso',
     'Zhang Ming', 'Min Aung', 'Mohamed Hassan', 'Mehmet Yilmaz', 'Nguyen Van Linh',
@@ -186,11 +165,11 @@ async function main() {
     })
   }
 
-  console.log(`Seeded: 1 admin, ${recruiters.length} recruiters, ${seafarerNames.length} seafarers, ${jobTemplates.length} jobs`)
-  console.log('Demo accounts:')
-  console.log('  Admin:     admin@maritimenet.com / admin123')
+  console.log(`Seeded: ${recruiters.length} demo recruiters, ${seafarerNames.length} demo seafarers, ${jobTemplates.length} jobs`)
+  console.log('Development-only demo accounts:')
   console.log('  Recruiter: sarah@maersk-recruit.com / recruiter123')
   console.log('  Seafarer:  seafarer1@maritimenet.com / seafarer123')
+  console.log('No administrator account was created. Use npm run admin:create for local administration.')
 }
 
 main()

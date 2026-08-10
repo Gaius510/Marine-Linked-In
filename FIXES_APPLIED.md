@@ -18,8 +18,9 @@ npm run build
 npm run dev
 ```
 
-Demo accounts from the project worklog:
+Development-only demo accounts from the project worklog:
 
-- `admin@maritimenet.com` / `admin123`
 - `sarah@maersk-recruit.com` / `recruiter123`
 - `seafarer1@maritimenet.com` / `seafarer123`
+
+The seed does not create an administrator. Use `npm run admin:create` with environment-provided credentials for local testing; production administrators require a controlled provisioning process.

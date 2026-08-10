@@ -25,11 +25,28 @@ http://localhost:3000
 
 ## Demo accounts after seeding
 
+The seed creates development-only seafarer and recruiter accounts. It does not create an administrator.
+
 ```text
-Admin:     admin@maritimenet.com / admin123
 Recruiter: sarah@maersk-recruit.com / recruiter123
 Seafarer:  seafarer1@maritimenet.com / seafarer123
 ```
+
+## Create a local administrator
+
+Create an administrator explicitly from environment variables. Enter a unique password of at least 12 characters when prompted; it is not written to a repository file or printed to the terminal.
+
+```bash
+read -r -p "Admin email: " ADMIN_EMAIL
+read -r -s -p "Admin password (12+ characters): " ADMIN_PASSWORD
+echo
+ADMIN_EMAIL="$ADMIN_EMAIL" ADMIN_PASSWORD="$ADMIN_PASSWORD" ADMIN_NAME="Local Admin" npm run admin:create
+unset ADMIN_PASSWORD
+```
+
+The command creates the account when the email is new. If the email already exists, it assigns the `ADMIN` role and replaces the password with the supplied value. It is disabled when `NODE_ENV=production`.
+
+Do not use fixed demo credentials for administrators. Production administrators must be provisioned through a controlled operational process rather than seed data or this local command.
 
 ## Useful commands
 
@@ -40,6 +57,7 @@ npm run start        # start production server after build
 npm run lint         # run ESLint
 npm run db:push      # sync Prisma schema to SQLite database
 npm run db:seed      # add demo data
+npm run admin:create # create or update a local admin from environment variables
 npm run setup        # install dependencies, create DB schema and seed data
 ```
 
