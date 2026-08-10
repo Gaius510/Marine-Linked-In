@@ -91,15 +91,15 @@ export function SeafarerOverview() {
 
   return (
     <div className="space-y-6">
-      <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
+      <PageToolbar className="border-b border-border pb-4">
         <div className="min-w-0">
-          <p className="text-sm font-medium text-primary">{t('seafarer.welcome')}</p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
+          <p className="text-xs font-semibold uppercase text-primary">{t('seafarer.welcome')}</p>
+          <h1 className="mt-1 text-xl font-semibold leading-7 sm:text-2xl">
             {t('seafarer.greeting', { name: user?.name ?? '' })}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">{t('seafarer.completeCvDesc')}</p>
         </div>
-        <Button onClick={() => setView('cv')} size="lg" className="w-full sm:w-auto">
+        <Button onClick={() => setView('cv')} className="w-full sm:w-auto">
           <FileText className="size-4" />
           {pct < 80 ? t('seafarer.completeCv') : t('seafarer.viewCv')}
         </Button>

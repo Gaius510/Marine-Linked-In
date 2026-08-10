@@ -42,19 +42,19 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full shrink-0 border-b border-border/75 bg-card/90 shadow-sm shadow-brand-navy/5 backdrop-blur-xl supports-[backdrop-filter]:bg-card/75">
+    <header className="sticky top-0 z-40 w-full shrink-0 border-b border-border bg-card">
       <div className="mx-auto flex h-[3.75rem] max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:h-16 lg:px-8">
         <button
           type="button"
           onClick={handleDashboardClick}
           aria-label="Go to dashboard"
-          className="motion-button cursor-pointer rounded-xl p-1.5 text-start hover:bg-secondary/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="motion-button cursor-pointer rounded-md p-1.5 text-start hover:bg-secondary/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <BrandLogo showText className="[&>div:last-child]:hidden sm:[&>div:last-child]:block" />
         </button>
 
         <div className="ms-auto flex items-center gap-2">
-          <div className="flex items-center rounded-xl border border-border/80 bg-background/75 p-1 shadow-sm">
+          <div className="flex items-center rounded-md border border-border bg-background p-1">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -62,7 +62,7 @@ export function AppHeader() {
                   size="icon"
                   onClick={toggleLocale}
                   aria-label={t('lang.aria')}
-                  className="size-8 min-h-8 min-w-8 rounded-lg hover:bg-secondary"
+                  className="size-8 min-h-8 min-w-8 rounded-md hover:bg-secondary"
                 >
                   <Languages className="size-4" />
                   <span className="text-xs font-semibold">{locale === 'en' ? 'ع' : 'EN'}</span>
@@ -79,7 +79,7 @@ export function AppHeader() {
                   size="icon"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   aria-label={t('theme.aria')}
-                  className="size-8 min-h-8 min-w-8 rounded-lg hover:bg-secondary"
+                  className="size-8 min-h-8 min-w-8 rounded-md hover:bg-secondary"
                 >
                   <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                   <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -93,7 +93,7 @@ export function AppHeader() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="h-10 gap-2 rounded-xl border border-border/80 bg-background/75 ps-1.5 pe-2 shadow-sm hover:border-primary/30 hover:bg-secondary"
+                className="h-10 gap-2 rounded-md border border-border bg-background ps-1.5 pe-2 shadow-none hover:border-primary/30 hover:bg-secondary"
               >
                 <Avatar className="size-7">
                   <AvatarFallback className="bg-secondary text-primary text-xs font-semibold">{initials}</AvatarFallback>

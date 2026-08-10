@@ -82,18 +82,18 @@ export function OverviewView({
 
   return (
     <div className="space-y-6">
-      <section className="overflow-hidden rounded-xl border border-border/80 bg-card/95 shadow-sm">
+      <section className="overflow-hidden border-b border-border pb-5">
         <div className="grid gap-0 xl:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.65fr)]">
-          <div className="min-w-0 p-4 sm:p-5 lg:p-6">
+          <div className="min-w-0 pb-5 xl:pe-6 xl:pb-0">
             <div className="flex min-w-0 items-start gap-3">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-secondary text-primary">
                 <Briefcase className="size-5" />
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-medium text-primary">
+                <p className="text-xs font-semibold uppercase text-primary">
                   {t('recruiter.dashboardFor', { name: user?.name ?? '' })}
                 </p>
-                <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{t('recruiter.welcome')}</h1>
+                <h1 className="mt-1 text-xl font-semibold leading-7 sm:text-2xl">{t('recruiter.welcome')}</h1>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
                   {t('browse.subtitle')}
                 </p>
@@ -107,7 +107,7 @@ export function OverviewView({
             </div>
           </div>
 
-          <div className="border-t border-border/70 bg-gradient-to-br from-secondary/75 via-card to-secondary/80 p-4 dark:from-secondary/35 dark:via-card dark:to-primary/10 sm:p-5 xl:border-s xl:border-t-0">
+          <div className="border-t border-border bg-muted/45 pt-4 xl:border-s xl:border-t-0 xl:p-4">
             <div className="space-y-3">
               <Button onClick={onBrowseSeafarers} size="lg" className="h-11 w-full justify-start">
                 <Search className="size-4" />

@@ -100,7 +100,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
           ) : (
             <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
               <div className="space-y-5">
-                <section className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm">
+                <section className="rounded-lg border border-border bg-card p-4">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div className="min-w-0 flex-1">
                       <div className="flex min-w-0 items-start gap-4">

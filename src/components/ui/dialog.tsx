@@ -38,7 +38,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "motion-overlay fixed inset-0 z-50 bg-brand-navy/55 backdrop-blur-[2px]",
+        "motion-overlay fixed inset-0 z-50 bg-brand-navy/65",
         className
       )}
       {...props}
@@ -64,7 +64,7 @@ function DialogContent({
         <DialogPrimitive.Content
           data-slot="dialog-content"
           className={cn(
-            "motion-dialog-content surface-panel pointer-events-auto relative flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[calc(100vw-1.5rem)] flex-col gap-5 overflow-y-auto rounded-xl border p-5 sm:max-h-[calc(100dvh-2rem)] sm:max-w-lg sm:p-6",
+            "motion-dialog-content surface-panel pointer-events-auto relative flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[calc(100vw-1.5rem)] flex-col gap-5 overflow-y-auto rounded-lg border p-5 shadow-[var(--shadow-dialog)] sm:max-h-[calc(100dvh-2rem)] sm:max-w-lg sm:p-6",
             className
           )}
           {...props}

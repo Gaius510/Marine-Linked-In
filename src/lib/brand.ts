@@ -1,9 +1,9 @@
 export const brand = {
   name: 'CrewLink',
   shortName: 'CrewLink',
-  tagline: 'Connecting maritime talent',
+  tagline: 'Maritime recruitment workspace',
   description:
-    'The professional network connecting seafarers, recruiters, and shipping companies worldwide.',
+    'Manage maritime profiles, vacancies, applications, and recruiter outreach in one workspace.',
 }
 
 export const brandColors = {

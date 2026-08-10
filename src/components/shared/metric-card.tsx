@@ -5,10 +5,10 @@ import type { LucideIcon } from 'lucide-react'
 type MetricTone = 'primary' | 'emerald' | 'amber' | 'violet'
 
 const toneClasses: Record<MetricTone, string> = {
-  primary: 'bg-secondary text-primary ring-1 ring-primary/10',
-  emerald: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-  amber: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-  violet: 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
+  primary: 'border-primary/25 bg-secondary text-primary',
+  emerald: 'border-emerald-500/20 bg-emerald-500/8 text-emerald-700 dark:text-emerald-400',
+  amber: 'border-amber-500/20 bg-amber-500/8 text-amber-700 dark:text-amber-400',
+  violet: 'border-violet-500/20 bg-violet-500/8 text-violet-700 dark:text-violet-400',
 }
 
 export function MetricCard({
@@ -27,15 +27,15 @@ export function MetricCard({
   className?: string
 }) {
   return (
-    <Card className={cn('p-4 sm:p-5', className)}>
+    <Card className={cn('border-s-[3px] border-s-primary p-4', className)}>
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <div className="text-xs sm:text-sm text-muted-foreground truncate">{label}</div>
-          <div className="text-2xl sm:text-3xl font-bold mt-1">{value}</div>
+          <div className="truncate text-xs font-medium text-muted-foreground">{label}</div>
+          <div className="mt-1 text-2xl font-semibold tabular-nums">{value}</div>
           {hint && <div className="text-[11px] text-muted-foreground mt-1">{hint}</div>}
         </div>
-        <div className={cn('size-10 sm:size-11 rounded-xl flex items-center justify-center shrink-0', toneClasses[tone])}>
-          <Icon className="size-5 sm:size-6" />
+        <div className={cn('flex size-9 shrink-0 items-center justify-center rounded-md border', toneClasses[tone])}>
+          <Icon className="size-4.5" />
         </div>
       </div>
     </Card>

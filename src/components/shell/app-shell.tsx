@@ -27,7 +27,7 @@ export function AppShell() {
 
   if (!initialized || (user && !navigationReady)) {
     return (
-      <div className="brand-surface-gradient flex min-h-screen flex-col items-center justify-center gap-4 bg-background">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background">
         <BrandLogo size="lg" />
         <Loader2 className="size-7 animate-spin text-primary" />
       </div>
@@ -49,10 +49,9 @@ export function AppShell() {
       <AppHeader />
       <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden w-full max-w-full">
         <AppSidebar />
-        <main className="relative isolate flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_left,var(--brand-seafoam)_0%,transparent_36%),linear-gradient(180deg,var(--background)_0%,transparent_38%)]" />
-          <div className="scrollbar-thin relative z-10 min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-5 pb-20 sm:px-6 sm:py-6 lg:px-8 lg:pb-8">
-            <div key={`${user.role}-${view}`} className="motion-view mx-auto w-full max-w-[1360px] min-w-0">
+        <main className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-background">
+          <div className="scrollbar-thin min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-5 pb-20 sm:px-6 lg:px-8 lg:py-6 lg:pb-8">
+            <div key={`${user.role}-${view}`} className="motion-view mx-auto w-full max-w-[1320px] min-w-0">
               {user.role === 'SEAFARER' && <SeafarerPortal />}
               {user.role === 'RECRUITER' && <RecruiterPortal />}
               {user.role === 'ADMIN' && <AdminPortal />}

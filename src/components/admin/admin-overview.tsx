@@ -91,14 +91,14 @@ export function AdminOverview() {
 
   return (
     <div className="space-y-5">
-      <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
+      <PageToolbar className="border-b border-border pb-4">
         <div className="flex min-w-0 items-start gap-3">
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-secondary text-primary">
             <ShieldCheck className="size-5" />
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-primary">{t('admin.platformOperations')}</p>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{t('admin.welcome')}</h1>
+            <p className="text-xs font-semibold uppercase text-primary">{t('admin.platformOperations')}</p>
+            <h1 className="mt-1 text-xl font-semibold leading-7 sm:text-2xl">{t('admin.welcome')}</h1>
             <p className="mt-1 text-sm text-muted-foreground">{t('admin.masterSubtitle')}</p>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Link2, Waves } from 'lucide-react'
+import { Anchor } from 'lucide-react'
 import { brand } from '@/lib/brand'
 import { cn } from '@/lib/utils'
 
@@ -7,8 +7,8 @@ type BrandLogoTone = 'default' | 'light'
 
 const markSizes: Record<BrandLogoSize, string> = {
   sm: 'size-7 rounded-md',
-  md: 'size-9 rounded-lg',
-  lg: 'size-14 rounded-2xl',
+  md: 'size-9 rounded-md',
+  lg: 'size-12 rounded-lg',
 }
 
 const iconSizes: Record<BrandLogoSize, string> = {
@@ -38,19 +38,18 @@ export function BrandLogo({
     >
       <div
         className={cn(
-          'relative flex shrink-0 items-center justify-center overflow-hidden shadow-sm ring-1',
+          'relative flex shrink-0 items-center justify-center overflow-hidden border',
           markSizes[size],
           light
-            ? 'bg-white/15 text-white ring-white/25'
-            : 'bg-primary text-primary-foreground ring-primary/20'
+            ? 'border-white/30 bg-white/10 text-white'
+            : 'border-primary bg-primary text-primary-foreground'
         )}
       >
-        <Waves className={cn('absolute -bottom-0.5 start-1 opacity-55', iconSizes[size])} aria-hidden="true" />
-        <Link2 className={cn('relative z-10', iconSizes[size])} aria-hidden="true" />
+        <Anchor className={iconSizes[size]} aria-hidden="true" />
       </div>
       {showText && (
         <div className="min-w-0">
-          <div className={cn('font-bold leading-tight tracking-tight', size === 'lg' ? 'text-2xl' : 'text-base')}>
+          <div className={cn('font-semibold leading-tight', size === 'lg' ? 'text-xl' : 'text-base')}>
             {brand.name}
           </div>
           <div className={cn('leading-tight', size === 'lg' ? 'text-sm' : 'text-[11px]', light ? 'text-white/72' : 'text-muted-foreground')}>

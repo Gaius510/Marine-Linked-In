@@ -9,8 +9,8 @@ export function AppFooter() {
   const { t } = useI18n()
   const year = new Date().getFullYear()
   return (
-    <footer className="shrink-0 border-t border-border/70 bg-card/75 backdrop-blur-xl">
-      <div className="mx-auto max-w-[1360px] px-4 py-4 sm:px-6 lg:px-8">
+    <footer className="shrink-0 border-t border-border bg-card">
+      <div className="mx-auto max-w-[1360px] px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-2 text-sm text-muted-foreground sm:flex-row">
           <div className="flex items-center gap-2">
             <BrandLogo size="sm" showText={false} />

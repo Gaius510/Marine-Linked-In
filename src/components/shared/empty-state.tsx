@@ -19,10 +19,10 @@ export function EmptyState({
   framed?: boolean
 }) {
   const content = (
-    <div className={cn('text-center', framed ? 'p-8 sm:p-10' : 'py-8', className)}>
+    <div className={cn('text-center', framed ? 'p-7 sm:p-9' : 'py-7', className)}>
       {Icon && (
-        <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-xl bg-secondary text-primary ring-1 ring-primary/10">
-          <Icon className="size-6" />
+        <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-md border border-primary/20 bg-secondary text-primary">
+          <Icon className="size-5" />
         </div>
       )}
       <p className="font-semibold tracking-tight">{title}</p>
@@ -33,5 +33,5 @@ export function EmptyState({
 
   if (!framed) return content
 
-  return <Card className="border-dashed">{content}</Card>
+  return <Card className="border-dashed bg-card/60 shadow-none">{content}</Card>
 }

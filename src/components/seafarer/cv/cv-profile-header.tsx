@@ -26,14 +26,14 @@ export function CvProfileHeader({
   const { t } = useI18n()
 
   return (
-    <PageToolbar className="rounded-xl border border-border/80 bg-card/95 p-4 shadow-sm sm:p-5">
+    <PageToolbar className="border-b border-border pb-4">
       <div className="flex min-w-0 flex-1 items-start gap-3">
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-secondary text-primary">
           <FileText className="size-5" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="truncate text-2xl font-bold tracking-tight sm:text-3xl">{profile.user.name}</h1>
+            <h1 className="truncate text-xl font-semibold leading-7 sm:text-2xl">{profile.user.name}</h1>
             <AvailabilityBadge availability={profile.availability} t={t} />
           </div>
           <p className="mt-1 text-sm text-muted-foreground">

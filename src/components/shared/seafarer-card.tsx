@@ -64,8 +64,8 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
             aria-label={t(selected ? 'browse.deselectCandidate' : 'browse.selectCandidate', { name: seafarer.user.name })}
           />
         )}
-        <Avatar className="size-12 shrink-0 rounded-xl">
-          <AvatarFallback className="rounded-xl bg-secondary font-semibold text-primary">{initials}</AvatarFallback>
+        <Avatar className="size-11 shrink-0 rounded-lg">
+          <AvatarFallback className="rounded-lg bg-secondary font-semibold text-primary">{initials}</AvatarFallback>
         </Avatar>
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -114,15 +114,15 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
             )}
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-lg border border-border/70 bg-muted/35 px-2.5 py-2">
+          <div className="mt-3 grid grid-cols-2 divide-x divide-border border-y border-border py-2 rtl:divide-x-reverse">
+            <div className="px-2.5 first:ps-0">
               <div className="flex min-w-0 items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
                 <Gauge className="size-3.5 shrink-0 text-primary" />
                 <span className="truncate">{t('seafarer.profileStrength')}</span>
               </div>
               <div className="mt-1 text-sm font-semibold text-foreground">{profileScore}%</div>
             </div>
-            <div className="rounded-lg border border-border/70 bg-muted/35 px-2.5 py-2">
+            <div className="px-2.5 last:pe-0">
               <div className="flex min-w-0 items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
                 <ShieldCheck className="size-3.5 shrink-0 text-primary" />
                 <span className="truncate">{t('travelAuth.readinessTitle')}</span>

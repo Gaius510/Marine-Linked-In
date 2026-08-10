@@ -13,9 +13,9 @@ interface ErrorStateProps {
 export function ErrorState({ onRetry, message }: ErrorStateProps) {
   const { t } = useI18n()
   return (
-    <Card className="p-8 text-center sm:p-12">
-      <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-destructive/10 text-destructive ring-1 ring-destructive/15">
-        <AlertTriangle className="size-6" />
+    <Card className="border-destructive/20 bg-destructive/[0.025] p-8 text-center shadow-none sm:p-10">
+      <div className="mx-auto mb-4 flex size-10 items-center justify-center rounded-md border border-destructive/20 bg-destructive/10 text-destructive">
+        <AlertTriangle className="size-5" />
       </div>
       <p className="mb-1 text-sm leading-6 text-muted-foreground">
         {message || t('common.error')}

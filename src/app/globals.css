@@ -49,23 +49,23 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   --motion-fast: 120ms;
   --motion-standard: 180ms;
   --motion-slow: 260ms;
   --motion-ease: cubic-bezier(0.2, 0, 0, 1);
   --motion-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-surface: 0 1px 2px rgb(11 38 51 / 0.05), 0 10px 30px rgb(11 38 51 / 0.06);
-  --shadow-surface-hover: 0 2px 6px rgb(11 38 51 / 0.08), 0 16px 38px rgb(11 38 51 / 0.1);
-  --shadow-dialog: 0 24px 70px rgb(11 38 51 / 0.24);
+  --shadow-surface: 0 1px 2px rgb(11 38 51 / 0.06);
+  --shadow-surface-hover: 0 2px 8px rgb(11 38 51 / 0.09);
+  --shadow-dialog: 0 20px 50px rgb(11 38 51 / 0.22);
   --brand-navy: #0b2633;
   --brand-teal: #167d86;
   --brand-seafoam: #e4f4f1;
   --brand-coral: #f26b5e;
   --brand-fog: #f5f8fa;
   --brand-white: #ffffff;
-  --brand-hero-gradient: radial-gradient(circle at top left, rgb(22 125 134 / 0.92) 0%, #0b3d4a 42%, var(--brand-navy) 100%);
-  --brand-surface-gradient: radial-gradient(circle at top right, var(--brand-seafoam) 0%, var(--brand-fog) 38%, var(--brand-white) 100%);
+  --brand-hero-gradient: var(--brand-navy);
+  --brand-surface-gradient: var(--brand-fog);
   --background: var(--brand-fog);
   --foreground: var(--brand-navy);
   --card: var(--brand-white);
@@ -100,8 +100,8 @@
 }
 
 .dark {
-  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.24), 0 12px 32px rgb(0 0 0 / 0.18);
-  --shadow-surface-hover: 0 2px 6px rgb(0 0 0 / 0.28), 0 16px 42px rgb(0 0 0 / 0.24);
+  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.28);
+  --shadow-surface-hover: 0 2px 10px rgb(0 0 0 / 0.28);
   --shadow-dialog: 0 24px 70px rgb(0 0 0 / 0.46);
   --brand-navy: #0b2633;
   --brand-teal: #48aeb7;
@@ -109,8 +109,8 @@
   --brand-coral: #f26b5e;
   --brand-fog: #071b24;
   --brand-white: #ffffff;
-  --brand-hero-gradient: radial-gradient(circle at top left, rgb(22 125 134 / 0.7) 0%, #0b3d4a 45%, #061720 100%);
-  --brand-surface-gradient: radial-gradient(circle at top right, rgb(22 125 134 / 0.18) 0%, #071b24 42%, #061720 100%);
+  --brand-hero-gradient: #061720;
+  --brand-surface-gradient: #071b24;
   --background: #071b24;
   --foreground: oklch(0.96 0.005 200);
   --card: oklch(0.2 0.02 215);
@@ -149,7 +149,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    letter-spacing: 0;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]) {
@@ -189,7 +190,6 @@
   }
 
   .motion-card-hover:hover {
-    transform: translateY(-2px);
     box-shadow: var(--shadow-surface-hover);
   }
 
@@ -224,87 +224,15 @@
   }
 
   .surface-card {
-    background: color-mix(in oklab, var(--card) 94%, transparent);
-    border-color: color-mix(in oklab, var(--border) 86%, transparent);
+    background: var(--card);
+    border-color: var(--border);
     box-shadow: var(--shadow-surface);
   }
 
   .surface-panel {
-    background:
-      linear-gradient(180deg, color-mix(in oklab, var(--card) 96%, transparent), color-mix(in oklab, var(--card) 90%, transparent));
-    border-color: color-mix(in oklab, var(--border) 88%, transparent);
+    background: var(--card);
+    border-color: var(--border);
     box-shadow: var(--shadow-surface);
-  }
-
-  .auth-atmosphere {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-  }
-
-  .auth-atmosphere::before,
-  .auth-atmosphere::after {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    z-index: 0;
-    border-radius: 9999px;
-    filter: blur(44px);
-    opacity: 0.72;
-    will-change: transform, opacity;
-  }
-
-  .auth-atmosphere::before {
-    width: min(34rem, 82vw);
-    height: min(34rem, 82vw);
-    inset-block-start: -8rem;
-    inset-inline-end: -10rem;
-    background:
-      radial-gradient(circle at 36% 34%, rgb(22 125 134 / 0.34), transparent 58%),
-      radial-gradient(circle at 68% 70%, rgb(228 244 241 / 0.5), transparent 62%);
-    animation: crewlink-auth-drift 18s var(--motion-ease-emphasized) infinite alternate;
-  }
-
-  .auth-atmosphere::after {
-    width: min(30rem, 88vw);
-    height: min(22rem, 68vw);
-    inset-block-end: -7rem;
-    inset-inline-start: -8rem;
-    background:
-      radial-gradient(circle at 42% 44%, rgb(242 107 94 / 0.14), transparent 54%),
-      radial-gradient(circle at 66% 62%, rgb(22 125 134 / 0.28), transparent 66%);
-    animation: crewlink-auth-drift-secondary 22s var(--motion-ease-emphasized) infinite alternate;
-  }
-
-  .auth-horizon {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .auth-horizon::before {
-    content: "";
-    position: absolute;
-    inset-inline: -8%;
-    inset-block-start: 18%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgb(22 125 134 / 0.24), rgb(255 255 255 / 0.74), rgb(22 125 134 / 0.16), transparent);
-    opacity: 0.68;
-  }
-
-  .auth-horizon::after {
-    content: "";
-    position: absolute;
-    inset-inline: -12%;
-    inset-block-start: 18%;
-    height: 18rem;
-    background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.42), transparent 28%),
-      repeating-linear-gradient(90deg, rgb(22 125 134 / 0.08) 0 1px, transparent 1px 5.5rem);
-    mask-image: linear-gradient(180deg, black, transparent 78%);
-    opacity: 0.42;
   }
 }
 
@@ -359,44 +287,6 @@
   }
 }
 
-@keyframes crewlink-auth-drift {
-  from {
-    opacity: 0.58;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    opacity: 0.78;
-    transform: translate3d(-1.5rem, 1.25rem, 0) scale(1.05);
-  }
-}
-
-@keyframes crewlink-auth-drift-secondary {
-  from {
-    opacity: 0.5;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    opacity: 0.68;
-    transform: translate3d(1.25rem, -1rem, 0) scale(1.04);
-  }
-}
-
-@media (min-width: 1024px) and (max-height: 850px) {
-  .auth-feature-list {
-    gap: 0.625rem;
-  }
-
-  .auth-feature-list > * {
-    padding: 0.625rem;
-  }
-}
-
-@media (min-width: 1024px) and (max-height: 750px) {
-  .auth-feature-list > *:last-child {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -409,9 +299,7 @@
 
   .motion-view,
   .motion-card-hover:hover,
-  .motion-button:not(:disabled):not([aria-disabled="true"]):active,
-  .auth-atmosphere::before,
-  .auth-atmosphere::after {
+  .motion-button:not(:disabled):not([aria-disabled="true"]):active {
     animation: none !important;
     transform: none !important;
   }
@@ -444,7 +332,7 @@
   background: var(--primary);
 }
 
-/* Brand gradient backgrounds */
+/* Brand backgrounds */
 .maritime-gradient {
   background: var(--brand-hero-gradient);
 }

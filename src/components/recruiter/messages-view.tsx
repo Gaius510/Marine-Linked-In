@@ -42,9 +42,9 @@ export function MessagesView({ onViewProfile }: { onViewProfile?: (seafarerId: s
 
   return (
     <div className="space-y-4">
-      <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-4 shadow-sm sm:p-5">
+      <PageToolbar className="border-b border-border pb-4">
         <div className="min-w-0">
-          <h1 className="text-2xl font-bold tracking-tight">{t('messages.title')}</h1>
+          <h1 className="text-xl font-semibold leading-7 sm:text-2xl">{t('messages.title')}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {isLoading ? t('common.loading') : t('messages.summary', { count: messages.length })}
           </p>
