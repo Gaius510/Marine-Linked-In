@@ -48,6 +48,7 @@ import type { SeafarerWithOptionalRelations, SafeUser, Availability } from '@/li
 import { VESSEL_TYPES, RANKS, NATIONALITIES } from '@/lib/types'
 import { computeCompleteness } from '@/components/seafarer/profile-completeness'
 import { formatYears } from '@/lib/format'
+import { serializeCsv } from '@/lib/csv'
 
 interface AdminStats {
   totalSeafarers: number
@@ -118,13 +119,6 @@ function vesselTypeSummary(seafarer: AdminSeafarer): string {
   return Array.from(new Set((seafarer.vesselExperiences ?? []).map((experience) => experience.vesselType))).join('; ')
 }
 
-function escapeCsv(value: string | null | undefined): string {
-  if (value === null || value === undefined) return ''
-  const s = String(value)
-  if (/[",\r\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`
-  return s
-}
-
 function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, vars?: Record<string, string | number>) => string) {
   const headers = [
     t('admin.name'),
@@ -148,7 +142,7 @@ function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, va
     s.user.country,
     formatDate(s.user.createdAt),
   ])
-  const csv = [headers, ...rows].map((r) => r.map(escapeCsv).join(',')).join('\n')
+  const csv = serializeCsv([headers, ...rows])
   const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
