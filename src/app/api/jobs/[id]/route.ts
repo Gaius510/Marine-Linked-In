@@ -4,19 +4,16 @@ import { getCurrentUser } from '@/lib/auth'
 import { JobStatus } from '@prisma/client'
 import { jobUpdateSchema } from '@/lib/validation/jobs'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
+import { jobDetailVisibility, jobReadSelect } from '@/lib/job-visibility'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
 export async function GET(_req: NextRequest, { params }: RouteContext) {
   const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
   const { id } = await params
-  const job = await db.job.findUnique({
-    where: { id },
-    include: {
-      recruiter: { select: { id: true, name: true, company: true, email: true, phone: true } },
-      _count: { select: { applications: true } },
-    },
+  const job = await db.job.findFirst({
+    where: { AND: [{ id }, jobDetailVisibility(user)] },
+    select: jobReadSelect,
   })
   if (!job) return NextResponse.json({ error: 'not_found' }, { status: 404 })
   return NextResponse.json({ job })

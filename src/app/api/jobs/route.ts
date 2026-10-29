@@ -4,18 +4,20 @@ import { getCurrentUser } from '@/lib/auth'
 import { Prisma } from '@prisma/client'
 import { jobCreateSchema } from '@/lib/validation/jobs'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
+import { jobReadSelect } from '@/lib/job-visibility'
 
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser()
   const { searchParams } = new URL(req.url)
   const mine = searchParams.get('mine') === '1'
 
-  const where: Prisma.JobWhereInput = {}
-  if (mine && user?.role === 'RECRUITER') {
-    where.recruiterId = user.id
-  } else if (!mine) {
-    where.status = 'OPEN'
+  if (mine && (!user || user.role !== 'RECRUITER')) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: user ? 403 : 401 })
   }
+
+  const where: Prisma.JobWhereInput = mine
+    ? { recruiterId: user!.id, status: { in: ['OPEN', 'CLOSED'] } }
+    : { status: 'OPEN' }
 
   const rank = searchParams.get('rank')
   const vesselType = searchParams.get('vesselType')
@@ -32,10 +34,7 @@ export async function GET(req: NextRequest) {
 
   const jobs = await db.job.findMany({
     where,
-    include: {
-      recruiter: { select: { id: true, name: true, company: true, email: true } },
-      _count: { select: { applications: true } },
-    },
+    select: jobReadSelect,
     orderBy: { createdAt: 'desc' },
   })
 
