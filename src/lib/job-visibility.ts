@@ -7,9 +7,9 @@ export function jobDetailVisibility(user: { id: string; role: Role } | null): Pr
   if (user?.role === 'RECRUITER') {
     return { OR: [{ status: 'OPEN' }, { status: 'CLOSED', recruiterId: user.id }] }
   }
-  // An application is not proof of access to closed details: the application
-  // creation endpoint currently allows CLOSED jobs. Historical information
-  // stays in the existing owner-scoped application views instead.
+  // Direct CLOSED detail remains owner/admin-only. Historical applications
+  // stay in the existing owner-scoped application views, including legacy
+  // records created before OPEN-job eligibility was enforced.
   return { status: 'OPEN' }
 }
 

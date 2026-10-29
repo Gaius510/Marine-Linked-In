@@ -19,7 +19,7 @@ export async function GET() {
       vesselExperiences: { orderBy: { createdAt: 'desc' } },
       travelAuthorizations: { orderBy: { createdAt: 'desc' } },
       applications: {
-        include: { job: { include: { recruiter: { select: { id: true, name: true, company: true, email: true } } } } },
+        include: { job: { include: { recruiter: { select: { id: true, name: true, company: true } } } } },
         orderBy: { createdAt: 'desc' },
       },
     },

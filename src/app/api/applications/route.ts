@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/auth'
 import { sanitizeSeafarerForCandidateAccess } from '@/lib/privacy'
 import { applicationCreateSchema } from '@/lib/validation/applications'
 import { parseBody, parseJsonBody } from '@/lib/validation/server'
+import { Prisma } from '@prisma/client'
 
 // GET applications: recruiter sees apps for their jobs; seafarer sees their apps
 export async function GET(req: NextRequest) {
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest) {
     const applications = await db.application.findMany({
       where: { seafarerId: profile.id, ...(jobId ? { jobId } : {}) },
       include: {
-        job: { include: { recruiter: { select: { id: true, name: true, company: true, email: true } } } },
+        job: { include: { recruiter: { select: { id: true, name: true, company: true } } } },
       },
       orderBy: { createdAt: 'desc' },
     })
@@ -64,30 +65,44 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await getCurrentUser()
-  if (!user || user.role !== 'SEAFARER') return NextResponse.json({ error: 'unauthorized' }, { status: 403 })
+  try {
+    const user = await getCurrentUser()
+    if (!user || user.role !== 'SEAFARER') return NextResponse.json({ error: 'unauthorized' }, { status: user ? 403 : 401 })
 
-  const profile = await db.seafarerProfile.findUnique({ where: { userId: user.id } })
-  if (!profile) return NextResponse.json({ error: 'no_profile' }, { status: 404 })
+    const body = await parseJsonBody(req)
+    if (body instanceof NextResponse) return body
+    const parsed = parseBody(applicationCreateSchema, body)
+    if (parsed instanceof NextResponse) {
+      const hasJob = typeof body === 'object' && body !== null && 'jobId' in body && body.jobId
+      if (!hasJob) return NextResponse.json({ error: 'missing_job' }, { status: 400 })
+      return parsed
+    }
+    const { jobId, message } = parsed
 
-  const body = await parseJsonBody(req)
-  if (body instanceof NextResponse) return body
-  const parsed = parseBody(applicationCreateSchema, body)
-  if (parsed instanceof NextResponse) {
-    const hasJob = typeof body === 'object' && body !== null && 'jobId' in body && body.jobId
-    if (!hasJob) return NextResponse.json({ error: 'missing_job' }, { status: 400 })
-    return parsed
+    // Keep eligibility and insertion in the same SQLite transaction so a job
+    // closure cannot commit between the OPEN check and application creation.
+    return await db.$transaction(async (tx) => {
+      const profile = await tx.seafarerProfile.findUnique({ where: { userId: user.id }, select: { id: true } })
+      if (!profile) return NextResponse.json({ error: 'no_profile' }, { status: 404 })
+
+      const job = await tx.job.findFirst({ where: { id: jobId, status: 'OPEN' }, select: { id: true } })
+      if (!job) return NextResponse.json({ error: 'not_found' }, { status: 404 })
+
+      const existing = await tx.application.findUnique({
+        where: { jobId_seafarerId: { jobId, seafarerId: profile.id } },
+        select: { id: true },
+      })
+      if (existing) return NextResponse.json({ error: 'already_applied' }, { status: 409 })
+
+      const application = await tx.application.create({ data: { jobId, seafarerId: profile.id, message } })
+      return NextResponse.json({ application })
+    })
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2002') return NextResponse.json({ error: 'already_applied' }, { status: 409 })
+      if (error.code === 'P2003' || error.code === 'P2025') return NextResponse.json({ error: 'not_found' }, { status: 404 })
+      if (error.code === 'P2034') return NextResponse.json({ error: 'request_conflict' }, { status: 409 })
+    }
+    return NextResponse.json({ error: 'server_error' }, { status: 500 })
   }
-  const { jobId, message } = parsed
-
-  // prevent duplicate
-  const existing = await db.application.findUnique({
-    where: { jobId_seafarerId: { jobId, seafarerId: profile.id } },
-  })
-  if (existing) return NextResponse.json({ error: 'already_applied', application: existing }, { status: 409 })
-
-  const application = await db.application.create({
-    data: { jobId, seafarerId: profile.id, message },
-  })
-  return NextResponse.json({ application })
 }

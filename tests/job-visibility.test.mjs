@@ -41,7 +41,7 @@ const jobs = [
 }))
 
 // Synthetic relationship exists even for a closed job. It must not grant direct
-// detail access: application creation currently does not enforce OPEN status.
+// detail access: historical records do not change the direct-read policy.
 const applications = [
   { jobId: 'a-open', seafarerId: 'profile-a', status: 'SHORTLISTED' },
   { jobId: 'b-closed', seafarerId: 'profile-a', status: 'PENDING' },
