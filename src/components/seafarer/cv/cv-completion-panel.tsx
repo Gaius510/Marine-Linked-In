@@ -38,7 +38,7 @@ export function CvCompletionPanel({
         </div>
 
         {nextItem && (
-          <div className="rounded-lg border border-primary/20 bg-secondary p-3">
+          <div className="border-s-2 border-primary bg-secondary/45 px-3 py-2">
             <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
               <Compass className="size-4 text-primary" />
               {t('cv.startHere')}
@@ -50,13 +50,13 @@ export function CvCompletionPanel({
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="divide-y divide-border border-y border-border">
           {items.map((item) => (
             <button
               key={item.key}
               type="button"
               onClick={() => onSelectSection(item.key)}
-              className="flex w-full items-center justify-between gap-3 rounded-lg border border-border/70 px-3 py-2 text-start text-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="flex w-full items-center justify-between gap-3 px-1 py-2 text-start text-sm transition-colors hover:bg-accent/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-current={activeSection === item.key ? 'true' : undefined}
             >
               <span className="flex min-w-0 items-center gap-2">

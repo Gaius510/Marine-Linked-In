@@ -309,11 +309,10 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
 
       {/* Bulk action bar */}
       {selectedCount > 0 && (
-        <div className="sticky top-16 z-30">
-          <Card className="border-primary/30 bg-card/95 p-3 shadow-lg shadow-brand-navy/10 ring-1 ring-primary/10 backdrop-blur">
+        <div className="sticky top-14 z-30 border-y border-primary/30 bg-background/95 py-2 backdrop-blur">
             <PageToolbar>
               <div className="flex min-w-0 items-center gap-3">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground">
+                <div className="flex size-8 shrink-0 items-center justify-center bg-primary text-xs font-semibold text-primary-foreground">
                   {selectedCount}
                 </div>
                 <div className="min-w-0">
@@ -348,12 +347,11 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
                 </Button>
               </div>
             </PageToolbar>
-          </Card>
         </div>
       )}
 
       {/* Results header */}
-      <PageToolbar className="rounded-xl border border-border/70 bg-card/85 px-3 py-3 shadow-sm">
+      <PageToolbar className="border-b border-border pb-2">
         <div className="min-w-0 text-sm">
           <span className="font-semibold text-foreground">
             {isLoading ? t('common.loading') : `${resultCount} ${t('browse.profilesFound')}`}
@@ -380,7 +378,7 @@ export function BrowseView({ onPostJob }: BrowseViewProps) {
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-44 rounded-xl" />
+            <Skeleton key={i} className="h-44 rounded-md" />
           ))}
         </div>
       ) : seafarers.length === 0 ? (

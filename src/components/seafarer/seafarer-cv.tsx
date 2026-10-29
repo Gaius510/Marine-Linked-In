@@ -27,12 +27,12 @@ export function SeafarerCV() {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <Skeleton className="h-32 w-full rounded-xl" />
+        <Skeleton className="h-32 w-full rounded-md" />
         <div className="grid gap-5 lg:grid-cols-[18rem_minmax(0,1fr)]">
-          <Skeleton className="h-96 rounded-xl" />
+          <Skeleton className="h-96 rounded-md" />
           <div className="space-y-4">
-            <Skeleton className="h-72 rounded-xl" />
-            <Skeleton className="h-72 rounded-xl" />
+            <Skeleton className="h-72 rounded-md" />
+            <Skeleton className="h-72 rounded-md" />
           </div>
         </div>
       </div>

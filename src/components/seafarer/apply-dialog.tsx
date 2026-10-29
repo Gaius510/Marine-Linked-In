@@ -88,11 +88,9 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
           <DialogDescription>{t('jobs.applyDialogDesc')}</DialogDescription>
         </DialogHeader>
 
-        <SectionCard className="p-4" contentClassName="space-y-3">
+        <SectionCard contentClassName="space-y-3">
           <div className="flex items-start gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-              <Briefcase className="size-5" />
-            </div>
+            <Briefcase className="mt-0.5 size-5 shrink-0 text-primary" />
             <div className="min-w-0 flex-1">
               <h3 className="line-clamp-2 text-sm font-semibold">{job.title}</h3>
               <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
@@ -121,7 +119,7 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
 
         {alreadyApplied ? (
           <div className="space-y-3">
-            <div className="flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3 text-sm">
+            <div className="flex items-center gap-2 border-s-2 border-emerald-500 bg-emerald-500/5 px-3 py-2 text-sm">
               <CheckCircle2 className="size-4 text-emerald-600" />
               <span>{t('jobs.alreadyApplied')}</span>
             </div>

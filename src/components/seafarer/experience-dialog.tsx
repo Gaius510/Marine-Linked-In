@@ -231,11 +231,9 @@ export function ExperienceDialog({ open, onOpenChange, experience }: ExperienceD
 
           <Separator />
 
-          <div className="space-y-3 rounded-lg border border-primary/20 bg-secondary p-4">
+          <div className="space-y-3 border-t border-border pt-4">
             <div className="flex items-center gap-2">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <User className="size-4" />
-              </div>
+              <User className="size-4 text-primary" />
               <div>
                 <h4 className="text-sm font-semibold">{t('cv.supervisorContacts')}</h4>
                 <p className="text-xs text-muted-foreground">{t('cv.supervisorHint')}</p>

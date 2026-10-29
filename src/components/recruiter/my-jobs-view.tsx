@@ -83,7 +83,7 @@ export function MyJobsView({ onViewProfile }: { onViewProfile: (seafarerId: stri
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-52 rounded-xl" />
+            <Skeleton key={i} className="h-52 rounded-md" />
           ))}
         </div>
       ) : jobs.length === 0 ? (

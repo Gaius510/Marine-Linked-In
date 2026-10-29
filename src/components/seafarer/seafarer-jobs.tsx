@@ -164,7 +164,7 @@ export function SeafarerJobs() {
         )}
       </SectionCard>
 
-      <PageToolbar className="rounded-lg border border-border/70 bg-card/70 px-3 py-2">
+      <PageToolbar className="border-b border-border pb-2">
         <div className="text-sm">
           <span className="font-medium text-foreground">
             {isLoading ? t('common.loading') : `${resultCount} ${t('common.results')}`}

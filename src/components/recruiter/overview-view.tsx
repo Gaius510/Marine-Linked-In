@@ -86,9 +86,7 @@ export function OverviewView({
         <div className="grid gap-0 xl:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.65fr)]">
           <div className="min-w-0 pb-5 xl:pe-6 xl:pb-0">
             <div className="flex min-w-0 items-start gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-secondary text-primary">
-                <Briefcase className="size-5" />
-              </div>
+              <Briefcase className="mt-1 size-5 shrink-0 text-primary" />
               <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase text-primary">
                   {t('recruiter.dashboardFor', { name: user?.name ?? '' })}
@@ -100,11 +98,6 @@ export function OverviewView({
               </div>
             </div>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              <SummaryTile label={t('recruiter.activeJobs')} value={activeJobs} icon={Briefcase} />
-              <SummaryTile label={t('recruiter.totalApplicants')} value={applications.length} icon={Users} />
-              <SummaryTile label={t('recruiter.pendingInterviews')} value={pendingInterviews} icon={CalendarClock} />
-            </div>
           </div>
 
           <div className="border-t border-border bg-muted/45 pt-4 xl:border-s xl:border-t-0 xl:p-4">
@@ -113,20 +106,20 @@ export function OverviewView({
                 <Search className="size-4" />
                 {t('recruiter.browseSeafarersCta')}
               </Button>
-              <Button onClick={onPostJob} size="lg" variant="secondary" className="h-11 w-full justify-start">
+              <Button onClick={onPostJob} size="lg" variant="outline" className="h-10 w-full justify-start">
                 <PlusCircle className="size-4" />
                 {t('recruiter.postJobCta')}
               </Button>
               <div className="grid gap-2 sm:grid-cols-3 xl:grid-cols-1">
-                <Button variant="outline" className="justify-start bg-background/65" onClick={onManageJobs}>
+                <Button variant="ghost" className="justify-start" onClick={onManageJobs}>
                   <Briefcase className="size-4" />
                   {t('nav.myJobs')}
                 </Button>
-                <Button variant="outline" className="justify-start bg-background/65" onClick={onViewAllInterviews}>
+                <Button variant="ghost" className="justify-start" onClick={onViewAllInterviews}>
                   <CalendarClock className="size-4" />
                   {t('nav.interviews')}
                 </Button>
-                <Button variant="outline" className="justify-start bg-background/65" onClick={onViewMessages}>
+                <Button variant="ghost" className="justify-start" onClick={onViewMessages}>
                   <Mail className="size-4" />
                   {t('nav.messages')}
                 </Button>
@@ -184,9 +177,9 @@ export function OverviewView({
               className="py-10"
             />
           ) : (
-            <ul className="space-y-3">
+            <ul className="divide-y divide-border border-y border-border">
               {openJobs.map((job) => (
-                <li key={job.id} className="rounded-lg border border-border/70 bg-background/65 p-3">
+                <li key={job.id} className="py-3">
                   <div className="flex min-w-0 items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="line-clamp-2 text-sm font-semibold">{job.title}</div>
@@ -256,9 +249,9 @@ export function OverviewView({
                 const initials = name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
                 return (
                   <li key={app.id} className="py-3 first:pt-0 last:pb-0">
-                    <div className="flex items-start gap-3 rounded-lg p-2 transition-colors hover:bg-accent/70">
-                      <Avatar className="size-10 shrink-0 rounded-lg">
-                        <AvatarFallback className="rounded-lg bg-secondary text-xs font-semibold text-primary">
+                    <div className="flex items-start gap-3 py-1 transition-colors hover:bg-accent/35">
+                      <Avatar className="size-9 shrink-0">
+                        <AvatarFallback className="bg-secondary text-xs font-semibold text-primary">
                           {initials}
                         </AvatarFallback>
                       </Avatar>
@@ -328,10 +321,10 @@ export function OverviewView({
               const initials = name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
               const dt = iv.scheduledAt ? new Date(iv.scheduledAt) : null
               return (
-                <div key={iv.id} className="rounded-lg border border-border/70 bg-background/65 p-3">
+                <div key={iv.id} className="border-s-2 border-border px-3 py-1">
                   <div className="flex items-start gap-3">
-                    <Avatar className="size-10 shrink-0 rounded-lg">
-                      <AvatarFallback className="rounded-lg bg-secondary text-xs font-semibold text-primary">
+                    <Avatar className="size-9 shrink-0">
+                      <AvatarFallback className="bg-secondary text-xs font-semibold text-primary">
                         {initials}
                       </AvatarFallback>
                     </Avatar>
@@ -366,26 +359,6 @@ export function OverviewView({
           </div>
         )}
       </SectionCard>
-    </div>
-  )
-}
-
-function SummaryTile({
-  label,
-  value,
-  icon: Icon,
-}: {
-  label: string
-  value: number
-  icon: React.ComponentType<{ className?: string }>
-}) {
-  return (
-    <div className="rounded-lg border border-border/70 bg-background/65 p-3">
-      <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-medium text-muted-foreground">{label}</span>
-        <Icon className="size-4 shrink-0 text-primary" />
-      </div>
-      <div className="mt-2 text-2xl font-bold tracking-tight">{value}</div>
     </div>
   )
 }

@@ -19,7 +19,7 @@ import { formatDate, formatYears, safeText } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
 import { toast } from 'sonner'
 import type { Application, ApplicationStatus } from '@/lib/types'
-import { Anchor, Calendar, Clock, Eye, Inbox, UserRound } from 'lucide-react'
+import { Eye, Inbox } from 'lucide-react'
 
 const APP_STATUSES: ApplicationStatus[] = ['PENDING', 'REVIEWED', 'SHORTLISTED', 'REJECTED', 'HIRED']
 
@@ -73,7 +73,7 @@ export function ApplicantsDialog({ job, onOpenChange, onViewProfile }: Applicant
 
         <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
           {isLoading ? (
-            <div className="space-y-3">
+            <div className="divide-y divide-border">
               {Array.from({ length: 3 }).map((_, i) => (
                 <Skeleton key={i} className="h-28 w-full rounded-lg" />
               ))}
@@ -125,10 +125,10 @@ function ApplicantItem({
   const seafarer = application.seafarer
 
   return (
-    <SectionCard className="p-4" contentClassName="space-y-4">
+    <SectionCard contentClassName="space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-        <Avatar className="size-11 shrink-0 rounded-xl">
-          <AvatarFallback className="rounded-xl bg-secondary text-sm font-semibold text-primary">
+        <Avatar className="size-10 shrink-0">
+          <AvatarFallback className="bg-secondary text-sm font-semibold text-primary">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -145,22 +145,9 @@ function ApplicantItem({
                 {name}
               </button>
               <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                {seafarer?.rank && (
-                  <span className="flex items-center gap-1 font-medium text-foreground">
-                    <Anchor className="size-3.5" />
-                    {seafarer.rank}
-                  </span>
-                )}
-                {seafarer?.yearsExperience && (
-                  <span className="flex items-center gap-1">
-                    <Clock className="size-3.5" />
-                    {formatYears(seafarer.yearsExperience)}
-                  </span>
-                )}
-                <span className="flex items-center gap-1">
-                  <Calendar className="size-3.5" />
-                  {t('jobs.appliedOn')} {formatDate(application.createdAt)}
-                </span>
+                {seafarer?.rank && <span className="font-medium text-foreground">{seafarer.rank}</span>}
+                {seafarer?.yearsExperience && <span>{formatYears(seafarer.yearsExperience)}</span>}
+                <span>{t('jobs.appliedOn')} {formatDate(application.createdAt)}</span>
               </div>
             </div>
             <StatusPill tone={statusTone[application.status]}>
@@ -168,9 +155,8 @@ function ApplicantItem({
             </StatusPill>
           </div>
 
-          <div className="mt-3 rounded-lg border border-border/60 bg-muted/35 p-3 text-sm text-muted-foreground">
-            <div className="mb-1 flex items-center gap-1 text-xs font-medium uppercase text-muted-foreground">
-              <UserRound className="size-3.5" />
+          <div className="mt-3 border-s-2 border-border px-3 py-1 text-sm text-muted-foreground">
+            <div className="mb-1 text-xs font-medium text-muted-foreground">
               {t('jobs.candidateSummary')}
             </div>
             <p className="line-clamp-3 leading-6">

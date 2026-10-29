@@ -50,7 +50,7 @@ export function AppShell() {
       <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden w-full max-w-full">
         <AppSidebar />
         <main className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-background">
-          <div className="scrollbar-thin min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-5 pb-20 sm:px-6 lg:px-8 lg:py-6 lg:pb-8">
+          <div className="scrollbar-thin min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain px-4 py-4 pb-20 sm:px-6 lg:px-8 lg:pb-6">
             <div key={`${user.role}-${view}`} className="motion-view mx-auto w-full max-w-[1320px] min-w-0">
               {user.role === 'SEAFARER' && <SeafarerPortal />}
               {user.role === 'RECRUITER' && <RecruiterPortal />}

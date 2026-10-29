@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import type { ReactNode } from 'react'
 import { toast } from 'sonner'
 import { CertificateDialog } from '@/components/seafarer/certificate-dialog'
 import { useDeleteCertificate } from '@/components/seafarer/use-seafarer-profile'
@@ -24,7 +23,7 @@ import { useI18n } from '@/lib/i18n'
 import type { Certificate } from '@/lib/types'
 import { getExpiryState } from './cv-status'
 import type { SeafarerCvProfile } from './types'
-import { Award, Building2, CalendarClock, Hash, Loader2, Pencil, Plus, Trash2 } from 'lucide-react'
+import { Award, Loader2, Pencil, Plus, Trash2 } from 'lucide-react'
 
 export function CertificatesSection({
   profile,
@@ -97,7 +96,7 @@ export function CertificatesSection({
           }
         />
       ) : (
-        <ul className="grid gap-3 lg:grid-cols-2">
+        <ul className="divide-y divide-border border-y border-border">
           {certificates.map((certificate) => (
             <CertificateCard
               key={certificate.id}
@@ -154,26 +153,21 @@ function CertificateCard({
   const expiryState = getExpiryState(certificate.expiryDate)
 
   return (
-    <li className="rounded-lg border border-border/80 bg-background/60 p-4 transition-shadow hover:shadow-sm">
+    <li className="py-3">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 flex-1 items-start gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-700 dark:text-amber-400">
-            <Award className="size-5" />
-          </div>
-          <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1">
             <h3 className="line-clamp-2 font-semibold">{certificate.name}</h3>
-            <div className="mt-2 grid gap-2 text-xs text-muted-foreground">
-              <MetaLine icon={<Building2 className="size-3.5" />} value={safeText(certificate.issuingAuthority, t('common.notProvided'))} />
-              <MetaLine icon={<Hash className="size-3.5" />} value={safeText(certificate.number, t('common.notProvided'))} />
-              <MetaLine icon={<CalendarClock className="size-3.5" />} value={`${t('cv.issuedDate')}: ${formatDate(certificate.issuedDate, t('common.notProvided'))}`} />
-              <MetaLine icon={<CalendarClock className="size-3.5" />} value={`${t('cv.expiryDate')}: ${formatDate(certificate.expiryDate, t('common.notProvided'))}`} />
+            <div className="mt-1 grid gap-1 text-xs text-muted-foreground sm:grid-cols-2">
+              <span className="truncate">{safeText(certificate.issuingAuthority, t('common.notProvided'))}</span>
+              <span className="truncate">{safeText(certificate.number, t('common.notProvided'))}</span>
+              <span>{t('cv.issuedDate')}: {formatDate(certificate.issuedDate, t('common.notProvided'))}</span>
+              <span>{t('cv.expiryDate')}: {formatDate(certificate.expiryDate, t('common.notProvided'))}</span>
             </div>
             {expiryState && (
               <StatusPill tone={expiryState.tone} className="mt-3 w-fit">
                 {t(expiryState.key)}
               </StatusPill>
             )}
-          </div>
         </div>
         <div className="flex shrink-0 items-center gap-1">
           <Button size="icon" variant="ghost" onClick={onEdit} aria-label={t('common.edit')}>
@@ -191,14 +185,5 @@ function CertificateCard({
         </div>
       </div>
     </li>
-  )
-}
-
-function MetaLine({ icon, value }: { icon: ReactNode; value: string }) {
-  return (
-    <span className="flex min-w-0 items-center gap-1.5">
-      <span className="shrink-0 text-primary">{icon}</span>
-      <span className="truncate">{value}</span>
-    </span>
   )
 }

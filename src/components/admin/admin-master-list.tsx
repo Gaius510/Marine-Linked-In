@@ -21,10 +21,8 @@ import { EmptyState } from '@/components/shared/empty-state'
 import { PageToolbar } from '@/components/shared/page-toolbar'
 import { SectionCard } from '@/components/shared/section-card'
 import { StatusPill, type StatusTone } from '@/components/shared/status-pill'
-import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
@@ -165,26 +163,26 @@ function exportCsv(seafarers: AdminStatsResponse['seafarers'], t: (k: string, va
 
 function FilterSkeleton() {
   return (
-    <Card className="p-4 sm:p-6">
+    <div className="border-y border-border py-4">
       <div className="flex flex-wrap gap-3">
         <Skeleton className="h-9 flex-1 min-w-[200px]" />
         {Array.from({ length: 5 }).map((_, i) => (
           <Skeleton key={i} className="h-9 w-40" />
         ))}
       </div>
-    </Card>
+    </div>
   )
 }
 
 function TableSkeleton() {
   return (
-    <Card className="p-0 overflow-hidden">
+    <div className="overflow-hidden border-y border-border">
       <div className="p-4 space-y-2">
         {Array.from({ length: 6 }).map((_, i) => (
           <Skeleton key={i} className="h-10 w-full" />
         ))}
       </div>
-    </Card>
+    </div>
   )
 }
 
@@ -281,7 +279,7 @@ export function AdminMasterList() {
               <span className="text-muted-foreground">({seafarers.length})</span>
             </Button>
           }
-          className="mb-4 p-4 sm:p-5"
+          className="mb-4"
         >
           <div className="flex flex-col gap-3">
             {/* Row 1: search + view toggle */}
@@ -446,11 +444,11 @@ export function AdminMasterList() {
         <>
           {/* TABLE VIEW */}
           {viewMode === 'table' && (
-            <Card className="hidden overflow-hidden p-0 md:flex">
+            <div className="hidden overflow-hidden border-y border-border md:flex">
               <div className="overflow-x-auto">
                 <Table className="min-w-[980px]">
                   <TableHeader>
-                    <TableRow className="bg-muted/40 hover:bg-muted/40">
+                    <TableRow>
                       <TableHead className="ps-4">{t('admin.name')}</TableHead>
                       <TableHead>{t('admin.rank')}</TableHead>
                       <TableHead>{t('admin.nationality')}</TableHead>
@@ -484,21 +482,12 @@ export function AdminMasterList() {
                                 >
                                   {s.user.name}
                                 </button>
-                                {s._count && s._count.savedBy > 0 && (
-                                  <Badge variant="secondary" className="gap-1 text-[10px] font-normal">
-                                    <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" />
-                                    {s._count.savedBy}
-                                  </Badge>
-                                )}
+                                {s._count && s._count.savedBy > 0 && <span className="text-xs text-muted-foreground">{s._count.savedBy}</span>}
                               </div>
                             </div>
                           </TableCell>
                           <TableCell>
-                            {s.rank ? (
-                              <Badge variant="outline" className="font-normal">{s.rank}</Badge>
-                            ) : (
-                              <span className="text-muted-foreground">—</span>
-                            )}
+                            {s.rank ?? <span className="text-muted-foreground">—</span>}
                           </TableCell>
                           <TableCell className="text-muted-foreground">{s.nationality ?? '—'}</TableCell>
                           <TableCell>
@@ -514,18 +503,9 @@ export function AdminMasterList() {
                             {vesselTypes.length === 0 ? (
                               <span className="text-muted-foreground text-xs">—</span>
                             ) : (
-                              <div className="flex max-w-[220px] flex-wrap items-center gap-1">
-                                {vesselTypes.slice(0, 2).map((vt) => (
-                                  <Badge key={vt} variant="secondary" className="text-[10px] font-normal">
-                                    {vt}
-                                  </Badge>
-                                ))}
-                                {vesselTypes.length > 2 && (
-                                  <Badge variant="outline" className="text-[10px] font-normal">
-                                    +{vesselTypes.length - 2}
-                                  </Badge>
-                                )}
-                              </div>
+                              <span className="block max-w-[220px] truncate text-xs text-muted-foreground" title={vesselTypes.join(', ')}>
+                                {vesselTypes.join(', ')}
+                              </span>
                             )}
                           </TableCell>
                           <TableCell className="text-muted-foreground text-xs">
@@ -546,7 +526,7 @@ export function AdminMasterList() {
                   </TableBody>
                 </Table>
               </div>
-            </Card>
+            </div>
           )}
 
           {/* CARD VIEW */}

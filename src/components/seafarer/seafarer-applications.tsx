@@ -65,7 +65,7 @@ export function SeafarerApplications() {
         }
       />
 
-      <PageToolbar className="rounded-lg border border-border/70 bg-card/80 px-3 py-2">
+      <PageToolbar className="border-b border-border pb-2">
         <div className="text-sm font-medium">
           {isLoading ? t('common.loading') : t('seafarer.applicationsSummary', { count: applications.length })}
         </div>
@@ -114,12 +114,10 @@ function ApplicationCard({ app }: { app: Application }) {
   const salary = formatJobSalary(job)
 
   return (
-    <SectionCard className="p-4 sm:p-5" contentClassName="space-y-4">
+    <SectionCard contentClassName="space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex min-w-0 flex-1 items-start gap-3">
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-            <Briefcase className="size-5" />
-          </div>
+          <Briefcase className="mt-0.5 size-5 shrink-0 text-primary" />
           <div className="min-w-0 flex-1">
             <h2 className="line-clamp-2 text-base font-semibold">
               {safeText(job?.title, t('common.notProvided'))}
@@ -142,18 +140,18 @@ function ApplicationCard({ app }: { app: Application }) {
       </div>
 
       <div className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
-        <ApplicationFact icon={<Briefcase className="size-4" />} label={t('cv.rank')} value={safeText(job?.rank, t('common.notProvided'))} />
-        <ApplicationFact icon={<Ship className="size-4" />} label={t('cv.vesselType')} value={safeText(job?.vesselType, t('common.notProvided'))} />
-        <ApplicationFact icon={<Clock className="size-4" />} label={t('jobs.contractDuration')} value={safeText(job?.contractDuration, t('common.notProvided'))} />
-        <ApplicationFact icon={<CalendarClock className="size-4" />} label={t('jobs.joiningDate')} value={job?.joiningDate ? formatDate(job.joiningDate) : t('common.notProvided')} />
-        <ApplicationFact icon={<MapPin className="size-4" />} label={t('common.location')} value={safeText(job?.location, t('common.notProvided'))} />
-        <ApplicationFact icon={<Wallet className="size-4" />} label={t('jobs.salaryRange')} value={salary || t('common.notProvided')} />
+        <ApplicationFact label={t('cv.rank')} value={safeText(job?.rank, t('common.notProvided'))} />
+        <ApplicationFact label={t('cv.vesselType')} value={safeText(job?.vesselType, t('common.notProvided'))} />
+        <ApplicationFact label={t('jobs.contractDuration')} value={safeText(job?.contractDuration, t('common.notProvided'))} />
+        <ApplicationFact label={t('jobs.joiningDate')} value={job?.joiningDate ? formatDate(job.joiningDate) : t('common.notProvided')} />
+        <ApplicationFact label={t('common.location')} value={safeText(job?.location, t('common.notProvided'))} />
+        <ApplicationFact label={t('jobs.salaryRange')} value={salary || t('common.notProvided')} />
       </div>
 
       {(app.message || job?.description) && (
         <div className="grid gap-3 md:grid-cols-2">
           {app.message && (
-            <div className="rounded-lg border border-border/70 bg-background/60 p-3">
+            <div className="border-s-2 border-border px-3 py-1">
               <div className="mb-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
                 <Send className="size-3.5 text-primary" />
                 {t('jobs.applyMessage')}
@@ -162,7 +160,7 @@ function ApplicationCard({ app }: { app: Application }) {
             </div>
           )}
           {job?.description && (
-            <div className="rounded-lg border border-border/70 bg-background/60 p-3">
+            <div className="border-s-2 border-border px-3 py-1">
               <div className="mb-1 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
                 <FileText className="size-3.5 text-primary" />
                 {t('jobs.description')}
@@ -176,13 +174,10 @@ function ApplicationCard({ app }: { app: Application }) {
   )
 }
 
-function ApplicationFact({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+function ApplicationFact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-border/70 bg-background/60 p-3">
-      <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span className="text-primary">{icon}</span>
-        {label}
-      </div>
+    <div className="border-t border-border pt-2">
+      <div className="mb-1 text-xs text-muted-foreground">{label}</div>
       <div className="truncate font-medium">{value}</div>
     </div>
   )

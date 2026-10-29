@@ -64,7 +64,7 @@ export function SavedView() {
       {isLoading ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-44 rounded-xl" />
+            <Skeleton key={i} className="h-44 rounded-md" />
           ))}
         </div>
       ) : saved.length === 0 ? (

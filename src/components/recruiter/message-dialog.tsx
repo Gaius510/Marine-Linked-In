@@ -105,9 +105,9 @@ export function MessageDialog({
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-          <div className="rounded-lg border border-border/80 bg-secondary/45 p-3">
+          <div className="border-s-2 border-border bg-secondary/35 px-3 py-2">
             <div className="flex items-start gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-card text-primary">
+              <div className="flex size-7 shrink-0 items-center justify-center text-primary">
                 {isBulk ? <Users className="size-4" /> : <Mail className="size-4" />}
               </div>
               <div className="min-w-0">

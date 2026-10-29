@@ -42,22 +42,22 @@
   --color-brand-seafoam: var(--brand-seafoam);
   --color-brand-coral: var(--brand-coral);
   --color-brand-fog: var(--brand-fog);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.375rem;
   --motion-fast: 120ms;
   --motion-standard: 180ms;
   --motion-slow: 260ms;
   --motion-ease: cubic-bezier(0.2, 0, 0, 1);
   --motion-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow-surface: 0 1px 2px rgb(11 38 51 / 0.06);
-  --shadow-surface-hover: 0 2px 8px rgb(11 38 51 / 0.09);
-  --shadow-dialog: 0 20px 50px rgb(11 38 51 / 0.22);
+  --shadow-surface: none;
+  --shadow-surface-hover: none;
+  --shadow-dialog: 0 16px 40px rgb(11 38 51 / 0.2);
   --brand-navy: #0b2633;
   --brand-teal: #167d86;
   --brand-seafoam: #e4f4f1;
@@ -100,9 +100,9 @@
 }
 
 .dark {
-  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.28);
-  --shadow-surface-hover: 0 2px 10px rgb(0 0 0 / 0.28);
-  --shadow-dialog: 0 24px 70px rgb(0 0 0 / 0.46);
+  --shadow-surface: none;
+  --shadow-surface-hover: none;
+  --shadow-dialog: 0 16px 40px rgb(0 0 0 / 0.42);
   --brand-navy: #0b2633;
   --brand-teal: #48aeb7;
   --brand-seafoam: #153b43;
@@ -180,7 +180,7 @@
   }
 
   .motion-button:not(:disabled):not([aria-disabled="true"]):active {
-    transform: translateY(1px) scale(0.99);
+    transform: translateY(1px);
   }
 
   .motion-card-hover {
@@ -190,7 +190,7 @@
   }
 
   .motion-card-hover:hover {
-    box-shadow: var(--shadow-surface-hover);
+    border-color: color-mix(in oklab, var(--primary) 34%, var(--border));
   }
 
   .motion-nav-item {
@@ -200,7 +200,7 @@
   }
 
   .motion-view {
-    animation: crewlink-view-enter var(--motion-slow) var(--motion-ease-emphasized) both;
+    animation: crewlink-view-enter var(--motion-standard) var(--motion-ease) both;
   }
 
   .motion-dialog-content {
@@ -239,11 +239,9 @@
 @keyframes crewlink-view-enter {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -344,4 +342,73 @@
 }
 .brand-surface-gradient {
   background: var(--brand-surface-gradient);
+}
+
+.auth-brand-panel {
+  background: #071b24;
+}
+
+.auth-brand-panel::before {
+  position: absolute;
+  z-index: -2;
+  inset: -2%;
+  content: "";
+  background-image: url("/auth-maritime.jpg");
+  background-position: center 66%;
+  background-size: cover;
+  filter: saturate(1.04) contrast(1.04) brightness(1.22);
+  transform: scale(1.025);
+  animation: auth-maritime-drift 28s ease-in-out infinite alternate;
+}
+
+.auth-brand-panel::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background:
+    radial-gradient(ellipse at 48% 50%, transparent 42%, rgb(2 15 23 / 22%) 100%),
+    linear-gradient(180deg, rgb(2 16 24 / 10%) 0%, rgb(2 16 24 / 4%) 48%, rgb(2 16 24 / 34%) 100%);
+}
+
+.auth-brand-copy::before {
+  position: absolute;
+  z-index: -1;
+  inset: -3rem -7rem;
+  content: "";
+  background: radial-gradient(ellipse at 18% 46%, rgb(2 17 26 / 62%) 0%, rgb(2 17 26 / 36%) 48%, transparent 76%);
+}
+
+.auth-brand-text,
+.auth-brand-copy {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 34%);
+}
+
+.auth-mobile-brand {
+  background:
+    linear-gradient(90deg, rgb(3 19 28 / 70%), rgb(4 24 34 / 42%)),
+    url("/auth-maritime.jpg") center 71% / cover;
+}
+
+.dark .auth-form-panel {
+  background: #0a2029;
+  --muted-foreground: oklch(0.8 0.012 200);
+  --border: oklch(1 0 0 / 18%);
+  --input: oklch(1 0 0 / 23%);
+}
+
+@keyframes auth-maritime-drift {
+  from {
+    transform: scale(1.025) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.055) translate3d(-0.45%, -0.25%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-brand-panel::before {
+    animation: none !important;
+    transform: scale(1.025);
+  }
 }

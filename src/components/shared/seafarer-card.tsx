@@ -5,11 +5,9 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { AvailabilityBadge } from './availability-badge'
-import { StatusPill } from '@/components/shared/status-pill'
-import { legacyTravelAuthorizationFallbacks } from '@/components/shared/travel-authorization-summary-list'
 import { formatDate, formatYears } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { Ship, MapPin, Calendar, Anchor, Clock, Eye, ShieldCheck, Gauge } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import type { SeafarerWithOptionalRelations } from '@/lib/types'
 import { useI18n } from '@/lib/i18n'
 
@@ -28,31 +26,15 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
   const initials = seafarer.user.name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
   const vesselExperiences = seafarer.vesselExperiences ?? []
   const certificates = seafarer.certificates ?? []
-  const travelAuthorizations = seafarer.travelAuthorizations?.length
-    ? seafarer.travelAuthorizations
-    : legacyTravelAuthorizationFallbacks(seafarer)
   const vesselTypes = Array.from(new Set(vesselExperiences.map((e) => e.vesselType))).slice(0, 3)
   const location = [seafarer.user.city, seafarer.user.country].filter(Boolean).join(', ')
-  const profileSignals = [
-    seafarer.rank,
-    seafarer.yearsExperience,
-    seafarer.availability,
-    seafarer.nationality,
-    seafarer.bio,
-    vesselExperiences.length,
-    certificates.length,
-    travelAuthorizations.length,
-  ]
-  const profileScore = Math.round((profileSignals.filter(Boolean).length / profileSignals.length) * 100)
 
   return (
     <Card
       className={cn(
-        'relative min-w-0 overflow-hidden p-4',
-        onClick && 'motion-card-hover hover:border-primary/35',
-        selected && 'border-primary/45 bg-secondary/45 shadow-sm ring-1 ring-primary/20',
-        'before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-primary/80 before:opacity-0',
-        selected && 'before:opacity-100'
+        'min-w-0 p-3 sm:p-4',
+        onClick && 'hover:border-primary/35',
+        selected && 'border-primary/50 bg-secondary/35'
       )}
     >
       <div className="flex min-w-0 items-start gap-3">
@@ -64,8 +46,8 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
             aria-label={t(selected ? 'browse.deselectCandidate' : 'browse.selectCandidate', { name: seafarer.user.name })}
           />
         )}
-        <Avatar className="size-11 shrink-0 rounded-lg">
-          <AvatarFallback className="rounded-lg bg-secondary font-semibold text-primary">{initials}</AvatarFallback>
+        <Avatar className="size-10 shrink-0">
+          <AvatarFallback className="bg-secondary font-semibold text-primary">{initials}</AvatarFallback>
         </Avatar>
         <div className="min-w-0 flex-1">
           <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
@@ -78,77 +60,30 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
               >
                 {seafarer.user.name}
               </button>
-              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-                {seafarer.rank && (
-                  <span className="flex min-w-0 items-center gap-1 font-medium text-foreground">
-                    <Anchor className="size-3.5" />
-                    <span className="truncate">{seafarer.rank}</span>
-                  </span>
-                )}
-                {seafarer.yearsExperience && (
-                  <span className="flex items-center gap-1">
-                    <Clock className="size-3.5" />
-                    {formatYears(seafarer.yearsExperience)}
-                  </span>
-                )}
+              <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm text-muted-foreground">
+                {seafarer.rank && <span className="font-medium text-foreground">{seafarer.rank}</span>}
+                {seafarer.rank && seafarer.yearsExperience && <span aria-hidden="true">·</span>}
+                {seafarer.yearsExperience && <span>{formatYears(seafarer.yearsExperience)}</span>}
               </div>
             </div>
             <AvailabilityBadge availability={seafarer.availability} t={t} className="self-start" />
           </div>
 
-          <div className="mt-3 grid gap-1.5 text-xs text-muted-foreground">
+          <div className="mt-2 grid gap-1 text-xs text-muted-foreground">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               {seafarer.nationality && <span>{seafarer.nationality}</span>}
-              {location && (
-                <span className="flex min-w-0 items-center gap-1">
-                  <MapPin className="size-3" />
-                  <span className="truncate">{location}</span>
-                </span>
-              )}
+              {location && <span className="min-w-0 truncate">{location}</span>}
             </div>
             {seafarer.availableFrom && (
-              <span className="flex items-center gap-1">
-                <Calendar className="size-3" />
-                {t('browse.availableFrom')}: {formatDate(seafarer.availableFrom)}
-              </span>
+              <span>{t('browse.availableFrom')}: {formatDate(seafarer.availableFrom)}</span>
             )}
           </div>
 
-          <div className="mt-3 grid grid-cols-2 divide-x divide-border border-y border-border py-2 rtl:divide-x-reverse">
-            <div className="px-2.5 first:ps-0">
-              <div className="flex min-w-0 items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-                <Gauge className="size-3.5 shrink-0 text-primary" />
-                <span className="truncate">{t('seafarer.profileStrength')}</span>
-              </div>
-              <div className="mt-1 text-sm font-semibold text-foreground">{profileScore}%</div>
-            </div>
-            <div className="px-2.5 last:pe-0">
-              <div className="flex min-w-0 items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-                <ShieldCheck className="size-3.5 shrink-0 text-primary" />
-                <span className="truncate">{t('travelAuth.readinessTitle')}</span>
-              </div>
-              <div className="mt-1 text-sm font-semibold text-foreground">{travelAuthorizations.length}</div>
-            </div>
-          </div>
-
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {vesselTypes.length > 0 ? (
-              vesselTypes.map((vt) => (
-                <StatusPill key={vt} tone="neutral" className="gap-1 text-[11px] font-normal">
-                  <Ship className="size-3" />
-                  {vt}
-                </StatusPill>
-              ))
-            ) : (
-              <StatusPill tone="neutral" className="text-[11px] font-normal">
-                {t('browse.noExperience')}
-              </StatusPill>
-            )}
-            {vesselTypes.length > 0 && vesselExperiences.length > vesselTypes.length && (
-              <StatusPill tone="primary" className="text-[11px] font-normal">
-                +{vesselExperiences.length - vesselTypes.length}
-              </StatusPill>
-            )}
+          <div className="mt-2 border-t border-border/70 pt-2 text-xs text-muted-foreground">
+            <p>
+              {t('cv.experienceCount', { count: vesselExperiences.length })} · {t('cv.certificatesCount', { count: certificates.length })}
+            </p>
+            {vesselTypes.length > 0 && <p className="mt-1 truncate">{vesselTypes.join(' · ')}</p>}
           </div>
 
           {showSaved && seafarer._count && (
@@ -159,7 +94,7 @@ export function SeafarerCard({ seafarer, selectable, selected, onSelect, actions
         </div>
       </div>
       {(onClick || actions) && (
-        <div className="mt-4 flex min-w-0 flex-wrap items-stretch gap-2 border-t border-border/70 pt-3 [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
+        <div className="mt-3 flex min-w-0 flex-wrap items-stretch gap-1.5 border-t border-border/70 pt-2.5 [&>[data-slot=button]]:min-w-0 [&>[data-slot=button]]:flex-1 sm:[&>[data-slot=button]]:flex-none">
           {onClick && (
             <Button type="button" size="sm" className="h-8 flex-1" onClick={onClick}>
               <Eye className="size-4" />

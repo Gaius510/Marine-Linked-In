@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import type { ReactNode } from 'react'
 import { toast } from 'sonner'
 import { EmptyState } from '@/components/shared/empty-state'
 import { SectionCard } from '@/components/shared/section-card'
@@ -24,16 +23,11 @@ import { useI18n } from '@/lib/i18n'
 import type { VesselExperience } from '@/lib/types'
 import type { SeafarerCvProfile } from './types'
 import {
-  Anchor,
-  Briefcase,
-  CalendarClock,
   Loader2,
-  MapPin,
   Pencil,
   Plus,
   Ship,
   Trash2,
-  UserRound,
 } from 'lucide-react'
 
 export function VesselExperienceSection({
@@ -91,7 +85,7 @@ export function VesselExperienceSection({
         </div>
       }
     >
-      <div className="mb-4 rounded-lg border border-primary/20 bg-secondary p-3 text-sm">
+      <div className="mb-4 border-s-2 border-primary bg-secondary/45 px-3 py-2 text-sm">
         <p className="font-medium">{t('cv.selectMultipleVessels')}</p>
         <p className="mt-1 text-muted-foreground">{t('cv.experienceHint')}</p>
       </div>
@@ -113,7 +107,7 @@ export function VesselExperienceSection({
           }
         />
       ) : (
-        <ul className="space-y-3">
+        <ul className="divide-y divide-border border-y border-border">
           {experiences.map((experience) => (
             <ExperienceCard
               key={experience.id}
@@ -171,28 +165,20 @@ function ExperienceCard({
   const duration = formatDurationBetween(experience.signOnDate, experience.signOffDate, '')
 
   return (
-    <li className="rounded-lg border border-border/80 bg-background/60 p-4 transition-shadow hover:shadow-sm">
+    <li className="py-3">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex min-w-0 flex-1 items-start gap-3">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-            <Ship className="size-5" />
-          </div>
-          <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="line-clamp-2 font-semibold">{title}</h3>
-              <StatusPill tone="primary" className="text-[10px]">{experience.vesselType}</StatusPill>
-              {experience.rank && <StatusPill tone="neutral" className="text-[10px]">{experience.rank}</StatusPill>}
+              <span className="text-xs text-muted-foreground">{experience.vesselType}</span>
+              {experience.rank && <span className="text-xs text-muted-foreground">· {experience.rank}</span>}
             </div>
-            <div className="mt-2 grid gap-2 text-xs text-muted-foreground sm:grid-cols-2">
-              <MetaLine icon={<Briefcase className="size-3.5" />} label={safeText(experience.companyName, t('common.notProvided'))} />
-              <MetaLine icon={<MapPin className="size-3.5" />} label={safeText(experience.tradeArea, t('common.notProvided'))} />
-              <MetaLine
-                icon={<CalendarClock className="size-3.5" />}
-                label={`${formatDate(experience.signOnDate, t('common.notProvided'))} - ${formatDate(experience.signOffDate, t('common.notProvided'))}`}
-              />
-              <MetaLine icon={<Anchor className="size-3.5" />} label={duration ? `${t('cv.duration')}: ${duration}` : t('common.notProvided')} />
+            <div className="mt-1 grid gap-1 text-xs text-muted-foreground sm:grid-cols-2">
+              <span className="truncate">{safeText(experience.companyName, t('common.notProvided'))}</span>
+              <span className="truncate">{safeText(experience.tradeArea, t('common.notProvided'))}</span>
+              <span>{formatDate(experience.signOnDate, t('common.notProvided'))} - {formatDate(experience.signOffDate, t('common.notProvided'))}</span>
+              <span>{duration ? `${t('cv.duration')}: ${duration}` : t('common.notProvided')}</span>
             </div>
-          </div>
         </div>
         <div className="flex shrink-0 items-center gap-1 self-end sm:self-start">
           <Button size="icon" variant="ghost" onClick={onEdit} aria-label={t('common.edit')}>
@@ -214,7 +200,6 @@ function ExperienceCard({
         <div className="mt-4 grid gap-2 border-t border-border/70 pt-3 sm:grid-cols-2">
           {experience.captainName && (
             <SupervisorLine
-              icon={<UserRound className="size-3.5" />}
               role={t('cv.captainName')}
               name={experience.captainName}
               contact={experience.captainContact}
@@ -222,7 +207,6 @@ function ExperienceCard({
           )}
           {experience.chiefEngName && (
             <SupervisorLine
-              icon={<Anchor className="size-3.5" />}
               role={t('cv.chiefEngName')}
               name={experience.chiefEngName}
               contact={experience.chiefEngContact}
@@ -234,29 +218,17 @@ function ExperienceCard({
   )
 }
 
-function MetaLine({ icon, label }: { icon: ReactNode; label: string }) {
-  return (
-    <span className="flex min-w-0 items-center gap-1.5">
-      <span className="shrink-0 text-primary">{icon}</span>
-      <span className="truncate">{label}</span>
-    </span>
-  )
-}
-
 function SupervisorLine({
-  icon,
   role,
   name,
   contact,
 }: {
-  icon: ReactNode
   role: string
   name: string
   contact: string | null
 }) {
   return (
     <div className="flex min-w-0 items-center gap-2 text-xs">
-      <span className="shrink-0 text-muted-foreground">{icon}</span>
       <span className="text-muted-foreground">{role}:</span>
       <span className="truncate font-medium">{name}</span>
       {contact && <span className="truncate text-muted-foreground">· {contact}</span>}

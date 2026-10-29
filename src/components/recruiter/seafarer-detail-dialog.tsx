@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { SectionCard } from '@/components/shared/section-card'
-import { StatusPill } from '@/components/shared/status-pill'
 import {
   legacyTravelAuthorizationFallbacks,
   TravelAuthorizationSummaryList,
@@ -20,10 +19,7 @@ import type { SeafarerWithRelations } from '@/lib/types'
 import { MessageDialog } from './message-dialog'
 import { ScheduleInterviewDialog } from './schedule-interview-dialog'
 import { toast } from 'sonner'
-import {
-  Anchor, MapPin, Calendar, Mail, FileText,
-  Award, Users, Clock, Briefcase, Bookmark, ShieldCheck,
-} from 'lucide-react'
+import { Mail, Users, Bookmark, ShieldCheck } from 'lucide-react'
 
 interface SeafarerDetailDialogProps {
   seafarerId: string | null
@@ -93,19 +89,19 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
 
           {isLoading || !profile ? (
             <div className="space-y-3 p-5">
-              <Skeleton className="h-20 w-full rounded-lg" />
-              <Skeleton className="h-32 w-full rounded-lg" />
-              <Skeleton className="h-44 w-full rounded-lg" />
+              <Skeleton className="h-20 w-full rounded-md" />
+              <Skeleton className="h-32 w-full rounded-md" />
+              <Skeleton className="h-44 w-full rounded-md" />
             </div>
           ) : (
             <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain p-5">
               <div className="space-y-5">
-                <section className="rounded-lg border border-border bg-card p-4">
+                <section className="border-b border-border pb-4">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div className="min-w-0 flex-1">
                       <div className="flex min-w-0 items-start gap-4">
-                        <Avatar className="size-16 shrink-0 rounded-xl">
-                          <AvatarFallback className="rounded-xl bg-secondary text-lg font-semibold text-primary">
+                        <Avatar className="size-14 shrink-0">
+                          <AvatarFallback className="bg-secondary text-lg font-semibold text-primary">
                             {initials}
                           </AvatarFallback>
                         </Avatar>
@@ -115,48 +111,27 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                             <AvailabilityBadge availability={profile.availability} t={t} />
                           </div>
                           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-                            {profile.rank && (
-                              <span className="flex items-center gap-1 font-medium text-foreground">
-                                <Anchor className="size-3.5" />
-                                {profile.rank}
-                              </span>
-                            )}
-                            {profile.yearsExperience && (
-                              <span className="flex items-center gap-1">
-                                <Clock className="size-3.5" />
-                                {formatYears(profile.yearsExperience)}
-                              </span>
-                            )}
+                            {profile.rank && <span className="font-medium text-foreground">{profile.rank}</span>}
+                            {profile.yearsExperience && <span>{formatYears(profile.yearsExperience)}</span>}
                             {profile.nationality && <span>{profile.nationality}</span>}
-                            {location && (
-                              <span className="flex items-center gap-1">
-                                <MapPin className="size-3.5" />
-                                {location}
-                              </span>
-                            )}
+                            {location && <span>{location}</span>}
                             {profile.availableFrom && (
-                              <span className="flex items-center gap-1">
-                                <Calendar className="size-3.5" />
-                                {t('browse.availableFrom')}: {formatDate(profile.availableFrom)}
-                              </span>
+                              <span>{t('browse.availableFrom')}: {formatDate(profile.availableFrom)}</span>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                      <div className="mt-3 grid divide-y divide-border border-y border-border sm:grid-cols-3 sm:divide-x sm:divide-y-0 rtl:sm:divide-x-reverse">
                         <ProfileStat
-                          icon={<Briefcase className="size-4" />}
                           label={t('browse.experienceOnVessels')}
                           value={vesselExperiences.length}
                         />
                         <ProfileStat
-                          icon={<FileText className="size-4" />}
                           label={t('browse.certificates')}
                           value={certificates.length}
                         />
                         <ProfileStat
-                          icon={<ShieldCheck className="size-4" />}
                           label={t('travelAuth.readinessTitle')}
                           value={travelAuthorizations.length}
                         />
@@ -165,7 +140,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
 
                     <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap lg:justify-end">
                       <Button
-                        variant={savedByMe ? 'secondary' : 'default'}
+                        variant="outline"
                         size="sm"
                         className="w-full sm:w-auto"
                         onClick={() => saveMutation.mutate({ id: profile.id, save: !savedByMe })}
@@ -174,7 +149,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                         <Bookmark className={savedByMe ? 'fill-current' : ''} />
                         {savedByMe ? t('browse.saved') : t('browse.save')}
                       </Button>
-                      <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={() => setMessageOpen(true)}>
+                      <Button variant="ghost" size="sm" className="w-full sm:w-auto" onClick={() => setMessageOpen(true)}>
                         <Mail className="size-4" />
                         {t('browse.message')}
                       </Button>
@@ -195,12 +170,12 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                       <p className="text-sm leading-6 text-muted-foreground">
                         {safeText(profile.bio, t('common.notProvided'))}
                       </p>
-                      <div className="mt-4 rounded-lg border border-border/70 bg-muted/35 p-3 text-sm text-muted-foreground">
+                      <div className="mt-4 border-s-2 border-border px-3 py-2 text-sm text-muted-foreground">
                         {t('privacy.directContactHidden')}
                       </div>
                     </SectionCard>
 
-                    <SectionCard title={t('cv.maritimeInfo')} action={<Award className="size-4 text-primary" />}>
+                    <SectionCard title={t('cv.maritimeInfo')}>
                       {qualificationRows.length === 0 ? (
                         <p className="text-sm text-muted-foreground">{t('common.notProvided')}</p>
                       ) : (
@@ -222,13 +197,9 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
 
                     {profile._count && (
                       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                        <StatusPill tone="neutral" className="gap-1">
-                          <Users className="size-3.5" />
-                          {t('browse.savedByCount', { count: profile._count.savedBy })}
-                        </StatusPill>
-                        <StatusPill tone="neutral">
-                          {t('browse.applicationsCount', { count: profile._count.applications })}
-                        </StatusPill>
+                        <span>{t('browse.savedByCount', { count: profile._count.savedBy })}</span>
+                        <span aria-hidden="true">·</span>
+                        <span>{t('browse.applicationsCount', { count: profile._count.applications })}</span>
                       </div>
                     )}
                   </div>
@@ -236,30 +207,24 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                   <div className="space-y-5">
                     <SectionCard
                       title={t('browse.experienceOnVessels')}
-                      action={<StatusPill tone="primary">{vesselExperiences.length}</StatusPill>}
+                      action={<span className="text-xs tabular-nums text-muted-foreground">{vesselExperiences.length}</span>}
                     >
                       {vesselExperiences.length === 0 ? (
                         <p className="text-sm text-muted-foreground">{t('browse.noExperience')}</p>
                       ) : (
-                        <div className="space-y-3">
+                        <div className="divide-y divide-border border-y border-border">
                           {vesselExperiences.map((exp) => (
-                            <div key={exp.id} className="rounded-lg border border-border/70 bg-background/60 p-3">
+                            <div key={exp.id} className="py-3">
                               <div className="flex flex-wrap items-center gap-2">
                                 <span className="font-medium text-sm">{exp.vesselType}</span>
-                                {exp.rank && (
-                                  <StatusPill tone="neutral" className="gap-1 text-[11px] font-normal">
-                                    <Briefcase className="size-3" />
-                                    {exp.rank}
-                                  </StatusPill>
-                                )}
+                                {exp.rank && <span className="text-xs text-muted-foreground">{exp.rank}</span>}
                               </div>
                               <div className="mt-1 text-sm text-muted-foreground">
                                 {safeText([exp.vesselName, exp.companyName].filter(Boolean).join(' · '), t('common.notProvided'))}
                               </div>
                               <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                                 {exp.signOnDate && (
-                                  <span className="flex items-center gap-1">
-                                    <Calendar className="size-3" />
+                                  <span>
                                     {formatDate(exp.signOnDate)}
                                     {exp.signOffDate ? ` - ${formatDate(exp.signOffDate)}` : ''}
                                   </span>
@@ -268,7 +233,7 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
                                 {exp.tradeArea && <span>{exp.tradeArea}</span>}
                               </div>
                               {exp.referenceContactAvailable && (
-                                <div className="mt-3 rounded-md bg-muted/55 p-2 text-xs text-muted-foreground">
+                                <div className="mt-3 border-s-2 border-border px-2 text-xs text-muted-foreground">
                                   {t('privacy.referencesAvailable')}
                                 </div>
                               )}
@@ -280,16 +245,15 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
 
                     <SectionCard
                       title={t('browse.certificates')}
-                      action={<StatusPill tone="primary">{certificates.length}</StatusPill>}
+                      action={<span className="text-xs tabular-nums text-muted-foreground">{certificates.length}</span>}
                     >
                       {certificates.length === 0 ? (
                         <p className="text-sm text-muted-foreground">{t('browse.noCertificates')}</p>
                       ) : (
-                        <div className="grid gap-2 sm:grid-cols-2">
+                        <div className="divide-y divide-border border-y border-border">
                           {certificates.map((cert) => (
-                            <div key={cert.id} className="rounded-lg border border-border/70 bg-background/60 p-3">
-                              <div className="flex items-start gap-2">
-                                <FileText className="mt-0.5 size-4 shrink-0 text-primary" />
+                            <div key={cert.id} className="py-3">
+                              <div>
                                 <div className="min-w-0">
                                   <div className="truncate text-sm font-medium">{cert.name}</div>
                                   <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
@@ -328,14 +292,11 @@ export function SeafarerDetailDialog({ seafarerId, onOpenChange }: SeafarerDetai
   )
 }
 
-function ProfileStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+function ProfileStat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border border-border/70 bg-background/65 px-3 py-2">
-      <div className="flex min-w-0 items-center gap-2 text-[11px] font-medium text-muted-foreground">
-        <span className="shrink-0 text-primary">{icon}</span>
-        <span className="truncate">{label}</span>
-      </div>
-      <div className="mt-1 text-lg font-semibold tracking-tight">{value}</div>
+    <div className="px-3 py-2 first:ps-0 last:pe-0">
+      <div className="truncate text-[11px] font-medium text-muted-foreground">{label}</div>
+      <div className="mt-0.5 text-base font-semibold tabular-nums">{value}</div>
     </div>
   )
 }
@@ -358,7 +319,7 @@ function passportReadiness(
 function QualRow({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null
   return (
-    <div className="flex items-center justify-between gap-3 rounded-md bg-muted/45 px-2 py-1.5">
+    <div className="flex items-center justify-between gap-3 border-b border-border py-1.5 last:border-b-0">
       <span className="text-muted-foreground">{label}</span>
       <span className="text-end font-medium">{value}</span>
     </div>

@@ -135,10 +135,10 @@ function InterviewItem({
     : null
 
   return (
-    <SectionCard className="p-4" contentClassName="space-y-4">
+    <SectionCard contentClassName="space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-        <Avatar className="size-11 shrink-0 rounded-xl">
-          <AvatarFallback className="rounded-xl bg-secondary text-sm font-semibold text-primary">
+        <Avatar className="size-10 shrink-0">
+          <AvatarFallback className="bg-secondary text-sm font-semibold text-primary">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -191,8 +191,8 @@ function InterviewItem({
             </div>
           </div>
 
-          <div className="mt-3 rounded-lg bg-muted/45 p-3 text-sm text-muted-foreground">
-            <div className="mb-1 flex items-center gap-1 text-xs font-medium uppercase text-muted-foreground">
+          <div className="mt-3 border-s-2 border-border px-3 py-1 text-sm text-muted-foreground">
+            <div className="mb-1 flex items-center gap-1 text-xs font-medium text-muted-foreground">
               <FileText className="size-3.5" />
               {t('interview.notes')}
             </div>

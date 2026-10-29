@@ -6,22 +6,18 @@ import { useI18n } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { BrandLogo } from '@/components/shared/brand-logo'
 import { FieldError } from '@/components/shared/field-error'
 import { loginSchema, registerSchema } from '@/lib/validation/auth'
 import { apiFieldErrors, focusFirstInvalid, validateFields, type FieldErrors } from '@/lib/form-validation'
+import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import {
-  Ship,
   Loader2,
   User,
   Building2,
-  ShieldCheck,
-  BriefcaseBusiness,
-  ClipboardCheck,
 } from 'lucide-react'
 import type { Role } from '@/lib/types'
 
@@ -30,14 +26,12 @@ const demoAccounts = [
     labelKey: 'role.seafarer',
     email: 'seafarer1@maritimenet.com',
     password: 'seafarer123',
-    icon: User,
     meta: 'Deck Officer • Manila',
   },
   {
     labelKey: 'role.recruiter',
     email: 'sarah@maersk-recruit.com',
     password: 'recruiter123',
-    icon: Building2,
     meta: 'Recruiter • Copenhagen',
   },
 ]
@@ -174,42 +168,41 @@ export function AuthScreen() {
   }
 
   return (
-    <div className="min-h-dvh w-full max-w-full overflow-x-hidden bg-background text-foreground lg:grid lg:h-dvh lg:max-h-dvh lg:grid-cols-[minmax(22rem,0.78fr)_minmax(32rem,1.22fr)] lg:overflow-hidden">
-      <aside className="hidden min-h-0 flex-col justify-between overflow-hidden border-e border-white/10 bg-brand-navy p-10 text-white lg:flex xl:p-12">
-        <BrandLogo size="lg" tone="light" />
+    <div className="min-h-dvh w-full max-w-full overflow-x-hidden bg-background text-foreground lg:grid lg:h-dvh lg:max-h-dvh lg:grid-cols-[minmax(23rem,0.9fr)_minmax(32rem,1.1fr)] lg:overflow-hidden">
+      <aside className="auth-brand-panel relative isolate hidden min-h-0 flex-col overflow-hidden border-e border-white/12 p-10 text-white lg:flex xl:p-12">
+        <BrandLogo size="lg" tone="light" unframed className="auth-brand-text relative z-10" />
 
-        <div className="max-w-md py-10">
-          <p className="text-xs font-semibold uppercase text-brand-seafoam/75">{t('auth.workspaceLabel')}</p>
-          <h1 className="mt-3 text-3xl font-semibold leading-tight xl:text-4xl">{t('auth.welcomeTitle')}</h1>
-          <p className="mt-4 max-w-sm text-sm leading-6 text-white/65">{t('auth.welcomeSubtitle')}</p>
+        <div className="auth-brand-copy relative z-10 mt-[10vh] max-w-sm">
+          <p className="text-sm font-medium text-brand-seafoam/90">{t('auth.workspaceLabel')}</p>
+          <h1 className="mt-2 max-w-sm text-3xl font-semibold leading-tight text-white xl:text-4xl">{t('auth.welcomeTitle')}</h1>
+          <p className="mt-3 max-w-sm text-sm leading-6 text-white/80">{t('auth.welcomeSubtitle')}</p>
 
-          <div className="mt-8 border-y border-white/15">
-            <Feature icon={<Ship className="size-4" />} title={t('auth.feature.1.title')} desc={t('auth.feature.1.desc')} />
-            <Feature icon={<ClipboardCheck className="size-4" />} title={t('auth.feature.2.title')} desc={t('auth.feature.2.desc')} />
-            <Feature icon={<ShieldCheck className="size-4" />} title={t('auth.feature.3.title')} desc={t('auth.feature.3.desc')} />
+          <div className="mt-6 space-y-1.5 text-xs font-medium text-white/78">
+            <p>{t('auth.feature.1.title')}</p>
+            <p>{t('auth.feature.2.title')}</p>
+            <p>{t('auth.feature.3.title')}</p>
           </div>
         </div>
 
-        <p className="text-xs leading-5 text-white/50">{t('auth.audience')}</p>
+        <p className="auth-brand-text relative z-10 mt-auto max-w-md text-xs leading-5 text-white/75">{t('auth.audience')}</p>
       </aside>
 
-      <main className="flex min-h-dvh justify-center overflow-hidden bg-background px-4 py-5 sm:px-6 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:px-10 lg:py-8">
-        <div className="flex w-full max-w-lg min-w-0 flex-col self-start">
-          <div className="mb-6 flex items-center justify-between border-b border-border pb-4 lg:hidden">
-            <BrandLogo size="md" />
-            <span className="text-xs font-medium text-muted-foreground">{t('auth.mobileLabel')}</span>
+      <main className="auth-form-panel flex min-h-dvh justify-center overflow-hidden bg-background px-4 py-5 sm:px-6 lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:px-10 lg:py-8">
+        <div className={cn('flex w-full max-w-[34rem] min-w-0 flex-col', mode === 'login' ? 'self-start lg:self-center lg:pb-[5vh]' : 'self-start')}>
+          <div className="auth-mobile-brand relative -mx-4 -mt-5 mb-6 flex min-h-24 items-center justify-between overflow-hidden border-b border-white/15 px-4 py-5 text-white sm:-mx-6 sm:px-6 lg:hidden">
+            <BrandLogo size="md" tone="light" unframed className="relative z-10" />
+            <span className="relative z-10 text-xs font-medium text-white/80">{t('auth.mobileLabel')}</span>
           </div>
 
           <div className="mb-5">
-            <p className="text-xs font-semibold uppercase text-primary">{t('auth.accountLabel')}</p>
-            <h1 className="mt-1 text-2xl font-semibold">{mode === 'login' ? t('auth.loginTitle') : t('auth.registerTitle')}</h1>
-            <p className="mt-1 text-sm leading-5 text-muted-foreground">
+            <h1 className="text-2xl font-semibold">{mode === 'login' ? t('auth.loginTitle') : t('auth.registerTitle')}</h1>
+            <p className="mt-1.5 max-w-md text-sm leading-5 text-muted-foreground">
               {mode === 'login' ? t('auth.loginSubtitle') : t('auth.registerSubtitle')}
             </p>
           </div>
 
           <Tabs value={mode} onValueChange={(v) => setMode(v as 'login' | 'register')}>
-            <TabsList className="mb-4 grid h-10 w-full grid-cols-2">
+            <TabsList className="mb-5 h-9 gap-6">
               <TabsTrigger value="login" className="text-sm">
                 {t('auth.login')}
               </TabsTrigger>
@@ -220,12 +213,8 @@ export function AuthScreen() {
 
             <div className="min-h-0">
               <TabsContent value="login">
-                <Card className="gap-3 py-4 sm:py-5">
-                <CardHeader className="sr-only">
-                  <CardTitle>{t('auth.loginTitle')}</CardTitle>
-                  <CardDescription>{t('auth.loginSubtitle')}</CardDescription>
-                </CardHeader>
-                <CardContent className="px-4 sm:px-5">
+                <div>
+                  <h2 className="sr-only">{t('auth.loginTitle')}</h2>
                   <form onSubmit={handleLogin} className="space-y-3" noValidate>
                     <div className="space-y-1.5">
                       <Label htmlFor="login-email">{t('auth.email')}</Label>
@@ -269,7 +258,7 @@ export function AuthScreen() {
                       <div
                         role="alert"
                         aria-live="polite"
-                        className="rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2 text-sm font-medium text-destructive"
+                        className="border-s-2 border-destructive bg-destructive/5 px-3 py-2 text-sm font-medium text-destructive"
                       >
                         {loginFormError}
                       </div>
@@ -285,47 +274,36 @@ export function AuthScreen() {
                     </Button>
                   </form>
 
-                  <div className="mt-4 border-t border-border/70 pt-3">
-                    <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase text-muted-foreground">
-                      <BriefcaseBusiness className="size-4" />
-                      {t('auth.demoAccounts')}
-                    </div>
+                  <div className="mt-5 border-t border-border/60 pt-3">
+                    <div className="mb-1.5 text-xs font-medium text-muted-foreground">{t('auth.demoAccounts')}</div>
 
-                    <div className="divide-y divide-border border-y border-border">
+                    <div className="space-y-0.5">
                       {demoAccounts.map((acc) => (
-                        <button
-                          key={acc.email}
-                          type="button"
-                          onClick={() => quickLogin(acc.email, acc.password)}
-                          className="group flex w-full cursor-pointer items-center gap-2.5 px-1 py-3 text-start transition-colors hover:bg-secondary/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                        >
-                          <div className="flex size-8 shrink-0 items-center justify-center rounded-md border border-primary/20 bg-secondary text-primary">
-                            <acc.icon className="size-4" />
+                        <div key={acc.email} className="flex min-w-0 items-center gap-3 py-2">
+                          <div className="min-w-0 flex-1 text-xs">
+                            <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                              <span className="font-medium text-foreground">{t(acc.labelKey)}</span>
+                              <span className="truncate text-muted-foreground">{acc.meta}</span>
+                            </div>
+                            <div className="truncate text-muted-foreground/85">{acc.email}</div>
                           </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="text-sm font-semibold">{t(acc.labelKey)}</div>
-                            <div className="truncate text-xs text-muted-foreground">{acc.meta}</div>
-                            <div className="truncate text-xs text-muted-foreground/75">{acc.email}</div>
-                          </div>
-                          <span className="shrink-0 text-xs font-semibold text-primary group-hover:text-foreground sm:text-sm">
+                          <button
+                            type="button"
+                            onClick={() => quickLogin(acc.email, acc.password)}
+                            className="shrink-0 rounded-sm px-1 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          >
                             {t('auth.useDemo')}
-                          </span>
-                        </button>
+                          </button>
+                        </div>
                       ))}
                     </div>
                   </div>
-                </CardContent>
-                </Card>
+                </div>
               </TabsContent>
 
               <TabsContent value="register">
-                <Card className="gap-3 py-4 sm:py-5">
-                <CardHeader className="sr-only">
-                  <CardTitle>{t('auth.registerTitle')}</CardTitle>
-                  <CardDescription>{t('auth.registerSubtitle')}</CardDescription>
-                </CardHeader>
-
-                <CardContent className="px-4 sm:px-5">
+                <div>
+                  <h2 className="sr-only">{t('auth.registerTitle')}</h2>
                   <form onSubmit={handleRegister} className="space-y-3" noValidate>
                     <div className="space-y-1.5">
                       <Label>{t('auth.accountType')}</Label>
@@ -395,27 +373,12 @@ export function AuthScreen() {
                       {t('auth.registerCta')}
                     </Button>
                   </form>
-                </CardContent>
-                </Card>
+                </div>
               </TabsContent>
             </div>
           </Tabs>
         </div>
       </main>
-    </div>
-  )
-}
-
-function Feature({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
-  return (
-    <div className="flex items-start gap-3 border-b border-white/15 py-4 last:border-b-0">
-      <div className="flex size-8 shrink-0 items-center justify-center rounded-md border border-white/20 bg-white/10 text-brand-seafoam">
-        {icon}
-      </div>
-      <div>
-        <div className="text-sm font-semibold">{title}</div>
-        <div className="mt-0.5 text-xs leading-5 text-white/60">{desc}</div>
-      </div>
     </div>
   )
 }

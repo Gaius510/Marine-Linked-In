@@ -11,6 +11,12 @@ const markSizes: Record<BrandLogoSize, string> = {
   lg: 'size-12 rounded-lg',
 }
 
+const unframedMarkSizes: Record<BrandLogoSize, string> = {
+  sm: 'size-5',
+  md: 'size-6',
+  lg: 'size-8',
+}
+
 const iconSizes: Record<BrandLogoSize, string> = {
   sm: 'size-3.5',
   md: 'size-4',
@@ -21,28 +27,36 @@ export function BrandLogo({
   size = 'md',
   tone = 'default',
   showText = true,
+  unframed = false,
   className,
 }: {
   size?: BrandLogoSize
   tone?: BrandLogoTone
   showText?: boolean
+  unframed?: boolean
   className?: string
 }) {
   const light = tone === 'light'
+  const markClass = unframed
+    ? cn(unframedMarkSizes[size], light ? 'text-white' : 'text-primary')
+    : cn(
+        'border',
+        markSizes[size],
+        light
+          ? 'border-white/30 bg-white/10 text-white'
+          : 'border-primary bg-primary text-primary-foreground'
+      )
 
   return (
     <div
-      className={cn('inline-flex items-center gap-2.5', light ? 'text-white' : 'text-foreground', className)}
+      className={cn('inline-flex items-center', unframed ? 'gap-2' : 'gap-2.5', light ? 'text-white' : 'text-foreground', className)}
       aria-label={`${brand.name}: ${brand.tagline}`}
       role="img"
     >
       <div
         className={cn(
-          'relative flex shrink-0 items-center justify-center overflow-hidden border',
-          markSizes[size],
-          light
-            ? 'border-white/30 bg-white/10 text-white'
-            : 'border-primary bg-primary text-primary-foreground'
+          'relative flex shrink-0 items-center justify-center overflow-hidden',
+          markClass
         )}
       >
         <Anchor className={iconSizes[size]} aria-hidden="true" />

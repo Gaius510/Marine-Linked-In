@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import type { ReactNode } from 'react'
 import { toast } from 'sonner'
 import { SectionCard } from '@/components/shared/section-card'
 import { StatusPill } from '@/components/shared/status-pill'
@@ -14,7 +13,7 @@ import { TravelAuthorizationsSection } from './travel-authorizations-section'
 import type { SeafarerCvProfile } from './types'
 import { formatDate } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
-import { CalendarClock, FileText, Loader2, Save, ShieldCheck } from 'lucide-react'
+import { FileText, Loader2, Save } from 'lucide-react'
 
 interface DocumentsForm {
   passportNo: string
@@ -68,9 +67,8 @@ export function DocumentsSection({
       subtitle={t('cv.documentsHint')}
       action={<StatusPill tone={complete ? 'success' : 'warning'}>{complete ? t('cv.complete') : t('cv.incomplete')}</StatusPill>}
     >
-      <div className="mb-4 rounded-lg border border-primary/20 bg-secondary p-3 text-sm">
-        <div className="flex items-start gap-2">
-          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" />
+      <div className="mb-4 border-s-2 border-primary bg-secondary/45 px-3 py-2 text-sm">
+        <div>
           <p className="text-muted-foreground">{t('cv.documentPrivacyHint')}</p>
         </div>
       </div>
@@ -93,7 +91,6 @@ export function DocumentsSection({
 
         <div className="grid gap-3 md:grid-cols-2">
           <DocumentStatus
-            icon={<CalendarClock className="size-4" />}
             label={t('cv.passportExpiry')}
             value={formatDate(form.passportExpiry, t('common.notProvided'))}
             status={passportState ? t(passportState.key) : undefined}
@@ -117,24 +114,19 @@ export function DocumentsSection({
 }
 
 function DocumentStatus({
-  icon,
   label,
   value,
   status,
   tone,
 }: {
-  icon: ReactNode
   label: string
   value: string
   status?: string
   tone?: 'neutral' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
 }) {
   return (
-    <div className="rounded-lg border border-border/70 bg-background/60 p-3">
-      <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span className="text-primary">{icon}</span>
-        {label}
-      </div>
+    <div className="border-t border-border pt-2">
+      <div className="mb-1 text-xs text-muted-foreground">{label}</div>
       <div className="break-words text-sm font-medium">{value}</div>
       {status && tone && <StatusPill tone={tone} className="mt-2">{status}</StatusPill>}
     </div>

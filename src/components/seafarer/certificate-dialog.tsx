@@ -162,7 +162,7 @@ export function CertificateDialog({ open, onOpenChange, certificate }: Certifica
                   <Input id="certificate-expiry-date" type="date" value={form.expiryDate} onChange={(e) => set('expiryDate', e.target.value)} aria-invalid={!!fieldErrors.expiryDate} aria-describedby={fieldErrors.expiryDate ? 'certificate-expiry-date-error' : undefined} />
                 </Field>
               </div>
-              <div className="flex items-start gap-2 rounded-lg border border-primary/20 bg-secondary p-3 text-xs text-muted-foreground">
+              <div className="flex items-start gap-2 border-s-2 border-primary bg-secondary/45 px-3 py-2 text-xs text-muted-foreground">
                 <CalendarClock className="mt-0.5 size-3.5 shrink-0 text-primary" />
                 <span>{t('cv.certificateExpiryHint')}</span>
               </div>

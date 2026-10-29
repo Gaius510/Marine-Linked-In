@@ -18,7 +18,7 @@ import {
   TRAVEL_AUTHORIZATION_EXPIRING_SOON_DAYS,
 } from '@/lib/travel-authorizations'
 import type { TravelAuthorization } from '@/lib/types'
-import { CalendarClock, Edit, FileText, Globe2, Plus, ShieldCheck, Trash2 } from 'lucide-react'
+import { Edit, Plus, ShieldCheck, Trash2 } from 'lucide-react'
 
 export function TravelAuthorizationsSection({
   travelAuthorizations,
@@ -79,7 +79,7 @@ export function TravelAuthorizationsSection({
           }
         />
       ) : (
-        <div className="grid gap-3">
+        <div className="divide-y divide-border border-y border-border">
           {authorizations.map((authorization) => (
             <TravelAuthorizationCard
               key={authorization.id}
@@ -150,7 +150,7 @@ function TravelAuthorizationCard({
   }
 
   return (
-    <article className="rounded-lg border border-border/80 bg-background/60 p-4">
+    <article className="py-3">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
@@ -161,25 +161,23 @@ function TravelAuthorizationCard({
             </StatusPill>
           </div>
           <div className="grid gap-2 text-sm text-muted-foreground sm:grid-cols-2 lg:grid-cols-3">
-            <Info icon={<Globe2 className="size-3.5" />} label={t('cv.travelAuthCountry')} value={safeText(authorization.countryCode, t('common.notProvided'))} />
-            <Info icon={<CalendarClock className="size-3.5" />} label={t('cv.travelAuthIssuedAt')} value={formatDate(authorization.issuedAt, t('common.notProvided'))} />
-            <Info icon={<CalendarClock className="size-3.5" />} label={t('cv.travelAuthExpiresAt')} value={formatDate(authorization.expiresAt, t('common.notProvided'))} />
-            <Info icon={<FileText className="size-3.5" />} label={t('cv.travelAuthDocumentNumber')} value={safeText(authorization.documentNumber, t('common.notProvided'))} />
+            <Info label={t('cv.travelAuthCountry')} value={safeText(authorization.countryCode, t('common.notProvided'))} />
+            <Info label={t('cv.travelAuthIssuedAt')} value={formatDate(authorization.issuedAt, t('common.notProvided'))} />
+            <Info label={t('cv.travelAuthExpiresAt')} value={formatDate(authorization.expiresAt, t('common.notProvided'))} />
+            <Info label={t('cv.travelAuthDocumentNumber')} value={safeText(authorization.documentNumber, t('common.notProvided'))} />
           </div>
           {authorization.notes && (
-            <p className="break-words rounded-md border bg-card/70 p-2 text-sm text-muted-foreground">
+            <p className="break-words border-s-2 border-border px-2 text-sm text-muted-foreground">
               {authorization.notes}
             </p>
           )}
         </div>
         <div className="flex shrink-0 gap-2 sm:justify-end">
-          <Button type="button" variant="outline" size="sm" onClick={onEdit} aria-label={t('cv.editTravelAuth')}>
+          <Button type="button" variant="ghost" size="icon" onClick={onEdit} aria-label={t('cv.editTravelAuth')} title={t('common.edit')}>
             <Edit className="size-4" />
-            {t('common.edit')}
           </Button>
-          <Button type="button" variant="outline" size="sm" onClick={onDelete} aria-label={t('cv.deleteTravelAuthTitle')}>
+          <Button type="button" variant="ghost" size="icon" onClick={onDelete} aria-label={t('cv.deleteTravelAuthTitle')} title={t('common.delete')} className="text-destructive hover:text-destructive">
             <Trash2 className="size-4" />
-            {t('common.delete')}
           </Button>
         </div>
       </div>
@@ -188,20 +186,15 @@ function TravelAuthorizationCard({
 }
 
 function Info({
-  icon,
   label,
   value,
 }: {
-  icon: React.ReactNode
   label: string
   value: string
 }) {
   return (
     <div className="min-w-0">
-      <div className="flex items-center gap-1 text-xs">
-        <span className="text-primary">{icon}</span>
-        {label}
-      </div>
+      <div className="text-xs text-muted-foreground">{label}</div>
       <div className="break-words text-foreground">{value}</div>
     </div>
   )

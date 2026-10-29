@@ -8,7 +8,6 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { AvailabilityBadge } from '@/components/shared/availability-badge'
 import { EmptyState } from '@/components/shared/empty-state'
@@ -61,7 +60,7 @@ function InfoRow({
   const display = safeText(value, '')
 
   return (
-    <div className="flex items-start gap-2.5 rounded-lg px-2 py-1.5">
+    <div className="flex items-start gap-2.5 py-1.5">
       <Icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
       <div className="min-w-0 flex-1">
         <div className="text-[11px] text-muted-foreground">{label}</div>
@@ -106,15 +105,15 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
 
         <div className="scrollbar-thin min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-6">
           <div className="space-y-5">
-            <section className="flex flex-col gap-4 rounded-xl border border-border/80 bg-card/95 p-4 sm:flex-row sm:items-start sm:justify-between sm:p-5">
+            <section className="flex flex-col gap-4 border-b border-border pb-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex min-w-0 items-start gap-4">
-                <Avatar className="size-16 shrink-0 rounded-xl bg-primary/10">
-                  <AvatarFallback className="rounded-xl bg-primary/10 text-lg font-semibold text-primary">
+                <Avatar className="size-14 shrink-0 bg-primary/10">
+                  <AvatarFallback className="bg-primary/10 text-lg font-semibold text-primary">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0 flex-1">
-                  <h2 className="truncate text-xl font-bold">{seafarer.user.name}</h2>
+                  <h2 className="truncate text-xl font-semibold">{seafarer.user.name}</h2>
                   <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
                       <Anchor className="size-3.5" />
@@ -129,25 +128,25 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     <AvailabilityBadge availability={seafarer.availability} t={t} />
-                    <StatusPill tone="neutral">{formatYears(seafarer.yearsExperience, t('admin.notSpecified'))}</StatusPill>
+                    <span className="text-xs text-muted-foreground">{formatYears(seafarer.yearsExperience, t('admin.notSpecified'))}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 sm:w-56">
-                <div className="rounded-lg bg-muted/60 p-3">
+              <div className="grid grid-cols-2 divide-x divide-border border-y border-border sm:w-56 rtl:divide-x-reverse">
+                <div className="py-2 pe-3">
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Bookmark className="size-3.5" />
                     {t('nav.saved')}
                   </div>
-                  <div className="mt-1 text-lg font-bold tabular-nums">{savedBy}</div>
+                  <div className="mt-0.5 text-base font-semibold tabular-nums">{savedBy}</div>
                 </div>
-                <div className="rounded-lg bg-muted/60 p-3">
+                <div className="py-2 ps-3">
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Send className="size-3.5" />
                     {t('admin.totalApplications')}
                   </div>
-                  <div className="mt-1 text-lg font-bold tabular-nums">{applications}</div>
+                  <div className="mt-0.5 text-base font-semibold tabular-nums">{applications}</div>
                 </div>
               </div>
             </section>
@@ -171,7 +170,7 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                   {seafarer.bio && (
                     <>
                       <Separator className="my-3" />
-                      <p className="whitespace-pre-wrap rounded-lg bg-muted/40 p-3 text-sm text-muted-foreground">{seafarer.bio}</p>
+                      <p className="whitespace-pre-wrap border-s-2 border-border px-3 text-sm text-muted-foreground">{seafarer.bio}</p>
                     </>
                   )}
                 </SectionCard>
@@ -222,31 +221,22 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                   {vesselExperiences.length === 0 ? (
                     <EmptyState icon={Ship} title={t('admin.noExperiences')} framed={false} />
                   ) : (
-                    <div className="space-y-3">
+                    <div className="divide-y divide-border border-y border-border">
                       {vesselExperiences.map((experience) => (
-                        <article key={experience.id} className="rounded-xl border border-border/80 bg-background/60 p-4">
+                        <article key={experience.id} className="py-3">
                           <div className="flex flex-wrap items-start justify-between gap-3">
                             <div className="min-w-0">
                               <div className="flex flex-wrap items-center gap-2">
-                                <Badge variant="secondary" className="gap-1 font-normal">
-                                  <Ship className="size-3" />
-                                  {safeText(experience.vesselType, t('admin.notSpecified'))}
-                                </Badge>
-                                {experience.rank && (
-                                  <Badge variant="outline" className="gap-1 font-normal">
-                                    <Anchor className="size-3" />
-                                    {experience.rank}
-                                  </Badge>
-                                )}
+                                <span className="text-sm font-medium">{safeText(experience.vesselType, t('admin.notSpecified'))}</span>
+                                {experience.rank && <span className="text-xs text-muted-foreground">{experience.rank}</span>}
                               </div>
                               <h3 className="mt-2 text-sm font-semibold">{safeText(experience.vesselName, t('admin.notSpecified'))}</h3>
                               <p className="text-xs text-muted-foreground">{safeText(experience.companyName, t('admin.notSpecified'))}</p>
                             </div>
                             {(experience.signOnDate || experience.signOffDate) && (
-                              <StatusPill tone="neutral" className="gap-1">
-                                <ArrowRightLeft className="size-3" />
+                              <span className="text-xs text-muted-foreground">
                                 {[formatDate(experience.signOnDate, ''), formatDate(experience.signOffDate, '')].filter(Boolean).join(' - ')}
-                              </StatusPill>
+                              </span>
                             )}
                           </div>
 
@@ -263,7 +253,7 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                               <div className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                                 {t('admin.supervisorContacts')}
                               </div>
-                              <p className="rounded-lg bg-muted/45 p-3 text-sm text-muted-foreground">
+                              <p className="border-s-2 border-border px-3 text-sm text-muted-foreground">
                                 {t('privacy.referencesAvailable')}
                               </p>
                             </>
@@ -287,19 +277,18 @@ export function SeafarerDetailDialog({ seafarer, open, onOpenChange }: SeafarerD
                   {certificates.length === 0 ? (
                     <EmptyState icon={ClipboardList} title={t('admin.noCertificates')} framed={false} />
                   ) : (
-                    <div className="space-y-2">
+                    <div className="divide-y divide-border border-y border-border">
                       {certificates.map((certificate) => (
-                        <article key={certificate.id} className="rounded-xl border border-border/80 bg-background/60 p-3">
+                        <article key={certificate.id} className="py-3">
                           <div className="flex flex-wrap items-start justify-between gap-2">
                             <div className="min-w-0">
                               <h3 className="text-sm font-semibold">{safeText(certificate.name, t('admin.notSpecified'))}</h3>
                               <p className="text-xs text-muted-foreground">{safeText(certificate.issuingAuthority, t('admin.notSpecified'))}</p>
                             </div>
                             {(certificate.issuedDate || certificate.expiryDate) && (
-                              <StatusPill tone="neutral" className="gap-1">
-                                <Calendar className="size-3" />
+                              <span className="text-xs text-muted-foreground">
                                 {[formatDate(certificate.issuedDate, ''), formatDate(certificate.expiryDate, '')].filter(Boolean).join(' - ')}
-                              </StatusPill>
+                              </span>
                             )}
                           </div>
                           <div className="mt-2 grid grid-cols-1 gap-x-3 sm:grid-cols-2">

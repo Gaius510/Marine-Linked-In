@@ -278,7 +278,7 @@ export function PostJobView() {
           </div>
         </SectionCard>
 
-        <PageToolbar className="rounded-xl border border-border/80 bg-card/90 p-3 shadow-sm">
+        <PageToolbar className="border-t border-border pt-3">
           <p className="text-xs text-muted-foreground">{t('jobs.postingHelp')}</p>
           <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row">
             <Button type="button" variant="outline" onClick={() => setView('myJobs')}>

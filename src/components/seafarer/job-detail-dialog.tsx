@@ -1,6 +1,5 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog'
@@ -10,9 +9,7 @@ import { StatusPill } from '@/components/shared/status-pill'
 import { formatDate, formatSalaryRange, safeText } from '@/lib/format'
 import { useI18n } from '@/lib/i18n'
 import type { Job } from '@/lib/types'
-import {
-  Briefcase, Building2, CalendarClock, Clock, MapPin, Send, Ship, Users, Wallet,
-} from 'lucide-react'
+import { Send } from 'lucide-react'
 
 interface JobDetailDialogProps {
   job: Job | null
@@ -34,10 +31,7 @@ export function JobDetailDialog({ job, open, onOpenChange, onApply }: JobDetailD
         <DialogHeader className="border-b border-border/70 bg-card/95 px-5 py-4 pe-12 text-start">
           <DialogTitle className="text-xl">{job.title}</DialogTitle>
           <DialogDescription>
-            <span className="inline-flex items-center gap-1.5">
-              <Building2 className="size-4" />
-              {safeText(job.companyName)}
-            </span>
+            {safeText(job.companyName)}
           </DialogDescription>
         </DialogHeader>
 
@@ -58,31 +52,31 @@ export function JobDetailDialog({ job, open, onOpenChange, onApply }: JobDetailD
               }
             >
               <div className="grid gap-3 sm:grid-cols-2">
-                <DetailRow icon={<Briefcase className="size-4" />} label={t('cv.rank')} value={safeText(job.rank)} />
-                <DetailRow icon={<Building2 className="size-4" />} label={t('common.company')} value={safeText(job.companyName)} />
+                <DetailRow label={t('cv.rank')} value={safeText(job.rank)} />
+                <DetailRow label={t('common.company')} value={safeText(job.companyName)} />
               </div>
             </SectionCard>
 
             <div className="grid gap-5 lg:grid-cols-2">
               <SectionCard title={t('jobs.vesselContractSection')}>
                 <div className="grid gap-3">
-                  <DetailRow icon={<Ship className="size-4" />} label={t('cv.vesselType')} value={safeText(job.vesselType)} />
-                  <DetailRow icon={<Clock className="size-4" />} label={t('jobs.contractDuration')} value={safeText(job.contractDuration)} />
+                  <DetailRow label={t('cv.vesselType')} value={safeText(job.vesselType)} />
+                  <DetailRow label={t('jobs.contractDuration')} value={safeText(job.contractDuration)} />
                 </div>
               </SectionCard>
 
               <SectionCard title={t('jobs.compensationLocationSection')}>
                 <div className="grid gap-3">
-                  <DetailRow icon={<Wallet className="size-4" />} label={t('jobs.salaryRange').replace(' (per month)', '')} value={salary} />
-                  <DetailRow icon={<MapPin className="size-4" />} label={t('common.location')} value={safeText(job.location)} />
+                  <DetailRow label={t('jobs.salaryRange').replace(' (per month)', '')} value={salary} />
+                  <DetailRow label={t('common.location')} value={safeText(job.location)} />
                 </div>
               </SectionCard>
             </div>
 
             <SectionCard title={t('jobs.joiningInformationSection')}>
               <div className="grid gap-3 sm:grid-cols-2">
-                <DetailRow icon={<CalendarClock className="size-4" />} label={t('jobs.joiningDate')} value={job.joiningDate ? formatDate(job.joiningDate) : t('common.notProvided')} />
-                <DetailRow icon={<Users className="size-4" />} label={t('jobs.applicants')} value={t('jobs.applicantsCount', { count: job._count?.applications ?? 0 })} />
+                <DetailRow label={t('jobs.joiningDate')} value={job.joiningDate ? formatDate(job.joiningDate) : t('common.notProvided')} />
+                <DetailRow label={t('jobs.applicants')} value={t('jobs.applicantsCount', { count: job._count?.applications ?? 0 })} />
               </div>
             </SectionCard>
 
@@ -123,14 +117,11 @@ export function JobDetailDialog({ job, open, onOpenChange, onApply }: JobDetailD
   )
 }
 
-function DetailRow({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border border-border/70 bg-background/60 p-3">
-      <span className="shrink-0 text-primary">{icon}</span>
-      <div className="min-w-0">
+    <div className="min-w-0 border-t border-border pt-2">
         <div className="text-[11px] text-muted-foreground">{label}</div>
         <div className="truncate text-sm font-medium">{value}</div>
-      </div>
     </div>
   )
 }

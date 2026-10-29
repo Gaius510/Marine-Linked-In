@@ -51,15 +51,15 @@ interface AdminStatsResponse {
 function OverviewSkeleton() {
   return (
     <div className="space-y-5">
-      <Skeleton className="h-32 rounded-xl" />
+      <Skeleton className="h-32 rounded-md" />
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 6 }).map((_, index) => (
-          <Skeleton key={index} className="h-28 rounded-xl" />
+          <Skeleton key={index} className="h-28 rounded-md" />
         ))}
       </div>
       <div className="grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-        <Skeleton className="h-80 rounded-xl" />
-        <Skeleton className="h-80 rounded-xl" />
+        <Skeleton className="h-80 rounded-md" />
+        <Skeleton className="h-80 rounded-md" />
       </div>
     </div>
   )

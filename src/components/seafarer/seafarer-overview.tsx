@@ -1,7 +1,6 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/lib/api'
 import { useI18n } from '@/lib/i18n'
@@ -25,7 +24,7 @@ import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
-  Briefcase, Send, ArrowRight, FileText, Anchor, CalendarClock, CheckCircle2, Globe2, UserRound,
+  Briefcase, Send, ArrowRight, FileText, CalendarClock,
 } from 'lucide-react'
 
 interface JobsResponse { jobs: Job[]; total: number }
@@ -111,11 +110,11 @@ export function SeafarerOverview() {
         action={<StatusPill tone={pct >= 80 ? 'success' : pct >= 40 ? 'warning' : 'danger'}>{pct}%</StatusPill>}
       >
         <Progress value={pct} className="mb-4" />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <ProfileFact icon={<Anchor className="size-4" />} label={t('cv.rank')} value={safeText(profile.rank, t('common.notProvided'))} />
-          <ProfileFact icon={<CheckCircle2 className="size-4" />} label={t('browse.filterAvailability')} value={<AvailabilityBadge availability={profile.availability} t={t} />} />
-          <ProfileFact icon={<Globe2 className="size-4" />} label={t('browse.filterNationality')} value={safeText(profile.nationality, t('common.notProvided'))} />
-          <ProfileFact icon={<UserRound className="size-4" />} label={t('browse.filterExperience')} value={formatYears(profile.yearsExperience, t('common.notProvided'))} />
+        <div className="grid divide-y divide-border border-y border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4 rtl:sm:divide-x-reverse">
+          <ProfileFact label={t('cv.rank')} value={safeText(profile.rank, t('common.notProvided'))} />
+          <ProfileFact label={t('browse.filterAvailability')} value={<AvailabilityBadge availability={profile.availability} t={t} />} />
+          <ProfileFact label={t('browse.filterNationality')} value={safeText(profile.nationality, t('common.notProvided'))} />
+          <ProfileFact label={t('browse.filterExperience')} value={formatYears(profile.yearsExperience, t('common.notProvided'))} />
         </div>
       </SectionCard>
 
@@ -237,13 +236,10 @@ export function SeafarerOverview() {
   )
 }
 
-function ProfileFact({ icon, label, value }: { icon: ReactNode; label: string; value: ReactNode }) {
+function ProfileFact({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-border/70 bg-background/60 p-3">
-      <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span className="text-primary">{icon}</span>
-        {label}
-      </div>
+    <div className="px-3 py-2 first:ps-0 last:pe-0">
+      <div className="mb-1 text-xs text-muted-foreground">{label}</div>
       <div className="text-sm font-medium">{value}</div>
     </div>
   )

@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { BrandLogo } from '@/components/shared/brand-logo'
-import { Languages, Moon, Sun, LogOut } from 'lucide-react'
+import { ChevronDown, Moon, Sun, LogOut } from 'lucide-react'
 import { toast } from 'sonner'
 
 export function AppHeader() {
@@ -43,62 +43,59 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full shrink-0 border-b border-border bg-card">
-      <div className="mx-auto flex h-[3.75rem] max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:h-16 lg:px-8">
+      <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-3 px-4 sm:px-6 lg:px-8">
         <button
           type="button"
           onClick={handleDashboardClick}
           aria-label="Go to dashboard"
-          className="motion-button cursor-pointer rounded-md p-1.5 text-start hover:bg-secondary/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="motion-button cursor-pointer rounded-sm p-1 text-start hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <BrandLogo showText className="[&>div:last-child]:hidden sm:[&>div:last-child]:block" />
         </button>
 
-        <div className="ms-auto flex items-center gap-2">
-          <div className="flex items-center rounded-md border border-border bg-background p-1">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleLocale}
-                  aria-label={t('lang.aria')}
-                  className="size-8 min-h-8 min-w-8 rounded-md hover:bg-secondary"
-                >
-                  <Languages className="size-4" />
-                  <span className="text-xs font-semibold">{locale === 'en' ? 'ع' : 'EN'}</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent sideOffset={8}>
-                {locale === 'en' ? 'العربية' : 'English'}
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  aria-label={t('theme.aria')}
-                  className="size-8 min-h-8 min-w-8 rounded-md hover:bg-secondary"
-                >
-                  <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                  <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent sideOffset={8}>{t('theme.aria')}</TooltipContent>
-            </Tooltip>
-          </div>
+        <div className="ms-auto flex items-center gap-1">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                onClick={toggleLocale}
+                aria-label={t('lang.aria')}
+                className="h-8 px-2 text-xs font-medium text-muted-foreground hover:text-foreground"
+              >
+                {locale === 'en' ? 'AR' : 'EN'}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={8}>
+              {locale === 'en' ? 'العربية' : 'English'}
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                aria-label={t('theme.aria')}
+                className="size-8 min-h-8 min-w-8 text-muted-foreground hover:text-foreground"
+              >
+                <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={8}>{t('theme.aria')}</TooltipContent>
+          </Tooltip>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="h-10 gap-2 rounded-md border border-border bg-background ps-1.5 pe-2 shadow-none hover:border-primary/30 hover:bg-secondary"
+                className="h-9 gap-2 px-1.5 font-normal hover:bg-secondary/55"
               >
-                <Avatar className="size-7">
-                  <AvatarFallback className="bg-secondary text-primary text-xs font-semibold">{initials}</AvatarFallback>
+                <Avatar className="size-8">
+                  <AvatarFallback className="bg-secondary text-xs font-medium text-primary">{initials}</AvatarFallback>
                 </Avatar>
-                <span className="hidden max-w-[140px] truncate text-sm font-medium sm:block">{user?.name}</span>
+                <span className="hidden max-w-[140px] truncate text-sm sm:block">{user?.name}</span>
+                <ChevronDown className="hidden size-3.5 text-muted-foreground sm:block" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
