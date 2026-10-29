@@ -23,4 +23,5 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/src/lib/session-secret.mjs ./src/lib/session-secret.mjs
 EXPOSE 3000
+ENTRYPOINT ["sh", "scripts/docker-entrypoint.sh"]
 CMD ["npm", "run", "start"]

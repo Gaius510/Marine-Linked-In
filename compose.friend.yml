@@ -1,0 +1,15 @@
+services:
+  app:
+    image: crewlink-friend:1.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "file:../db/custom.db"
+      SESSION_SECRET: "${SESSION_SECRET:?SESSION_SECRET must be set}"
+    volumes:
+      - crewlink_friend_db:/app/db
+
+volumes:
+  crewlink_friend_db:
